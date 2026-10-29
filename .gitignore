@@ -1,0 +1,22 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Bb]uild/
+[Bb]uilds/
+.vs/
+*.csproj
+*.sln
+*.slnx
+*.user
+
+# Local build intermediates and recoverable migration snapshots
+/.utmp/
+/Archive/
+
+# Windows compatibility junctions; recreate with Tools/Build/Setup-LegacyPaths.ps1
+/Docs/Art
+/Docs/BlueFlame
+/Docs/SkyDefender
+/Docs/SceneBackups
