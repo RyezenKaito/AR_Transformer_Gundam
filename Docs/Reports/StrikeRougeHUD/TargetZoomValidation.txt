@@ -1,0 +1,59 @@
+Zoom and targeting / Unity 6000.5.8f1 / 2026-10-31T15:25:47
+Virtual arena, real Play Mode pointer input and damage callbacks. No device AR test.
+PASS: Button enabled: Target 2
+PASS: Top UI hit: Target 2
+PASS: HUD selects enemy 2 without left-to-right restriction
+PASS: Button enabled: Target 0
+PASS: Top UI hit: Target 0
+PASS: HUD selects enemy 0 without left-to-right restriction
+PASS: Button enabled: Target 1
+PASS: Top UI hit: Target 1
+PASS: HUD selects enemy 1 without left-to-right restriction
+PASS: Button enabled: Target 2
+PASS: Top UI hit: Target 2
+PASS: HUD selects enemy 2 without left-to-right restriction
+PASS: Changing targets spends no turn or Burst
+PASS: Model body is pickable for enemy 1
+PASS: World pick selects enemy 1
+PASS: Model body is pickable for enemy 0
+PASS: World pick selects enemy 0
+PASS: Model body is pickable for enemy 2
+PASS: World pick selects enemy 2
+PASS: Skill preview names the chosen primary target
+PASS: Offscreen click preserves target
+PASS: Tracking suspension blocks both target selection paths
+PASS: Normalized wheel notch zooms about twenty percent closer
+PASS: Legacy Windows 120-unit notch matches normalized input
+PASS: Opposite wheel directions are reversible before clamps
+PASS: Zoom-in clamps at the safe minimum
+PASS: Zoom-out clamps at the safe maximum
+PASS: Actual wheel input changes the virtual camera by the new sensitivity
+PASS: Mouse click on right-hand enemy selects it through the runtime input path
+PASS: Clicking a model selects without firing
+PASS: Button enabled: Skill 0
+PASS: Top UI hit: Skill 0
+PASS: Button enabled: Execute
+PASS: Top UI hit: Execute
+PASS: Selected primary begins attacking
+PASS: An executing attack keeps its captured target
+PASS: Camera respects the cinematic input lock
+PASS: Rifle damages only the chosen right-hand enemy
+PASS: Chosen living target is preserved into the next player turn
+PASS: Next turn can switch directly to the middle enemy
+PASS: Button enabled: Skill 1
+PASS: Top UI hit: Skill 1
+PASS: Button enabled: Execute
+PASS: Top UI hit: Execute
+PASS: Blade damages only the newly chosen middle enemy
+PASS: Switching skills does not reset the primary target
+PASS: Dragging over a model does not accidentally change target
+PASS: Button enabled: System Menu
+PASS: Top UI hit: System Menu
+PASS: System overlay blocks world target selection
+PASS: Button enabled: System Menu
+PASS: Top UI hit: System Menu
+PASS: HUD controls block clicks through to the battlefield
+PASS: Defeated targets cannot be selected from UI or world
+PASS: A living target can still be selected after rejecting a dead one
+RESULT: PASS
+PASS: freely choose any living enemy; real rifle/blade hits follow that choice. Zoom was tested through the Input System.

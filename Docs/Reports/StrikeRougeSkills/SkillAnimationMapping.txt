@@ -1,0 +1,8 @@
+Arrival: imported O-01-APPER, 3x playback + board-local descent
+Idle: imported O-02-IDLE, looping manual PlayableGraph
+Ultimate: imported O-03-LAUNCHER, 2x playback; railgun + sustained beam
+Available, preserved: imported O-04-SEPARATION (not forced into a repeating combat action)
+Rifle / blade / barrage / guard / dodge: authored Generic AnimationClips for the exact source rig
+Source .glb/.fbx and original Animator Controller are preserved.
+Generated combat assets: Assets/Game/Features/Combat/Animations/StrikeRouge
+Scene: Assets/Sandbox/StrikeRougeCombat/Scenes/StrikeRougeCombatDemo.unity

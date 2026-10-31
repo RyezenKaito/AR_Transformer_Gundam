@@ -1,0 +1,61 @@
+Strike Rouge combat validation 2026-10-30T21:13:33
+Unity 6000.5.8f1 / Editor virtual arena
+PASS: Three enemy actors assigned
+PASS: Strike Rouge rig assigned
+PASS: Imported and authored animation clips assigned
+PASS: Imported appearance clip played before the first turn
+PASS: Weapon muzzle and blade sockets assigned
+PASS: Ultimate locked below 100% Burst
+PASS: Early parry fails
+PASS: Parry window
+PASS: Perfect parry window
+PASS: Dodge window
+PASS: Late reaction fails
+PASS: Beam Shot accepted
+PASS: Beam damage and three enemy turns resolve
+PASS: Rifle resolves exactly three damage events
+PASS: Saber damage totals 65
+PASS: Blade damage synchronized to two impacts
+PASS: Saber returns to its slot on a moved, rotated and scaled board
+PASS: Authored line width follows 0.1 board scale
+PASS: Early live parry consumes reaction
+PASS: Cannot retry defense on the same attack
+PASS: Live perfect parry
+PASS: Live dodge
+PASS: Defense blocks damage and perfect parry counters
+PASS: Barrage hits all three enemies for 43
+PASS: Nine homing missiles resolve once each
+PASS: Tracking suspension preserves HP and reaction time
+PASS: Barrage cooldown blocks immediate reuse
+PASS: Cooldown decrements per player turn
+PASS: Barrage ready after two blocked turns
+PASS: Test charge unlocks ultimate
+PASS: Ultimate deals 120 primary / 60 splash
+PASS: Ultimate cinematic releases camera control
+PASS: Imported launcher clip used by ultimate
+PASS: Victory after defeating all enemies
+PASS: Defeat when player HP reaches zero
+PASS: Reset interrupts running action and restores battle
+PASS: Reset removes all transient effects
+PASS: Editor AR request returns to virtual arena
+PASS: Virtual camera accepts orbit and dolly zoom
+PASS: Ultimate opens on the caster with enemies suppressed
+PASS: Normal gameplay HUD is hidden during the character cut-in
+PASS: Entire caster bounds fit inside cinematic viewport
+PASS: Orbit input is locked during the cinematic
+PASS: Cinematic renders separately without moving the gameplay camera
+PASS: Tracking loss freezes animation and cinematic clock
+PASS: Reset during ultimate removes VFX and cinematic overlay
+PASS: Reset restores camera pose and FOV
+PASS: Reset returns to the imported idle animation
+PASS: Reset restores gameplay HUD and camera controls
+PASS: Reset restores original renderer visibility
+PASS: Captured four skills and the character-focused ultimate intro
+PASS: Mouse right-drag rotates the virtual camera
+PASS: Mouse wheel zooms the virtual camera
+PASS: One-finger drag rotates the virtual camera
+PASS: Two-finger pinch zooms the virtual camera
+PASS: Orbit pitch and zoom-in limits are enforced
+PASS: Orbit pitch and zoom-out limits are enforced
+RESULT: PASS
+phase=PlayerTurn; round=1; hp=400; energy=100; burst=0; barrageCooldown=0; target=0; reaction=None; reactionUsed=False; actions=0; enemy0=180; enemy1=200; enemy2=210; message=Your turn. Choose a target, then a skill.

@@ -1,0 +1,267 @@
+Strike Rouge Mecha HUD validation 2026-10-31T03:50:53
+Unity 6000.5.8f1 / virtual arena / simulated Game View resolutions
+PASS: Burst capacity is five cells
+PASS: Skill costs are 0 1 2 5
+PASS: Dodge outside timing fails
+PASS: Dodge inside timing is eligible
+PASS: Parry inside timing is eligible
+PASS: Late parry fails
+PASS: Higher Speed always evades after valid timing
+PASS: Equal Speed uses the 50 percent threshold
+PASS: Lower Speed uses the 50 percent threshold
+PASS: Parry compares Def times 1.25 strictly above Attack
+PASS: Armor hit depletes real armor and halves HP damage
+PASS: Breaking hit retains initial armor protection and triggers break once
+PASS: Broken armor no longer halves HP damage
+PASS: Full parry preserves HP and armor
+PASS: Half parry scales both damage channels once
+PASS: Fastest living Gundam acts first
+PASS: Speed action order is reflected in simulation
+PASS: Faster actors receive more turns over time
+PASS: Battle starts with two Burst cells
+PASS: HUD shows exactly five cells with two lit
+PASS: Portrait and weapon artwork references are complete
+PASS: UI button is interactable: Skill 2
+PASS: Button is the top UI raycast hit: Skill 2 at (1515.60, 225.07); hits=Skill 2; depth=67
+PASS: Skill button previews without attacking
+PASS: UI button is interactable: Skill 3
+PASS: Button is the top UI raycast hit: Skill 3 at (1753.20, 225.07); hits=Skill 3; depth=73
+PASS: Unavailable ultimate explains missing Burst and disables execute
+PASS: Cannot execute ultimate below five cells
+PASS: UI button is interactable: Skill 0
+PASS: Button is the top UI raycast hit: Skill 0 at (1040.40, 225.07); hits=Skill 0; depth=55
+PASS: Basic attack preview includes skill and end-turn recovery
+PASS: UI button is interactable: Execute
+PASS: Button is the top UI raycast hit: Execute at (1420.56, 70.09); hits=Execute; depth=79
+PASS: Execute button starts selected skill
+PASS: Repeated execute is rejected during animation
+PASS: Basic attack recovers two cells including end-turn recovery
+PASS: Skill changes the target HP and Armor values used by HUD
+PASS: UI button is interactable: Skill 1
+PASS: Button is the top UI raycast hit: Skill 1 at (1278.00, 225.07); hits=Skill 1; depth=61
+PASS: UI button is interactable: Execute
+PASS: Button is the top UI raycast hit: Execute at (1420.56, 70.09); hits=Execute; depth=79
+PASS: Skill two spends one cell immediately
+PASS: Skill two receives only the one end-turn cell
+PASS: UI button is interactable: Skill 2
+PASS: Button is the top UI raycast hit: Skill 2 at (1515.60, 225.07); hits=Skill 2; depth=67
+PASS: UI button is interactable: Execute
+PASS: Button is the top UI raycast hit: Execute at (1420.56, 70.09); hits=Execute; depth=79
+PASS: Skill three spends two cells immediately
+PASS: Missile skill receives one end-turn cell
+PASS: Missile presentation resolves nine missiles
+PASS: Missile barrage depletes armor of RX-78-2
+PASS: Missile barrage depletes armor of Justice
+PASS: Missile barrage depletes armor of EXtreme
+PASS: Five cells light up and enable ultimate
+PASS: UI button is interactable: Execute
+PASS: Button is the top UI raycast hit: Execute at (1420.56, 70.09); hits=Execute; depth=79
+PASS: Ultimate consumes all five cells
+PASS: Ultimate cut-in hides combat HUD and enemies
+PASS: Cinematic locks orbit input
+PASS: Ultimate finishes with one end-turn cell
+PASS: HUD returns after cinematic
+PASS: Ultimate preserves the viewing angle
+PASS: Enemy windup replaces weapon buttons with defense controls
+PASS: UI button is interactable: Parry
+PASS: Button is the top UI raycast hit: Parry at (1620.14, 134.35); hits=Parry; depth=64
+PASS: First defense button consumes one reaction
+PASS: Cannot combine Dodge and Parry on the same attack
+PASS: Tracking suspension freezes the animation clock
+PASS: Tracking suspension displays the pause overlay
+PASS: Reset restores Burst and clears cinematic effects
+PASS: Reset restores real armor before enemy actions
+PASS: Virtual orbit remains functional
+PASS: Game View renders 1920x1080
+PASS: Canvas covers the actual render area at 1920x1080
+PASS: Skill tile inside safe area at 1920x1080
+PASS: Skill tile inside safe area at 1920x1080
+PASS: Skill tile inside safe area at 1920x1080
+PASS: Skill tile inside safe area at 1920x1080
+PASS: Status and weapon panels do not overlap at 1920x1080
+PASS: All HUD labels have a valid font at 1920x1080
+PASS: Visible text is generated: Text AR TRANSFORMER at 1920x1080
+PASS: Visible text is generated: Text GUNDAM at 1920x1080
+PASS: Visible text is generated: Text STRIKE ROUGE / OOTORI at 1920x1080
+PASS: Visible text is generated: Text SYSTEM / ARENA at 1920x1080
+PASS: Visible text is generated: Text VIRTUAL ARENA / SIMULATION at 1920x1080
+PASS: Visible text is generated: Text YOUR TURN at 1920x1080
+PASS: Visible text is generated: Text RX-78-2 at 1920x1080
+PASS: Visible text is generated: Text HP at 1920x1080
+PASS: Visible text is generated: Text ARMOR at 1920x1080
+PASS: Visible text is generated: Text RX-78-2 at 1920x1080
+PASS: Visible text is generated: Text JUSTICE at 1920x1080
+PASS: Visible text is generated: Text EXTREME at 1920x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 1920x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 1920x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 1920x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 1920x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 1920x1080
+PASS: Visible text is generated: Text MBF-02 at 1920x1080
+PASS: Visible text is generated: Text STRIKE ROUGE at 1920x1080
+PASS: Visible text is generated: Text HP at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text ARMOR at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text BURST 2 / 5 at 1920x1080
+PASS: Visible text is generated: Text BEAM RIFLE at 1920x1080
+PASS: Visible text is generated: Text 0 at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text ANTI-SHIP at 1920x1080
+PASS: Visible text is generated: Text 1 at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text OOTORI MISSILES at 1920x1080
+PASS: Visible text is generated: Text 2 at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text FULL BURST at 1920x1080
+PASS: Visible text is generated: Text 5 at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text EXECUTE at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Visible text is generated: Text  at 1920x1080
+PASS: Game View renders 2340x1080
+PASS: Canvas covers the actual render area at 2340x1080
+PASS: Skill tile inside safe area at 2340x1080
+PASS: Skill tile inside safe area at 2340x1080
+PASS: Skill tile inside safe area at 2340x1080
+PASS: Skill tile inside safe area at 2340x1080
+PASS: Status and weapon panels do not overlap at 2340x1080
+PASS: All HUD labels have a valid font at 2340x1080
+PASS: Visible text is generated: Text AR TRANSFORMER at 2340x1080
+PASS: Visible text is generated: Text GUNDAM at 2340x1080
+PASS: Visible text is generated: Text STRIKE ROUGE / OOTORI at 2340x1080
+PASS: Visible text is generated: Text SYSTEM / ARENA at 2340x1080
+PASS: Visible text is generated: Text VIRTUAL ARENA / SIMULATION at 2340x1080
+PASS: Visible text is generated: Text YOUR TURN at 2340x1080
+PASS: Visible text is generated: Text RX-78-2 at 2340x1080
+PASS: Visible text is generated: Text HP at 2340x1080
+PASS: Visible text is generated: Text ARMOR at 2340x1080
+PASS: Visible text is generated: Text RX-78-2 at 2340x1080
+PASS: Visible text is generated: Text JUSTICE at 2340x1080
+PASS: Visible text is generated: Text EXTREME at 2340x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 2340x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 2340x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 2340x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 2340x1080
+PASS: Visible text is generated: Text NOW / ROUGE at 2340x1080
+PASS: Visible text is generated: Text MBF-02 at 2340x1080
+PASS: Visible text is generated: Text STRIKE ROUGE at 2340x1080
+PASS: Visible text is generated: Text HP at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text ARMOR at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text BURST 2 / 5 at 2340x1080
+PASS: Visible text is generated: Text BEAM RIFLE at 2340x1080
+PASS: Visible text is generated: Text 0 at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text ANTI-SHIP at 2340x1080
+PASS: Visible text is generated: Text 1 at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text OOTORI MISSILES at 2340x1080
+PASS: Visible text is generated: Text 2 at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text FULL BURST at 2340x1080
+PASS: Visible text is generated: Text 5 at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text EXECUTE at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Visible text is generated: Text  at 2340x1080
+PASS: Game View renders 1280x720
+PASS: Canvas covers the actual render area at 1280x720
+PASS: Skill tile inside safe area at 1280x720
+PASS: Skill tile inside safe area at 1280x720
+PASS: Skill tile inside safe area at 1280x720
+PASS: Skill tile inside safe area at 1280x720
+PASS: Status and weapon panels do not overlap at 1280x720
+PASS: All HUD labels have a valid font at 1280x720
+PASS: Visible text is generated: Text AR TRANSFORMER at 1280x720
+PASS: Visible text is generated: Text GUNDAM at 1280x720
+PASS: Visible text is generated: Text STRIKE ROUGE / OOTORI at 1280x720
+PASS: Visible text is generated: Text SYSTEM / ARENA at 1280x720
+PASS: Visible text is generated: Text VIRTUAL ARENA / SIMULATION at 1280x720
+PASS: Visible text is generated: Text YOUR TURN at 1280x720
+PASS: Visible text is generated: Text RX-78-2 at 1280x720
+PASS: Visible text is generated: Text HP at 1280x720
+PASS: Visible text is generated: Text ARMOR at 1280x720
+PASS: Visible text is generated: Text RX-78-2 at 1280x720
+PASS: Visible text is generated: Text JUSTICE at 1280x720
+PASS: Visible text is generated: Text EXTREME at 1280x720
+PASS: Visible text is generated: Text NOW / ROUGE at 1280x720
+PASS: Visible text is generated: Text NOW / ROUGE at 1280x720
+PASS: Visible text is generated: Text NOW / ROUGE at 1280x720
+PASS: Visible text is generated: Text NOW / ROUGE at 1280x720
+PASS: Visible text is generated: Text NOW / ROUGE at 1280x720
+PASS: Visible text is generated: Text MBF-02 at 1280x720
+PASS: Visible text is generated: Text STRIKE ROUGE at 1280x720
+PASS: Visible text is generated: Text HP at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text ARMOR at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text BURST 2 / 5 at 1280x720
+PASS: Visible text is generated: Text BEAM RIFLE at 1280x720
+PASS: Visible text is generated: Text 0 at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text ANTI-SHIP at 1280x720
+PASS: Visible text is generated: Text 1 at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text OOTORI MISSILES at 1280x720
+PASS: Visible text is generated: Text 2 at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text FULL BURST at 1280x720
+PASS: Visible text is generated: Text 5 at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text EXECUTE at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Visible text is generated: Text  at 1280x720
+PASS: Game View renders 1024x768
+PASS: Canvas covers the actual render area at 1024x768
+PASS: Skill tile inside safe area at 1024x768
+PASS: Skill tile inside safe area at 1024x768
+PASS: Skill tile inside safe area at 1024x768
+PASS: Skill tile inside safe area at 1024x768
+PASS: Status and weapon panels do not overlap at 1024x768
+PASS: All HUD labels have a valid font at 1024x768
+PASS: Visible text is generated: Text AR TRANSFORMER at 1024x768
+PASS: Visible text is generated: Text GUNDAM at 1024x768
+PASS: Visible text is generated: Text STRIKE ROUGE / OOTORI at 1024x768
+PASS: Visible text is generated: Text SYSTEM / ARENA at 1024x768
+PASS: Visible text is generated: Text VIRTUAL ARENA / SIMULATION at 1024x768
+PASS: Visible text is generated: Text YOUR TURN at 1024x768
+PASS: Visible text is generated: Text RX-78-2 at 1024x768
+PASS: Visible text is generated: Text HP at 1024x768
+PASS: Visible text is generated: Text ARMOR at 1024x768
+PASS: Visible text is generated: Text RX-78-2 at 1024x768
+PASS: Visible text is generated: Text JUSTICE at 1024x768
+PASS: Visible text is generated: Text EXTREME at 1024x768
+PASS: Visible text is generated: Text NOW / ROUGE at 1024x768
+PASS: Visible text is generated: Text NOW / ROUGE at 1024x768
+PASS: Visible text is generated: Text NOW / ROUGE at 1024x768
+PASS: Visible text is generated: Text NOW / ROUGE at 1024x768
+PASS: Visible text is generated: Text NOW / ROUGE at 1024x768
+PASS: Visible text is generated: Text MBF-02 at 1024x768
+PASS: Visible text is generated: Text STRIKE ROUGE at 1024x768
+PASS: Visible text is generated: Text HP at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text ARMOR at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text BURST 2 / 5 at 1024x768
+PASS: Visible text is generated: Text BEAM RIFLE at 1024x768
+PASS: Visible text is generated: Text 0 at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text ANTI-SHIP at 1024x768
+PASS: Visible text is generated: Text 1 at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text OOTORI MISSILES at 1024x768
+PASS: Visible text is generated: Text 2 at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text FULL BURST at 1024x768
+PASS: Visible text is generated: Text 5 at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text EXECUTE at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Visible text is generated: Text  at 1024x768
+PASS: Simulated notch and edge insets preserve all primary controls
+PASS: Reset during ultimate restores HUD immediately
+PASS: Reset during ultimate removes active effects
+RESULT: PASS
+All checks completed. Physical AR and on-device performance were not tested.
