@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1b229a6943f74f84c69eeda5ce331, type: 3}
+  m_Name: EarthPrison
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleActionDefinition
+  kind: 3
+  displayName: "EARTH PRISON \xB7 Bay cao / thi tri\u1EC3n tr\xEAn kh\xF4ng"
+  clipName: EarthPrisonCast
+  duration: 13.1
+  releaseTime: 5.2
+  ultimateCost: 100
+  ultimateGain: 0
+  cooldownTurns: 0
+  allEnemies: 1
+  approachTarget: 1
+  travelStyle: 2
+  runStride: 2.1
+  castHeightRatio: 1.15
+  airborneCast: 1
+  travelStart: 0.45
+  arriveTime: 2.2
+  returnStart: 10.55
+  returnEnd: 12.5
+  stopDistance: 4.85
+  travelLift: 0.65
+  vfxStart: 2.55
+  weapon: 0
+  gripTime: 0.42
+  drawEnd: 0.66
+  bladeOn: 0.72
+  bladeOff: 1.96
+  sheatheStart: 3.08
+  holsterTime: 3.52
+  melee: 0
+  hits:
+  - time: 3.35
+    damage: 120
+    cue: 0.3
+    open: 0.95
+    close: 1.15
+  - time: 5.1
+    damage: 60
+    cue: 0.3
+    open: 0.95
+    close: 1.15
+  - time: 5.5
+    damage: 60
+    cue: 0.3
+    open: 0.95
+    close: 1.15
+  - time: 5.9
+    damage: 60
+    cue: 0.3
+    open: 0.95
+    close: 1.15
+  - time: 6.3
+    damage: 60
+    cue: 0.3
+    open: 0.95
+    close: 1.15

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666721d4dfead7a48a06b26cc0708964, type: 3}
+  m_Name: biogear-lab
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentDefinition
+  id: biogear-lab
+  displayName: BIOGEAR LAB
+  description: "\u0110\u1EA3o nghi\xEAn c\u1EE9u \xB7 th\xE1p, \u0111\u1EA5u tr\u01B0\u1EDDng,
+    nh\xE0 v\xF2m \xB7 camera t\u1EF1 do."
+  thumbnail: {fileID: 2800000, guid: d8e1167cf28b46849bd947fcbdbfedb9, type: 3}
+  accent: {r: 0.48, g: 0.72, b: 0.18, a: 1}
+  available: 1
+  battleVariant: -1
+  scenePath: Assets/BiogearLab/Scenes/BiogearLab_Reconstruction.unity
+  scene: {fileID: 102900000, guid: 4ddec1cb546244a46bcbd602786ff379, type: 3}

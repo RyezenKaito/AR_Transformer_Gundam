@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b7b777d3cac634086137ada5843ae3, type: 3}
+  m_Name: BattleTuning
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleTuning
+  playerHealth: 1000
+  enemyHealth: 600
+  startingUltimate: 0
+  dodgeGain: 15
+  damagedGain: 10
+  guardMultiplier: 0.5
+  enemyCombos: 1
+  extraDodgeWindow: 0
+  attack: {fileID: 11400000, guid: eb2499fd2a2fcd849896055b2d3e32dc, type: 2}
+  skill: {fileID: 11400000, guid: 771078698c1363c4aa6ea4238d27b1d3, type: 2}
+  guard: {fileID: 11400000, guid: 1bbd922b37833bf4497673df2c0afec3, type: 2}
+  ultimate: {fileID: 11400000, guid: a028fc811d82cd34e8d01ac66a9ad0aa, type: 2}
+  enemyStrike: {fileID: 11400000, guid: 72e65b33783a0ca4e8812456e37e51c9, type: 2}
+  enemyCombo: {fileID: 11400000, guid: 1aa5de860ceb15643930309ce82f4a7a, type: 2}

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1b229a6943f74f84c69eeda5ce331, type: 3}
+  m_Name: EnemyCombo
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleActionDefinition
+  kind: 5
+  displayName: "SENTINEL \xB7 Li\xEAn x\u1EA1 t\u1EA1i ch\u1ED7"
+  clipName: EnemyCombo
+  duration: 4.9
+  releaseTime: 1.3
+  ultimateCost: 0
+  ultimateGain: 0
+  cooldownTurns: 0
+  allEnemies: 0
+  approachTarget: 0
+  travelStyle: 0
+  runStride: 2.1
+  castHeightRatio: 1.15
+  airborneCast: 0
+  travelStart: 0.65
+  arriveTime: 1.25
+  returnStart: 3.05
+  returnEnd: 3.92
+  stopDistance: 3.1
+  travelLift: 0.65
+  vfxStart: 0
+  weapon: 2
+  gripTime: 0.42
+  drawEnd: 0.66
+  bladeOn: 0.72
+  bladeOff: 1.96
+  sheatheStart: 4
+  holsterTime: 4.5
+  melee: 0
+  hits:
+  - time: 1.6
+    damage: 55
+    cue: 0.7
+    open: 1.35
+    close: 1.55
+  - time: 2.6
+    damage: 55
+    cue: 1.85
+    open: 2.35
+    close: 2.55

@@ -1,0 +1,1 @@
+PASS: synthetic Touchscreen state events through Input System exercised one-finger drag and two-finger pinch. Camera yaw and distance changed. This is not physical Android touch validation.

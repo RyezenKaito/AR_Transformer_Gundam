@@ -1,0 +1,1 @@
+PASS: original model sockets, no added cylinder/sphere mesh, transparent additive ribbons, shadows off, idle off. Full combat regression rerun separately in Acceptance_20261029.md.

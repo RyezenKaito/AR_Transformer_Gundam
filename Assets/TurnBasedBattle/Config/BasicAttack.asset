@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1b229a6943f74f84c69eeda5ce331, type: 3}
+  m_Name: BasicAttack
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleActionDefinition
+  kind: 0
+  displayName: "T\u1EA4N C\xD4NG \xB7 Ch\u1EA1y \xE1p s\xE1t / ki\u1EBFm \xE1nh s\xE1ng"
+  clipName: BasicAttack
+  duration: 12.45
+  releaseTime: 5.75
+  ultimateCost: 0
+  ultimateGain: 25
+  cooldownTurns: 0
+  allEnemies: 0
+  approachTarget: 1
+  travelStyle: 1
+  runStride: 2.1
+  castHeightRatio: 1.15
+  airborneCast: 0
+  travelStart: 0.75
+  arriveTime: 5.45
+  returnStart: 6.6
+  returnEnd: 11.5
+  stopDistance: 1.55
+  travelLift: 0
+  vfxStart: 0
+  weapon: 1
+  gripTime: 0.42
+  drawEnd: 0.66
+  bladeOn: 5.28
+  bladeOff: 6.2
+  sheatheStart: 11.68
+  holsterTime: 12.1
+  melee: 1
+  hits:
+  - time: 5.9
+    damage: 100
+    cue: 0.3
+    open: 0.95
+    close: 1.15

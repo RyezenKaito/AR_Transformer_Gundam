@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TurnBasedBattle/Scenes/TurnBattleDemo.unity
+    guid: d9e18d4058d0bdb4e958b0db33123577
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/MechaCombatDemo/Scenes/MechaCombatTest.unity
+    guid: f44f0e1d20831f941be250d84e372262
+  - enabled: 1
+    path: Assets/EnvironmentSystem/Scenes/EnvironmentHub.unity
+    guid: 3b7d0ae49248a6444a0f65443fb1c4dd
+  - enabled: 1
+    path: Assets/BiogearLab/Scenes/BiogearLab_Reconstruction.unity
+    guid: 4ddec1cb546244a46bcbd602786ff379
+  - enabled: 1
+    path: Assets/Environments/Warehouse/Scenes/Warehouse_Battle.unity
+    guid: bef43884e8224784daa9f1a681812262
+  - enabled: 1
+    path: Assets/Environments/StreetCity/Scenes/StreetCity_Battle.unity
+    guid: 469abb6d4f34bb344acce673632d588e
+  - enabled: 1
+    path: Assets/Environments/Volcano/Scenes/Volcano_Battle.unity
+    guid: fd7e65aaa8e5e9244935945ba0ca3e1f
+  - enabled: 1
+    path: Assets/Environments/Desert/Scenes/Desert_Battle.unity
+    guid: 69b0ad39bc302d34f854184a11cf6a3f
+  - enabled: 1
+    path: Assets/Environments/SunkenHarbor/Scenes/SunkenHarbor_Battle.unity
+    guid: a92a28fce022b7e4d85ab0f1efa7d9b5
+  - enabled: 1
+    path: Assets/Environments/OrbitalFrontier/Scenes/OrbitalFrontier_Battle.unity
+    guid: 8bebfbb7ff47c394cab4a89ed4448c16
+  m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

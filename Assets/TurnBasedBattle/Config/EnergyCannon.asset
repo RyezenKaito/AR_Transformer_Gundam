@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1b229a6943f74f84c69eeda5ce331, type: 3}
+  m_Name: EnergyCannon
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleActionDefinition
+  kind: 1
+  displayName: "K\u1EF8 N\u0102NG \xB7 B\u1EAFn ph\xE1o t\u1EA1i ch\u1ED7"
+  clipName: SkillCast
+  duration: 4
+  releaseTime: 1.5
+  ultimateCost: 0
+  ultimateGain: 20
+  cooldownTurns: 2
+  allEnemies: 0
+  approachTarget: 0
+  travelStyle: 0
+  runStride: 2.1
+  castHeightRatio: 1.15
+  airborneCast: 0
+  travelStart: 0.65
+  arriveTime: 1.25
+  returnStart: 2.15
+  returnEnd: 3.02
+  stopDistance: 3.1
+  travelLift: 0.65
+  vfxStart: 0
+  weapon: 2
+  gripTime: 0.42
+  drawEnd: 0.66
+  bladeOn: 0.72
+  bladeOff: 1.96
+  sheatheStart: 3.08
+  holsterTime: 3.52
+  melee: 0
+  hits:
+  - time: 1.8
+    damage: 180
+    cue: 0.3
+    open: 0.95
+    close: 1.15

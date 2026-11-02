@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8322f3ff3fa814ba4a3572fd8afacd, type: 3}
+  m_Name: EnvironmentCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentCatalog
+  hubScenePath: Assets/EnvironmentSystem/Scenes/EnvironmentHub.unity
+  environments:
+  - {fileID: 11400000, guid: f5676c4fc0d1044479910057c6ff5300, type: 2}
+  - {fileID: 11400000, guid: 848b3ca499dd6534091cb9e4cbf0b72a, type: 2}
+  - {fileID: 11400000, guid: 89ecb09a2390a7143ac9b34b0d3c2e19, type: 2}
+  - {fileID: 11400000, guid: 884d69f488e08b94d9b99fc386bbd904, type: 2}
+  - {fileID: 11400000, guid: 2d5f8d3c24a5ac4469fbe62592451123, type: 2}
+  - {fileID: 11400000, guid: dcb73aa49887b64499c29ddeadad8b93, type: 2}
+  - {fileID: 11400000, guid: 78abe3e9b1f4b3841b08d8a6bd41f298, type: 2}
+  - {fileID: 11400000, guid: 7c5793a78ab48da4dbae8a18cb6f62ff, type: 2}
+  - {fileID: 11400000, guid: 26823180a8b3a404bbec81f510d047f3, type: 2}
+  - {fileID: 11400000, guid: ea7ae036bef4a2344953e629010cb7e8, type: 2}

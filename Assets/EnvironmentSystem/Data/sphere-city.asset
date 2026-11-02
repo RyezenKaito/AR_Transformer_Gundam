@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666721d4dfead7a48a06b26cc0708964, type: 3}
+  m_Name: sphere-city
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentDefinition
+  id: sphere-city
+  displayName: SPHERE CITY
+  description: "Tr\u1EADn \u0111\u1EA5u hi\u1EC7n c\xF3 \xB7 th\xE0nh ph\u1ED1 v\xF2m."
+  thumbnail: {fileID: 0}
+  accent: {r: 0.19, g: 0.65, b: 0.7, a: 1}
+  available: 1
+  battleVariant: 2
+  scenePath: Assets/TurnBasedBattle/Scenes/TurnBattleDemo.unity
+  scene: {fileID: 102900000, guid: d9e18d4058d0bdb4e958b0db33123577, type: 3}

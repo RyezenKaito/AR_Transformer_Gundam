@@ -1,0 +1,613 @@
+====================
+00_MASTER_PROMPT_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# MASTER PROMPT — GUNDAM THEO LƯỢT, CAMERA ORBIT, BAY ÁP SÁT, RÚT VŨ KHÍ
+
+Đặc tả ngày 29/10/2026, theo yêu cầu mới nhất của người dùng. Đây là bộ yêu cầu thay thế các ràng buộc cũ về camera khóa cố định, nhân vật tuyệt đối không rời vị trí, kỹ năng/ultimate đứng tại chỗ và súng luôn nằm trong tay.
+
+## Yêu cầu chính
+
+Hãy hoàn thiện game Unity của tôi trong `E:/My project` theo bộ prompt này. Game vẫn đánh theo lượt. Khi chờ, Gundam và quái đứng ở các vị trí đội hình; khi hành động được xác nhận, Gundam **bay đến vùng đối phương, thực hiện đòn đánh/kỹ năng/ultimate, thu động tác và trở về**. Không biến game thành điều khiển đi lại tự do bằng WASD.
+
+Camera mặc định là **third-person phía sau Gundam, hơi cao và nhìn chếch xuống**, theo ảnh `References/DefaultCamera.png`. Người chơi có thể xoay camera đủ 360°; góc sau là góc khởi đầu/reset, không phải góc bị khóa. Camera không bắt buộc luôn đặt người chơi bên trái và quái bên phải màn hình. Đội hình cố định trong thế giới game, bố cục trên màn hình thay đổi khi xoay camera.
+
+Khớp Gundam phải chuyển động liên tục và phối hợp. Không chỉ nội suy vị trí toàn bộ model trong khi tay chân giữ cứng. Vũ khí tấn công không được cầm sẵn trong idle; khi dùng phải có động tác lấy/rút, nắm đúng vị trí, kích hoạt, tấn công, tắt và cất lại. Earth Prison tiếp tục là ultimate, nhưng bổ sung pha bay tới gần vùng đối phương trước khi thi triển.
+
+## Tài liệu phải thực hiện cùng nhau
+
+1. `01_CAMERA_THIRD_PERSON_360_VI.md`: camera mặc định theo ảnh, orbit, zoom, theo nhân vật và quyền sở hữu camera khi dùng AR.
+2. `02_BAY_AP_SAT_THEO_LUOT_VI.md`: di chuyển có điều kiện trong hành động, đường bay, điểm dừng, quay về và khóa lượt.
+3. `03_CHUYEN_DONG_KHOP_MUOT_VI.md`: rig, chuyển tư thế, chuyển động toàn thân, IK và thời điểm tiếp xúc.
+4. `04_RUT_CAT_VU_KHI_VI.md`: chuỗi vũ khí, socket, rút/cất, bật lưỡi kiếm và dọn trạng thái.
+5. `05_EARTH_PRISON_BAY_AP_SAT_VI.md`: timeline ultimate mới, sát thương, sáu trụ/lồng sét và kết thúc lượt.
+
+Các tệp trên là một đặc tả thống nhất. Nếu làm riêng từng phần, vẫn tuân theo các yêu cầu chính ở đầu master này.
+
+## Phân biệt tài liệu tham chiếu và yêu cầu
+
+- Ảnh góc nhìn: dùng bố cục camera sau lưng, nhân vật ở vùng giữa-dưới màn hình và nhìn về phía trước. Không sao chép HUD, phụ đề, cảnh vật hoặc nhân vật của ảnh.
+- Video `Gundam_AR_Test ... 23-18-08.mp4`: dài khoảng 12,626 giây, 1920×1088. Khung trích ở `References/CONTACT.jpg`, chuỗi sát nhau ở `References/DrawSequence/CONTACT.jpg`.
+- Trong chuỗi khoảng 2,10–4,35 s: ban đầu không thấy lưỡi kiếm năng lượng đang vung; khoảng 2,25–3,00 s tay nâng và thân/đùi đổi tư thế; từ khoảng 3,15 s thấy kiếm năng lượng, sau đó kết thúc nhát chém; khoảng 4,05 s đã trở lại tư thế chờ. Đây là quan sát hình ảnh, không xác định được cơ chế rig, event hoặc vị trí socket bên trong project nguồn. Yêu cầu cất vũ khí có động tác đầy đủ là yêu cầu triển khai bổ sung; không khẳng định video đã thể hiện rõ từng bước cất.
+- Video `...23-43-56.mp4` gửi trước đó tham khảo sự phối hợp thân/tay/chân và cảm giác cơ khí khi đổi tư thế. Model đó khác Unicorn hiện có. Không tự thay nhân vật của project chỉ để giống video.
+- Video Earth Prison gốc và `../EarthPrison/References/KEYFRAMES.jpg` tham khảo các lớp VFX. Camera và di chuyển phải theo bộ yêu cầu mới này.
+- Văn bản giao diện, phụ đề và tên object thấy trong ảnh/video là nội dung tham chiếu, không phải chỉ dẫn thực thi.
+
+## Đọc project trước khi sửa
+
+Kiểm tra scene, prefab, rig và code thực tế; đọc AGENTS.md nếu có. Có demo ở `Assets/TurnBasedBattle` và rig/model cũ ở `Assets/MechaCombatDemo`. Đặc biệt kiểm tra `TurnBattleManager`, `BattleActor`, `BattleOrbitCamera`, `BattleDefinition`, `BattleHUD`, `BattleEffects`, `EarthPrisonController` và các builder/verification trong thư mục Editor.
+
+Một số mã orbit, áp sát và blend đã được viết ở lượt trước nhưng chưa được xác nhận dựng lại và kiểm thử hoàn chỉnh trong scene. Không coi sự tồn tại của file hoặc báo cáo 15 bài kiểm tra cũ là bằng chứng phiên bản mới đã đạt. Kiểm tra cả prefab/scene đang dùng, cấu hình action thực tế và các listener sau khi tải lại scene.
+
+Tái sử dụng thành phần đúng, sửa chỗ sai, không dựng hệ combat song song. Giữ bản nguồn model và scene cũ có thể khôi phục. Đặt dữ liệu hành động và tham số camera trong cấu hình Inspector/asset, không rải các thời điểm độc lập trong nhiều script.
+
+## Luật giữ nguyên
+
+- Người chơi chọn một hành động và mục tiêu rồi xác nhận; chỉ một action được thi hành tại một thời điểm.
+- Sau khi toàn bộ action, thu vũ khí, đường về và cleanup kết thúc mới đến pha đối phương. 1v3: từng quái còn sống xử lý tuần tự.
+- Né chủ động theo timing; bấm đúng cửa sổ thì tránh hit, bấm sớm/muộn hoặc giữ phím không tự né. Né phòng thủ tại chỗ không biến thành truy đuổi.
+- Ultimate cần đủ thanh và trừ đúng một lần khi xác nhận. Không gây damage chỉ vì vũ khí/particle chạm collider nhiều lần.
+- Mỗi hit có định danh và chỉ áp damage một lần mỗi mục tiêu. Damage, VFX, âm thanh và animation dùng cùng timeline hành động.
+- Các số cân bằng đang có được giữ nếu không cần sửa để đáp ứng yêu cầu. Mọi giá trị camera/thời gian chuyển động bên dưới là điểm xuất phát để tinh chỉnh, không phải số đo bắt buộc từ video.
+
+## Thứ tự hoàn thành
+
+1. Chốt một scene đang hoạt động, kiểm tra compile và các phần combat/ultimate còn dang dở; tạo mốc khôi phục trước khi chỉnh rộng.
+2. Hoàn thiện camera theo prompt 01, nhìn đúng ảnh và xoay được cả vòng.
+3. Làm hoàn chỉnh **một đòn cận chiến** bằng cách phối hợp prompt 02, 03, 04: idle tay không → rút → bay → chém → thu → về → cất → idle.
+4. Áp dụng cùng cơ chế điều phối cho kỹ năng và quái. Kỹ năng cũng phải bay tới vùng đối phương; không giữ mặc định đứng tại chỗ như bản trước.
+5. Hoàn thiện Earth Prison theo prompt 05, gồm bay áp sát trước VFX và trở về sau VFX.
+6. Chạy 1v1/1v3, keyboard/mouse, UI cảm ứng và các trường hợp gián đoạn. Cập nhật prompt, hướng dẫn, scene/prefab và kiểm thử nhất quán.
+
+Mỗi mốc phải có kết quả chạy được, không báo xong chỉ vì đã viết code. Sau khi sửa, mở lại scene và xác nhận thay đổi đã lưu. Bàn giao danh sách file, cách chạy, thông số chỉnh, kết quả test và các phần chưa kiểm chứng. Việc chuẩn bị nhận camera ngoài không đồng nghĩa đã tích hợp hoặc kiểm chứng AR trên điện thoại.
+
+
+====================
+01_CAMERA_THIRD_PERSON_360_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# PROMPT 01 — CAMERA THIRD-PERSON PHÍA SAU, XOAY TỰ DO 360°
+
+Hãy sửa camera trận đấu Unity theo yêu cầu sau. Game đánh theo lượt, nhân vật đứng ở đội hình khi chờ và có thể bay tới đối phương trong action. Camera phải hoạt động độc lập với bộ điều khiển hành động.
+
+## 1. Góc nhìn mặc định đúng tham chiếu
+
+Dùng ảnh `References/DefaultCamera.png` làm chuẩn bố cục: camera ở sau lưng Gundam, cao hơn thân trên một chút, hướng nhìn chếch xuống phía trước. Thấy rõ lưng, vai, tay và chân Gundam ở vùng giữa-dưới khung hình; phía trên là khoảng không để nhìn mục tiêu và đường bay.
+
+Đây là phối cảnh third-person tương đối gần, không phải camera ngang sân, orthographic, bản đồ từ trên cao hoặc góc isometric nhìn toàn sân. Không hiểu “nhìn từ trên xuống phía sau” thành camera gần thẳng đứng trên đầu. Nhân vật không bị thu nhỏ chỉ để ép mọi vật luôn cùng nằm trong khung.
+
+Thông số khởi đầu, chuẩn hóa theo chiều cao Gundam H:
+
+- Perspective, FOV dọc khoảng 45–55°.
+- Pivot gần ngực/vai, cao khoảng 0,65–0,80 H trên chân.
+- Pitch mặc định khoảng 15–25° nhìn xuống; chỉnh trực quan cho gần ảnh.
+- Khoảng lùi khởi đầu khoảng 2,4–3,4 H; Gundam chiếm khoảng 35–50% chiều cao màn hình khi chờ, có khoảng trống trên đầu và phía trước.
+- Có thể lệch vai nhẹ khoảng 0,10–0,25 H để nhìn mục tiêu rõ hơn, không che trung tâm bằng thân Gundam.
+
+Các giá trị phải chỉnh được trong Inspector. Nghiệm thu bằng ảnh Game View so với bố cục tham chiếu, không chỉ kiểm tra các con số.
+
+## 2. Xoay 360° thật sự
+
+- Yaw không khóa trái/phải; kéo liên tục qua 0°/360° nhiều vòng không giật, không nhảy chiều.
+- Chuột phải kéo để orbit, bánh xe zoom; vuốt ở vùng trống để orbit, pinch hai ngón để zoom. Cho phép gán lại input.
+- Pitch giới hạn hợp lý, khởi đầu 5–75°, không lộn ngược. Zoom giới hạn theo H và tránh xuyên nhân vật.
+- Có nút/phím “Góc nhìn sau” chủ động, ví dụ Home. Reset chuyển mượt về góc sau Gundam.
+- Thả chuột không tự xoay về sau; chuyển lượt, đổi target và tung ultimate cũng không tự reset yaw của người dùng.
+- Xoay camera không thay đổi hướng đứng, hướng tấn công, vị trí đội hình, mục tiêu hay kết quả né của Gundam.
+- Hai phe đối diện nhau trong thế giới game; không ép phe ta luôn ở trái màn hình sau khi camera xoay ra phía đối diện.
+
+## 3. Theo nhân vật khi bay, vẫn giữ quyền điều khiển
+
+Trong chế độ desktop/mobile không AR, pivot theo Gundam bằng độ trễ nhẹ. Khi bay áp sát, camera đi theo mượt, giữ yaw/pitch/zoom mà người chơi đã chọn. Không lấy hướng xoay của thân trong animation làm góc orbit mới mỗi frame.
+
+Có thể dịch điểm ngắm một phần về trung điểm Gundam–mục tiêu trong action để thấy đòn chạm. Blend trọng số focus khoảng 0,15–0,35, có giới hạn tốc độ; không tự cắt góc hoặc ép quay. Điểm focus và vị trí camera phải liên tục lúc bắt đầu bay, thắng đòn, quay về và đổi lượt.
+
+Tách `follow smoothing`, `orbit smoothing`, `zoom smoothing`; ví dụ 0,10–0,20 s để bắt đầu tinh chỉnh. Input delta chuột không nhân deltaTime hai lần; tốc độ quay theo phím phải tính theo thời gian. Cập nhật camera sau chuyển động nhân vật để tránh rung một frame. Thử ở tốc độ mô phỏng và FPS khác nhau.
+
+Nếu tường hoặc trụ đá che camera, spherecast từ pivot tới vị trí mong muốn, thu ngắn cánh tay camera mượt và trả lại khoảng cách khi hết cản. Bỏ qua collider của chủ thể cần theo, hiệu ứng không cản và trigger. Đặt khoảng cách tối thiểu; tránh camera dao động giữa nhiều collider. Không để trụ Earth Prison làm camera bật ra bật vào liên tục.
+
+## 4. UI và đầu vào
+
+- Bắt đầu drag/pinch trên nút chọn chiêu, target, thanh né hoặc panel thì không orbit.
+- Drag hợp lệ bắt đầu ở vùng trống có thể tiếp tục khi con trỏ đi ngang UI; kết thúc đúng khi nhả/mất focus.
+- Chuyển một ngón sang hai ngón và ngược lại phải đặt lại dữ liệu điểm chạm, không nhảy camera.
+- Nhấn nút né cảm ứng không vừa né vừa xoay camera. Không dùng thao tác xoay camera làm lệnh điều khiển nhân vật.
+- Health/nameplate/damage text phải chiếu theo camera đang dùng. Glow/billboard VFX cập nhật góc nhìn kể cả khi timeline combat đang pause và người dùng vẫn orbit.
+
+## 5. Chuẩn bị AR, không chiếm camera tracking
+
+Tách `BattleContent/BoardRoot` khỏi camera. Tất cả vị trí đội hình, đường bay, mục tiêu và hiệu ứng được quy về hệ tọa độ bàn đấu. Chuyển vị trí, hướng và scale của bàn không được làm sai đường bay hoặc hướng đánh.
+
+Khi dùng camera AR/XR bên ngoài, tắt controller orbit/follow của camera mô phỏng. Không ghi đè transform, FOV, projection hoặc pose tracking của camera AR. Cập nhật HUD, raycast và billboard để dùng camera AR; không vô tình bật hai AudioListener/camera nền cùng lúc.
+
+Trong AR, người dùng nhìn quanh bằng việc di chuyển thiết bị; đó là cách quan sát 360° của chế độ AR. Nếu thêm xoay bàn bằng touch, phải là tính năng riêng xoay `BoardRoot`, không giả lập orbit bằng cách sửa pose camera tracking. Không tự cài package AR hoặc báo AR hoàn tất chỉ vì có API nhận `Camera`.
+
+## 6. Nghiệm thu
+
+1. Ảnh idle từ góc mặc định gần ảnh tham chiếu; sau khi reset scene vẫn đúng.
+2. Quay ít nhất hai vòng đầy đủ, qua đường nối 360°, ngẩng/cúi và zoom không giật.
+3. Để camera ở góc bên hoặc đối diện rồi dùng attack, skill, Earth Prison: camera không tự khóa lại góc sau, vẫn theo action mượt.
+4. Click UI không làm orbit; chuột/keyboard và touch được kiểm riêng.
+5. Camera không xuyên sàn, thân Gundam hoặc bị rung vì trụ đá.
+6. Thử 16:9, 16:10 và màn hình di động ngang; mặc định gần ảnh nhưng vẫn thấy rõ mục tiêu liên quan.
+7. Camera ngoài được nhận đúng, không bị script ghi pose; chuyển lại desktop đúng. Báo riêng phần AR chưa kiểm thử trên thiết bị.
+
+Bàn giao scene/prefab đã lưu, cách điều khiển, tham số camera và ảnh trước/sau. Nếu thấy code camera fixed cũ còn điều khiển scene thì gỡ xung đột, không để hai controller cùng ghi transform.
+
+
+====================
+02_BAY_AP_SAT_THEO_LUOT_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# PROMPT 02 — BAY TỚI ĐỐI PHƯƠNG KHI ĐÁNH, KỸ NĂNG VÀ ULTIMATE
+
+Hãy hoàn thiện chuyển động trong action của game Gundam theo lượt. **Cả đòn đánh, kỹ năng và Earth Prison đều có pha bay tới vùng đối phương trước khi tác động**. Không giữ thiết kế cũ chỉ đòn cận chiến áp sát, còn skill/ultimate đứng nguyên tại đội hình.
+
+## 1. Đứng chờ và hành động là hai trạng thái khác nhau
+
+Khi chờ lượt/chọn chiêu, Gundam và quái giữ `HomeAnchor`, chỉ có idle pose nhẹ. Không có đi tự do, truy đuổi tự động hoặc luồng AI chạy tới địch trước khi được cấp lượt.
+
+Sau xác nhận: chuẩn bị → rút vũ khí nếu chiêu cần → cất cánh → bay tới `AttackAnchor` → hãm tốc → thi triển/tác động → thu chiêu → bay về → hạ xuống → cất vũ khí → idle. Cho phép một số pha rút/cất chồng thời gian với bay nếu animation thể hiện được và không bỏ qua thao tác tay.
+
+“Bay qua đối phương” được triển khai thành bay đến vùng thực hiện đòn gần phía địch, không mặc định cho root xuyên tâm collider địch. Đòn xuyên qua hoặc lướt vòng ra sau chỉ dùng nếu được thiết kế riêng, có điểm đến và đường về an toàn.
+
+## 2. Điểm đến theo chiêu
+
+- Cận chiến: dừng ngoài thân mục tiêu, cách đủ gần để tầm tay/kiếm thật sự chạm. Khoảng dừng phải tính cả kích thước hai model và reach của đòn, không dùng một hằng số cho mọi quái.
+- Kỹ năng: cũng rời `HomeAnchor`, bay tới vị trí thi triển ở phía đối phương. Với pháo/đạn, dừng ở cự ly bắn được cấu hình gần mục tiêu; vị trí muzzle, đường đạn và đích phải khớp.
+- Ultimate Earth Prison: bay tới `CastAnchor` gần vùng quái nhưng bên ngoài phạm vi dựng sáu trụ, rồi mới tụ điện. Gundam không đứng trong trụ hoặc chính lồng sét.
+- Multi-target: xác định vùng đội hình đối phương và chọn vị trí thi triển hợp lệ; không di chuyển theo camera hoặc nhảy qua từng mục tiêu cho các hit AoE.
+- Quái thực hiện lượt riêng theo cùng nguyên tắc nếu dùng đòn áp sát; mục tiêu phòng thủ không tự chạy đuổi theo kẻ tấn công.
+
+Lưu anchor theo `BattleContent`/bàn đấu, không chỉ chụp tọa độ world một lần. Khi bàn đổi vị trí, xoay hoặc scale, hướng tới đối phương và đường về vẫn đúng. Không dùng `Vector3.forward/up` toàn cục nếu bàn có hệ trục riêng.
+
+## 3. Cảm giác bay phải có lực
+
+Có nhún chuẩn bị, nghiêng thân theo hướng tăng tốc, chân thu/bẻ nhẹ khi bay, tay giữ vũ khí an toàn, booster sáng theo lực đẩy. Khi sắp tới địch: giảm tốc có chủ đích, thân ngả để hãm, chân mở lại, vai/tay chuẩn bị đánh. Khi quay về có chuyển hướng/boost phù hợp, không kéo nguyên tư thế đánh lùi suốt đường.
+
+Đường bay dùng curve/spline hoặc quỹ đạo tham số với tốc độ tăng–giảm mượt. Có thể cong hoặc nâng nhẹ khỏi mặt đất nhưng phải nhất quán với trọng lượng mecha. Không teleport tới target, không `Lerp(current,target,t)` lệ thuộc FPS, không đi tốc độ hằng rồi dừng đột ngột.
+
+Vị trí và hướng phải liên tục giữa các pha. Giới hạn góc quay/tốc độ quay; không đổi quaternion 180° trong một frame. Blend nghiêng thân trong rig, không trộn tilt thân vào heading logic của toàn nhân vật/camera.
+
+Sơ đồ thời gian khởi đầu cho đòn cơ bản khoảng 3,4–4,0 s, cho phép tinh chỉnh:
+
+| Pha | Khoảng đề xuất |
+| --- | --- |
+| Chuẩn bị, với tay lấy vũ khí | 0–0,45 s |
+| Rút/nhún cất cánh, tăng tốc | 0,35–0,80 s |
+| Bay tới và hãm tại điểm đánh | 0,65–1,25 s |
+| Wind-up, contact, follow-through | 1,25–1,85 s |
+| Thu đòn, xoay và bay về | 1,85–2,95 s |
+| Hạ xuống, tắt/cất vũ khí, idle | 2,95–3,70 s |
+
+Không ép mọi chiêu dùng đúng bảng này. Damage phải nằm ở contact/release được khai báo trong timeline thực tế, không giữ thời điểm damage cũ sau khi đã kéo dài animation.
+
+## 4. Một bộ điều phối action
+
+Mỗi action có dữ liệu target, loại vũ khí, reach/cast range, đường bay, clip, marker rút/nắm/kích hoạt/contact/cất, damage events và VFX. Chọn một nguồn thời gian cho toàn action. Cùng một hệ thống sở hữu root motion; không để Animator, NavMesh, Rigidbody và script cùng kéo root.
+
+Nếu dùng chuyển root theo script, clip không được tự cộng translation lần nữa. Nếu dùng root motion, phải có cơ chế căn quỹ đạo theo target/anchor và đảm bảo đúng range. Chọn giải pháp phù hợp rig thật; không bật root motion rồi chữa sai bằng teleport ở cuối.
+
+Chỉ mở pha đối phương sau khi action thông báo đã hoàn tất **cả gameplay và presentation**: đủ hit hợp lệ, thu/cất vũ khí, về đội hình, dọn effect và bỏ khóa input. Không đổi lượt ngay khi damage cuối được áp.
+
+## 5. Các trường hợp cần xử lý
+
+- Chọn/hủy trước xác nhận: không bay, không trừ gauge, không rút vũ khí vô cớ.
+- Bấm xác nhận hai lần: vẫn một action, một quỹ đạo, một lần tiêu hao.
+- Target bị hạ trong đòn: không tiếp tục gây damage vào mục tiêu chết; vẫn kết thúc động tác và quay về an toàn.
+- Action bị hủy, actor chết hoặc scene reset: dừng motion/event còn treo, dọn vũ khí/effect; không để kẻ kế tiếp dùng lại target hoặc callback của action cũ.
+- Pause: đóng băng timeline và quỹ đạo, resume không nhảy vị trí. Thay tốc độ mô phỏng không làm sai mốc hit/né.
+- Né: người phòng thủ né theo nhịp tại vị trí đang phòng thủ; không dùng né làm lệnh áp sát hoặc thoát đội hình. Vệt chém/đạn phải thể hiện đòn hụt phù hợp.
+- Chướng ngại/đơn vị khác: chọn lane hoặc đường cong hợp lệ; không xuyên model đồng đội/quái khác trên đường bay.
+
+## 6. Nghiệm thu
+
+Thử Attack, Skill và Earth Prison riêng: cả ba đều rời đội hình, tới đúng cự ly trước khi tác động và quay về. Kiểm tra frame ngay trước hit, hit và sau hit để chứng minh vị trí/chuyển động/VFX/damage khớp.
+
+Khi lượt kế tiếp mở, actor đã trở về anchor với sai số nhỏ được định nghĩa theo scale bàn, không có snap mắt thường thấy. Thử liên tục ít nhất 10 vòng, 1v1 và 1v3, chọn quái đầu/giữa/cuối, pause khi đang bay, target chết và restart. Dữ liệu test mô phỏng 30/60/120 Hz phải cho cùng kết quả gameplay; đánh giá độ mượt bằng chạy thật và clip quay màn hình riêng.
+
+
+====================
+03_CHUYEN_DONG_KHOP_MUOT_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# PROMPT 03 — CHUYỂN ĐỘNG KHỚP MƯỢT, CÓ TRỌNG LƯỢNG VÀ PHỐI HỢP TOÀN THÂN
+
+Hãy chỉnh chuyển động Gundam hiện có để đạt cảm giác cơ khí linh hoạt như video tham chiếu. Giữ model Unicorn và luật theo lượt. Khi chờ giữ đội hình; khi đánh/kỹ năng/ultimate có bay áp sát theo prompt 02. Camera orbit tự do theo prompt 01, vì vậy animation phải hợp lý khi xem từ mọi phía.
+
+## 1. Kiểm tra rig trước khi thêm animation
+
+Kiểm tra skeleton, pivot vai/khuỷu/cổ tay, hông/gối/cổ chân, cổ, ngực, eo và các tấm giáp. Xác định model là skinned mesh hay các mảnh rigid mesh gắn vào joint; kiểm tra trục local và rest pose bằng thao tác từng khớp. Không tự ép Generic/rigid mecha thành Humanoid nếu mapping không phù hợp.
+
+Tái sử dụng `MechaRigData` và clip có ích. Sau tối ưu mesh theo khớp, kiểm tra lại binding: tay/chân/giáp không mất liên kết, không có mesh đứng ở rest pose trong khi bone di chuyển. Đảm bảo một bộ điều khiển có quyền ghi pose; tránh Animator và `SampleAnimation`/script cùng ghi joint trong một frame.
+
+Không kéo dài xương để giả vờ chạm mục tiêu, không scale tay/chân theo mỗi đòn. Nếu điểm nắm hoặc tầm chém chưa tới, sửa stance, quỹ đạo, root placement hoặc chiều dài vũ khí hợp lý.
+
+## 2. Các trạng thái bắt buộc
+
+Tạo hoặc sửa các trạng thái: `IdleUnarmed`, `Anticipate`, `ReachForWeapon`, `Draw`, `Takeoff`, `BoostTravel`, `Brake`, `Aim/WindUp`, `Strike/Cast`, `FollowThrough`, `Recover`, `ReturnFlight`, `Landing`, `Sheathe`, `Dodge`, `HitReaction`, `Death`.
+
+Có thể dùng clip đầy đủ hoặc layer/Playable phù hợp; đây là các pha cần nhìn thấy, không bắt buộc số lượng file clip. Chuyển pha phải theo timeline của action và khả năng rig. Giữ input chọn hành động, chạy quỹ đạo và animation tách trách nhiệm.
+
+## 3. Cách từng phần cơ thể tham gia
+
+- **Idle:** tay ở tư thế tự nhiên, không giữ súng chĩa sẵn. Ngực/đầu/giáp thay đổi rất nhẹ theo chu kỳ; trọng tâm ổn định, chân không trượt. Không thêm bob toàn root khi đang đứng đất.
+- **Chuẩn bị bay:** hạ trọng tâm qua hông/gối, thân nghiêng, tay thu vừa phải; sau đó nhả lực và booster sáng. Có anticipation trước tăng tốc.
+- **Đang bay:** hông và thân tạo hướng lực, chân co hoặc kéo sau hợp lý, đầu hướng mục tiêu trong giới hạn. Tay/cổ tay giữ vũ khí chắc; các tấm giáp theo khớp có độ trễ nhỏ, không rung vô cớ.
+- **Hãm:** thân chuyển nghiêng, chân mở và hạ dần, tay vào tư thế chuẩn bị đánh. Không đổi từ tư thế bay sang đứng thẳng trong một frame.
+- **Rút vũ khí:** vai, cánh tay, khuỷu và cổ tay cùng đi tới nơi cất. Ngực/eo xoay bù; tay còn lại giữ thăng bằng hoặc đỡ vũ khí. Bàn tay thật sự tới chuôi trước khi chuyển socket.
+- **Chém/đấm:** lực bắt đầu từ hông/eo, truyền qua ngực/vai rồi khuỷu/cổ tay. Có wind-up, tăng tốc trước contact, follow-through và recovery. Không chỉ vung cánh tay độc lập trong khi thân/chân giữ nguyên.
+- **Bắn:** vai/khuỷu vào aim pose, hai tay nắm đúng nếu là vũ khí hai tay, recoil ngắn truyền vào vai/ngực và hồi lại có kiểm soát.
+- **Tụ lực ultimate:** thân giữ thăng bằng, đầu theo điểm tụ, tay tạo pose điều khiển năng lượng. Trong thời gian giữ chiêu vẫn có chuyển động rất nhỏ, không đóng băng một frame pose suốt nhiều giây.
+- **Hạ xuống/cất:** chân nhận lực, hông/gối hấp thụ nhẹ, thân hồi lại; tay cất vũ khí có đường đi thật rồi về idle tay không.
+
+Biên độ phải phù hợp giáp cứng. Không uốn thân mềm như cao su, không để giáp vai chui sâu vào đầu/ngực hoặc giáp váy cắt xuyên đùi rõ rệt.
+
+## 4. Blend và điều khiển tiếp xúc
+
+Chuyển clip dùng crossfade từ pose hiện tại, không reset rest pose trước mỗi action. Điểm bắt đầu tham khảo: blend idle/prepare/recover 0,12–0,25 s; phản ứng ngắn 0,05–0,12 s. Điều chỉnh theo thời gian thực, không theo số frame.
+
+Blend quaternion theo đường ngắn và liên tục; xử lý đường nối vòng quay. Không nội suy Euler gây đảo góc. Pose khóa cuối của clip giữ chiêu phải nối được với clip tiếp theo. Loop idle không giật ở điểm cuối–đầu.
+
+Nếu dùng layer: lower body chịu trách nhiệm bay/đứng/hạ; upper body chịu trách nhiệm rút/aim/chém; giới hạn mask rõ để layer vai/eo không phá tư thế cân bằng. Nếu dùng clip full-body: tạo các chuyển tiếp tương đương, không bắt buộc thêm layer chỉ để tăng độ phức tạp.
+
+Foot IK chỉ hoạt động khi đang tiếp đất/đứng, weight giảm khi cất cánh và tăng lại khi hạ. Không ghim chân vào sàn trong lúc root bay. Khi đang đứng, thay đổi pelvis phải bù ở chân để giữ tiếp xúc, không làm chân trượt qua sàn.
+
+Hand IK hoặc offset pose giúp nắm đúng chuôi/grip; blend IK vào sau khi tay tới vũ khí. Với hai tay, tay phụ theo `OffHandGrip` có weight mượt. Nhả IK trước khi cất/đổi kiểu cầm; không để constraint kéo tay về vũ khí đã ẩn.
+
+HitReaction và Dodge phải blend từ tư thế đang có, rồi về đúng pose nền như Guard/Idle, không luôn giật về một frame Ready mặc định. Chết phải chấm dứt action và reaction còn treo theo luật trận.
+
+## 5. Đồng bộ hình và gameplay
+
+Contact marker phải đúng lúc vũ khí/đòn đánh tới mục tiêu. Recoil/reaction, hit spark, âm thanh và HP cùng xuất phát từ hit đã xác thực. Bị né thì không hiện blood/hit reaction/damage số như trúng; chỉ có vệt hụt và phản hồi né phù hợp.
+
+Không kéo dài toàn clip chỉ để “mượt”: giữ nhịp ra đòn rõ, nhanh ở pha strike và có đủ thời gian chuẩn bị/phục hồi. Nếu dùng hit-stop rất ngắn, tạm dừng nhất quán timeline/animation/motion liên quan và không làm sai cửa sổ né. Mặc định không thêm rung/cắt camera nếu người dùng chưa yêu cầu.
+
+## 6. Nghiệm thu trực quan và định lượng
+
+1. Quay clip real-time idle → rút → bay → strike → về → cất; xem từ sau, bên, trước và góc cao.
+2. Duyệt chậm tại tất cả ranh giới pha để tìm pop vai/tay, twist cổ tay, pose reset và root snap; chạy tốc độ thật để kiểm tra nhịp.
+3. Kiểm tra bàn chân tiếp đất, vị trí nắm, tầm vũ khí tại contact, giới hạn giáp và hướng nhìn đầu.
+4. Thử chuyển sang Guard/HitReaction/Dodge/Death ở các thời điểm hợp lệ; không T-pose, không đứng cứng lại giữa đòn.
+5. Kiểm tra kết quả theo thời gian ở 30/60/120 bước mô phỏng; đo frame pacing thực tế riêng trên máy hiện có. Không gọi các bước mô phỏng là FPS đo được.
+6. Nêu rõ chỗ nào là clip dựng lại và chỗ nào dùng asset gốc. Không tuyên bố sao chép chính xác animation nguồn từ một video.
+
+Bàn giao clip/prefab đã lưu, cấu hình blend/IK, báo cáo lỗi đã sửa và clip hoặc ảnh kiểm tra. Nếu rig hiện có thiếu khớp cần thiết, chỉ rõ thiếu khớp nào và hoàn thiện trong giới hạn model, không che bằng hiệu ứng sáng.
+
+
+====================
+04_RUT_CAT_VU_KHI_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# PROMPT 04 — KHÔNG CẦM SẴN VŨ KHÍ, RÚT VÀ CẤT THEO HÀNH ĐỘNG
+
+Hãy sửa hệ thống vũ khí Gundam theo video `...23-18-08.mp4` và các yêu cầu dưới đây. Điểm cần đạt là nhìn thấy nhân vật lấy vũ khí để dùng rồi thu về, không chỉ bật một prefab trong tay ngay khi bấm nút.
+
+## 1. Trạng thái chờ
+
+Gundam ở `IdleUnarmed`: tay không giữ súng hoặc kiếm dài chĩa sẵn. Nếu thiết kế có chuôi kiếm/vũ khí cất trên lưng hoặc hông, phần đó có thể hiện ở đúng vị trí cất; lưỡi kiếm năng lượng phải tắt. Súng không có vị trí cất trên model thì phải có cơ chế deploy/retract được animate rõ, không tự xuất hiện ở bàn tay đang mở.
+
+Kiểm tra prefab hiện tại: vũ khí năng lượng đang gắn sẵn dưới gun socket phải được đưa vào trạng thái cất đúng. Không chỉ thêm kiếm mới mà để nguyên súng luôn cầm trong tay còn lại. Khiên/giáp thuộc model được xử lý riêng theo thiết kế; không xóa chi tiết model chỉ vì video minh họa dùng Gundam khác.
+
+## 2. Socket và dữ liệu vũ khí
+
+Mỗi loại vũ khí cần:
+
+- `HolsterSocket` hoặc vị trí deploy xác định, `MainHandGrip`, `OffHandGrip` nếu hai tay, `Muzzle` nếu bắn, `BladeBase/BladeTip` nếu kiếm.
+- Offset theo từng model/kiểu cầm; kiểm tra trục local, không đoán grip bằng tên bone.
+- Kiểu vũ khí, prefab instance/pool, marker attach/detach, bật/tắt năng lượng, trail và hit window.
+- Một owner rõ ràng. Không tạo vũ khí mới mỗi hit và bỏ lại bản cũ trên scene.
+
+State tối thiểu: `Holstered → Reaching → Drawing → Equipped → Active → Recovering → Sheathing → Holstered`. Có xử lý `Interrupted/Disabled` để cleanup. Vũ khí không tự điều khiển lượt hoặc tự áp damage ngoài ActionController.
+
+## 3. Chuỗi rút kiếm đầy đủ
+
+1. Nhìn/hướng thân về đối phương, tay bắt đầu với tới chuôi đang cất. Vai/ngực/eo xoay bù để với hợp lý.
+2. Đến marker `GripContact`, bàn tay khép/nắm tại chuôi; gắn vũ khí sang hand socket mà không nhảy vị trí world. Blend grip offset nhỏ nếu cần.
+3. Tay kéo vũ khí khỏi vị trí cất theo một quỹ đạo nhìn thấy được; không bật đầy đủ kiếm ngay frame đầu của Reach.
+4. Sau khi vũ khí thoát vị trí cất, bật lưỡi kiếm từ gốc tới ngọn trong khoảng 0,08–0,18 s tham khảo; âm thanh bật kiếm cùng marker.
+5. Vào stance/wind-up và chỉ bật trail trong pha vung có ý nghĩa. Khi đứng giữ kiếm, không để trail kéo dài như dây.
+6. Tại contact, gửi yêu cầu hit đã định danh tới hệ combat; chỉ hiển thị hit spark và âm thanh trúng nếu hit hợp lệ, không bị né.
+
+Chuỗi này có thể chồng một phần với cất cánh/bay nếu tay vẫn đi đúng quỹ đạo. Không rút kiếm xuyên đầu, vai hoặc backpack. Khi xem 360° phải giữ đúng hình học từ cả phía sau.
+
+## 4. Thu và cất
+
+Sau follow-through: thu tay về pose an toàn → tắt trail → tắt lưỡi kiếm theo chiều ngọn về gốc → đưa chuôi về chỗ cất → attach tại marker `HolsterContact` → bàn tay nhả → tay trở về idle.
+
+Có thể cất trên đường về hoặc sau hạ xuống tùy clip, nhưng phải hoàn tất trước khi mở lượt kế tiếp. Không làm vũ khí biến mất ở vị trí đang chém rồi reset tay trong cùng một frame.
+
+Vũ khí hai tay cần nhả tay phụ và IK đúng thứ tự. Một frame không được tồn tại hai bản nhìn thấy: một bản vẫn ở lưng và một bản vừa xuất hiện trong tay. Nếu dùng hai representation cho holster/equipped, chuyển hiển thị tại thời điểm tiếp xúc liên tục và kiểm tra không có khoảng hở/pop.
+
+## 5. Loại chiêu và vũ khí tương ứng
+
+- **Attack:** đề xuất kiếm năng lượng; rút → bay áp sát → chém → quay về/cất.
+- **Skill:** nếu dùng pháo/súng, deploy/rút súng → bay đến vị trí thi triển gần phía địch → aim/fire/recoil → về/cất. Không mặc định đổi skill thành đứng bắn từ home.
+- **Earth Prison:** được cấu hình focus/gauntlet hoặc tay không điều khiển năng lượng; không bắt buộc cầm kiếm/súng nếu chiêu không dùng chúng. Nếu có focus rút ra thì phải áp dụng cùng chuỗi rút/cất, không spawn tùy ý trên tay.
+- **Guard/Dodge:** không tự rút vũ khí tấn công trừ khi animation và action được thiết kế rõ. Nếu guard dùng khiên riêng, điều phối trạng thái khiên độc lập và không làm mất trạng thái vũ khí.
+
+Đây là cấu hình ban đầu cho project, không phải kết luận rằng video có đầy đủ tất cả các loại vũ khí trên.
+
+## 6. Marker, hiệu năng và gián đoạn
+
+Marker có thể dùng Animation Events, Timeline Signals hoặc action timeline đã có; chọn một nguồn chuẩn. Phải xử lý được khi deltaTime vượt qua marker: sự kiện xảy ra một lần, không mất do đòi thời gian bằng tuyệt đối. Callback action cũ không được bật kiếm lại sau reset/death.
+
+Tách `Equipped`, `Visible`, `BladeActive`, `TrailActive`, `CanHit`; không coi active GameObject là quyền áp damage. Dùng pooling nếu phù hợp; kiểm tra trail cũ, particle cũ, audio loop và collider khi tái dùng instance.
+
+Hủy chọn trước xác nhận không làm rút. Hủy action hợp lệ, actor chết, scene đổi, restart, pause/resume đều có trạng thái xác định. Reset được phép khôi phục ngay trạng thái đầu vì là reset trận; kết thúc đòn bình thường phải dùng động tác cất, không dùng nhánh reset để che animation thiếu.
+
+## 7. Nghiệm thu
+
+- Vào scene và chờ 10 giây: tay không cầm sẵn vũ khí tấn công, không có blade/trail chạy.
+- Xem chậm chuỗi rút: tay chạm chuôi trước khi chuyển attachment; không teleport hoặc xuyên giáp rõ rệt.
+- Chém và cất nhìn ổn từ phía trước/sau/hai bên. Chạy thực tế phải thấy nhịp rút/đánh/cất, không chỉ đúng trong Inspector.
+- Dùng liên tục 10 lần: số instance ổn định, không duplicate vũ khí, không sót audio/trail/collider.
+- Pause giữa rút, giữa strike, giữa cất; restart/death/đổi lượt không để vũ khí treo sai chỗ.
+- Attack, Skill, Ultimate dùng đúng loadout; không giữ súng cố định trong idle của bản cũ.
+
+Bàn giao prefab/socket, dữ liệu marker, cách thay vũ khí và một clip quay đầy đủ từ tay không trở lại tay không.
+
+
+====================
+05_EARTH_PRISON_BAY_AP_SAT_VI.md
+====================
+
+> BẢN HIỆN HÀNH — CHẠY SẢI DÀI / R BAY CAO (đã triển khai)
+> Ưu tiên `PROMPT_TINH_CHINH_CHAY_VA_R_BAY_CAO_VI.txt` và báo cáo `Assets/TurnBasedBattle/Reports/HighCast_20261029_VI.md`. Kiếm chạy chậm, stride 2.10, chu kỳ hai bước khoảng 0.92s trên đường chuẩn; chạy đi 0.75–5.45, hit 5.90, về 6.60–11.50, complete 12.45s. Súng đứng tại chỗ. R giữ khoảng hở bàn chân 1.15×H, lên cao/ổn định trước VfxStart=2.55, VFX đủ 8s, complete 13.10s; damage global 5.90/7.65/8.05/8.45/8.85. Các thông số khác bên dưới là lịch sử nếu mâu thuẫn.
+
+> CẬP NHẬT CHUYỂN ĐỘNG — 29/10/2026
+> Mỗi action có kiểu tiếp cận riêng: **Run / Fly / Stationary**. Attack kiếm và đòn cận chiến của địch dùng **chạy bộ áp sát**, chân đổi nhịp theo quãng đường, có chân trụ, lấy đà, hãm và bước quay người trước khi chạy về. Không dùng đường nhảy cho chạy bộ. Earth Prison dùng **bay** với nâng lên–lướt–hạ cánh mượt, có booster và tư thế toàn thân. Súng/tầm xa vẫn đứng tại chỗ. Đây là quy tắc ưu tiên mới nhất, thay thế các dòng cũ yêu cầu mọi đòn kiếm bay tới.
+
+> CẬP NHẬT ƯU TIÊN — yêu cầu bổ sung ngày 29/10/2026
+> Kiếm phải là kiếm ánh sáng có lõi sáng, quầng, bật/tắt và vệt chém. Attack cận chiến bay tới rồi trở về; súng và các vũ khí tầm xa **đứng tại vị trí đội hình để rút/ngắm/bắn/cất**, không bay qua địch. Earth Prison vẫn giữ pha bay tới CastAnchor, thi triển và trở về. Camera phải zoom thực sự bằng con lăn/chụm và orbit 360° mượt; thanh máu địch nằm **trên đầu từng địch**, theo camera mỗi khung hình. Quy tắc này thay thế mọi yêu cầu “tất cả Skill đều bay tới” hoặc “thanh máu địch cố định bên màn hình” còn xuất hiện trong phần gốc bên dưới.
+
+# PROMPT 05 — EARTH PRISON: BAY TỚI VÙNG ĐỊCH, THI TRIỂN, THU CHIÊU VÀ TRỞ VỀ
+
+Hãy hoàn thiện Earth Prison thành ultimate trong game Gundam theo lượt. Yêu cầu mới nhất là **Gundam phải bay tới vùng đối phương rồi thi triển**, thay thế bản đứng nguyên tại đội hình và chỉ phóng VFX từ xa. Giữ hình ảnh nhận diện của Earth Prison: tụ điện vàng, cầu điện, tia truyền, vòm xoáy có khoảng hở, sáu trụ đá, lồng sét rồi tan rã.
+
+## 1. Di chuyển và vị trí thi triển
+
+Chọn ultimate khi đủ thanh, chọn vùng đối phương và xác nhận. Chỉ khi xác nhận mới khóa action và trừ 100 thanh một lần. Snapshot danh sách mục tiêu còn sống để các hit của action xử lý nhất quán.
+
+Gundam chuẩn bị, kích hoạt booster và bay tới `CastAnchor` gần vòng mục tiêu. Điểm này nằm ngoài bán kính trụ cộng khoảng trống thân Gundam; không cho caster đứng trong trụ/lồng. Ví dụ với vòng bán kính R, tâm caster phải cách tâm vùng tối thiểu R + bán kính thân + margin an toàn. Chọn phía tiếp cận theo bàn đấu và mục tiêu, không theo góc camera.
+
+Hãm tốc tại CastAnchor, ổn định chân/tư thế bay thấp, hướng phần trên cơ thể vào vùng thi triển. Mới bắt đầu tụ điện sau khi vào vị trí. Tụ điện theo `CastSocket` ở bàn tay/focus hiện hành, không bắt buộc dùng khẩu súng luôn cầm của prototype cũ.
+
+## 2. Hai trục thời gian phải quy đổi rõ
+
+Dùng **ActionTime** cho toàn hành động và **VfxTime** cho trình tự hiệu ứng đã tham khảo. `VfxTime = ActionTime - VfxStart`, chỉ bắt đầu khi caster đã tới điểm thi triển. Nếu thời gian bay được tính theo khoảng cách, VfxStart phải dịch cùng với marker; không giữ damage tại các mốc global cũ.
+
+Timeline khởi đầu đề xuất, chưa phải thời lượng bắt buộc:
+
+| ActionTime | Hành động |
+| --- | --- |
+| 0–0,35 s | Commit, chuẩn bị, lấy focus nếu cần |
+| 0,35–1,25 s | Cất cánh/bay tới phía địch |
+| 1,25–1,55 s | Hãm tốc và vào cast pose |
+| 1,55–9,55 s | VFX Earth Prison 8 giây, giữ caster ngoài lồng |
+| 9,55–10,60 s | Thu chiêu, bay trở về |
+| 10,60–10,90 s | Hạ xuống, cất focus nếu có, về idle |
+| Sau 10,90 s | Cleanup hoàn tất rồi mới mở pha đối phương |
+
+Không rút ngắn tùy tiện các lớp VFX để ép tổng action giữ 8 giây như trước. Tổng action giờ bao gồm bay đi, VFX và bay về. Có thể tinh chỉnh nhịp để chơi tốt hơn, nhưng phải giữ nguyên quan hệ pha và cập nhật marker cùng nhau.
+
+## 3. Timeline VFX tính từ lúc caster bắt đầu tụ lực
+
+| VfxTime | Hiệu ứng |
+| --- | --- |
+| 0–1,10 s | Điện rải tụ vào bàn tay/focus; phản chiếu ánh vàng vừa phải lên caster |
+| 1,10–2,65 s | Cầu điện rõ lõi/halo, các hồ quang quấn quanh; pose tụ lực có chuyển động nhỏ |
+| 2,65–3,35 s | Tia truyền từ CastSocket tới đất ở tâm đội hình địch |
+| 3,35 s | Chạm đất, flash ngắn, sparks và bụi; impact damage |
+| 3,45–4,30 s | Vòm xoáy vàng thấp, các dải rách/khoảng hở; vẫn thấy mục tiêu ở trong |
+| 4,10–4,75 s | Sáu trụ đá trồi lên theo vòng, có đá vụn và bụi quanh chân |
+| 4,65–5,10 s | Đầu trụ tích sáng, năng lượng lan lên trụ |
+| 5,05–6,45 s | Các đầu trụ nối thành lồng sét lục giác, hồ quang trong lồng có nhịp |
+| 6,45–7,45 s | Sét giảm, trụ dissolve, đá vụn và bụi mờ dần |
+| 7,45–8,00 s | Tàn dư kết thúc, sẵn sàng thu hồi instance |
+
+Vòm xoáy phải là các dải năng lượng không đều có breakup, không giống lưới wireframe với nhiều vòng tròn mảnh đều nhau. Trụ có khối và mặt đá rõ; sáu đỉnh nối đúng, tia có điểm đầu/cuối gắn theo tip. Glow/bloom không che hết quái. Không thêm vụ nổ lớn ở cuối nếu không có trong thiết kế.
+
+## 4. Sát thương và phản hồi đúng thời điểm
+
+Giữ điểm xuất phát cân bằng của prototype: impact 120 tại VfxTime 3,35; bốn pulse 60 tại 5,10 / 5,50 / 5,90 / 6,30. Tối đa 360 mỗi mục tiêu còn sống đủ cả năm hit.
+
+Với VfxStart = 1,55 trong bảng đề xuất, các mốc ActionTime tương ứng là **4,90 / 6,65 / 7,05 / 7,45 / 7,85**. Nếu VfxStart thay đổi, tất cả các mốc đó thay đổi theo. Không gây damage ở ActionTime 3,35 trong khi caster chưa tới hoặc hiệu ứng chưa impact.
+
+Mỗi pulse hợp lệ: flash/spark trong lồng, hit reaction ngắn và HP/damage text cùng nhịp. Chỉ áp mỗi `(battleId, actionId, hitIndex, targetId)` một lần. Không lấy OnParticleCollision, số collider hoặc số tia làm số lần damage. Mục tiêu chết không nhận các hit kế tiếp; hiệu ứng vẫn hoàn tất hợp lý và caster trở về trước khi kết thúc action.
+
+Ultimate không tự cộng thanh từ damage nó gây ra. Không tự thêm choáng/bỏ lượt chỉ vì hình ảnh là nhà tù. Pha quái vẫn diễn ra sau khi action hoàn tất nếu còn quái sống và nhân vật chưa thua.
+
+## 5. Camera 360° và AR
+
+Camera không cắt sang góc cinematic cố định khi dùng ultimate. Người chơi tiếp tục orbit; camera follow/focus blend giúp nhìn thấy caster và vùng thi triển mà không ghi đè yaw người dùng. Tự tránh clipping nhẹ, không biến camera thành xa nhìn toàn bản đồ.
+
+Kiểm tra VFX từ trước/sau/trái/phải/trên: mesh dome, trụ, tip, line và thứ tự trong suốt phải hợp lý; không mất nửa hiệu ứng vì chỉ tối ưu cho góc ngang cũ. Billboard nhìn theo camera đang active, kể cả khi pause timeline và xoay góc quan sát.
+
+Vùng thi triển đặt theo bàn đấu/target anchor, không bám theo camera. Chọn local/custom simulation space hoặc chuyển tọa độ nhất quán để board dịch, quay, scale không làm particle/line rơi lại ở world origin. Các khoảng cách, chiều rộng line và kích thước glow phải xét scale bàn; không mix trụ đã scale với vòng điện giữ bán kính world cố định.
+
+Khi dùng camera AR, không điều khiển pose tracking để tạo cutscene. Việc dùng được camera ngoài chỉ là chuẩn bị kiến trúc; cần kiểm chứng thiết bị riêng trước khi báo hỗ trợ AR hoàn chỉnh.
+
+## 6. Kết thúc và kiểm thử
+
+Chỉ complete action sau khi: VFX hết pha chính/tàn dư cần thiết, caster thu pose, về đúng đội hình, focus/vũ khí được cất, particle/audio/trail được dọn và không còn callback cũ. Animation không đứng đông khi sét chạy; return không kéo caster ngược trong pose đang tụ lực.
+
+Nghiệm thu:
+
+1. Quay một action trọn vẹn từ home đến địch rồi về, có thể chỉ ra pha bay đi/thi triển/bay về.
+2. Kiểm tra đủ sáu trụ và toàn bộ lớp VFX, xem ở ít nhất bốn yaw camera.
+3. Dùng 1v1 và 1v3: đủ năm hit trên mục tiêu sống, tối đa 360/target; quái chết không nhận thêm hit.
+4. Bấm ultimate hai lần, hủy chọn, pause khi bay/impact/lồng/dissolve, reset hoặc kết thúc trận; không nhân đôi cost/hit/effect.
+5. Kiểm tra đối phương không bắt đầu lượt trong khi caster đang ở cạnh lồng hoặc chưa về/cất xong.
+6. Đo hiệu năng Editor và thiết bị mục tiêu riêng; đưa số liệu có môi trường đo, không cam kết FPS chỉ bằng test bước mô phỏng.
+
+Bàn giao scene/prefab, timeline có hai trục thời gian được ghi rõ, config sát thương, hình ảnh kiểm tra và kết quả test. Ưu tiên hoàn thiện ultimate hiện có, không thay bằng một hiệu ứng khác chỉ vì dễ dựng hơn.
+
+
+# PROMPT — CHẠY SẢI DÀI, NHỊP CHẬM, TAY ĐÚNG NHỊP; EARTH PRISON BAY CAO RỒI THI TRIỂN
+
+Trạng thái: đã được người dùng yêu cầu thực hiện và đã triển khai; thông số thực tế xem HighCast_20261029_VI.md. Các bảng trong prompt là đề xuất ban đầu. Khi được yêu cầu thực hiện, ưu tiên nội dung này hơn các thông số chạy/bay trong bộ prompt cũ.
+
+Bạn là technical animator và Unity gameplay engineer. Hãy chỉnh hệ chiến đấu theo lượt trong `E:/My project`, scene `Assets/TurnBasedBattle/Scenes/TurnBattleDemo.unity`. Dùng rig Gundam hiện có và bảo toàn các cơ chế chiến đấu. Mục tiêu là chuyển động tự nhiên khi xem cả chuỗi, không chỉ nội suy root mượt hoặc đạt test logic.
+
+## 1. Kết quả người chơi phải nhìn thấy
+
+- Đòn kiếm: Gundam lấy đà nhẹ, chạy tới địch bằng những bước dài, nhịp từ tốn và có trọng lượng. Chân đạp xuống đất để đẩy thân đi; tay vung có chủ đích và phối hợp với chân. Hãm tốc, đứng vững rồi chém; thu động tác, bước quay người, chạy về và cất kiếm.
+- Súng/vũ khí tầm xa: tiếp tục đứng tại đội hình để rút, ngắm, bắn và cất. Không chuyển sang chạy hoặc bay áp sát.
+- R — Earth Prison: Gundam bật booster, bay tới vị trí thi triển ở trên cao phía ngoài vùng địch, giảm tốc và ổn định tư thế bay. Chỉ sau khi đã lên đủ cao và ổn định mới tụ lực, phóng chiêu xuống vùng địch. Giữ trên không suốt pha thi triển; sau đó thu chiêu, bay về và hạ cánh.
+- Idle và né vẫn ở vị trí đội hình. Camera mặc định phía sau nhưng xoay 360°, zoom và thanh máu trên đầu địch phải tiếp tục hoạt động.
+
+## 2. Chẩn đoán trước khi chỉnh
+
+Đọc `BattleActor`, `BattleLocomotionPose`, `BattleClipBuilder`, `BattleWeaponRig`, `BattleActionDefinition`, `BattleOrbitCamera` và các config hiện hành. Xem lại clip chạy hiện có ở tốc độ 1× và 0.5× từ góc bên.
+
+Ghi rõ nguyên nhân bước chạy thô: tần số bước quá cao, stride không khớp tốc độ, chân duỗi tới giới hạn IK, pelvis thiếu dịch trọng lượng, pose chân bị bật khi blend hoặc tay bị nhiều hệ cùng ghi đè. Đo theo kích thước chân của rig, không chỉ tăng `runStride` cho đến khi trông như bước dài.
+
+Không đặt mục tiêu bằng cách giảm PlaybackSpeed toàn trận: nhịp chạy chậm phải nằm trong dữ liệu di chuyển/animation của từng action. Hit reaction, projectile, né và camera giữ tốc độ phù hợp riêng.
+
+## 3. Chạy bước dài và từ tốn
+
+### Nhịp và tốc độ
+
+- Tách rõ `stepLength` (một lần chuyển chân), `strideLength` (hai bước, cùng chân chạm lại), cadence và tốc độ tiến. Dùng cùng đơn vị bàn đấu, có xét scale.
+- Quan hệ cần giữ: vận tốc tiến xấp xỉ chiều dài bước × số bước mỗi giây. Animation chân phải đi theo quãng đường đã chạy; không chạy chu kỳ nhanh cố định trong khi root đi chậm.
+- Dải thử ban đầu: mỗi bước khoảng 0.7–0.9 chiều dài toàn chân; chu kỳ hai bước khoảng 0.9–1.2 giây. Đây là thông số tinh chỉnh theo rig, không phải tiêu chí cứng. Nếu muốn bước dài hơn, phải kiểm tra độ với của chân và dịch chuyển hông trước.
+- Ưu tiên cadence chậm và bước rõ ràng. Tốc độ tiến giảm so với bản đang chạy; cho phép action dài hơn. Không ép nhân vật vượt khoảng cách lớn trong thời lượng cũ bằng cách tăng tốc đột ngột.
+- Khởi động khoảng 0.25–0.4 giây, tăng tốc dần; giữa quãng đường giữ nhịp; bước cuối ngắn lại để hãm khoảng 0.3–0.5 giây. Chuyển tốc độ có vận tốc và gia tốc liên tục.
+
+### Một bước phải có đầy đủ pha
+
+1. Tiếp đất: bàn chân tới trước thân trong phạm vi giải phẫu của rig; gối không khóa thẳng, không giật hoặc đổi chiều IK.
+2. Nhận trọng lượng: gối và hông hạ nhẹ, thân chuyển lên chân trụ. Không cho cả hai chân cùng trượt như đứng trên băng.
+3. Đẩy đi: chân trụ duỗi vừa đủ, thân tiến qua phía trên bàn chân; chân sau rời đất có chủ đích.
+4. Vung chân: gối gập tạo khoảng hở cho bàn chân, đưa chân qua rồi duỗi dần để đón bước tiếp theo. Không kéo một bàn chân nằm ngang xuyên sàn.
+
+Chân trụ giữ vị trí ổn định tương đối với bàn đấu trong pha tiếp xúc. Chân đang vung có quỹ đạo riêng. IK dùng độ dài xương thật, giới hạn gối và pole vector ổn định. Khi mục tiêu vượt khả năng với, điều chỉnh vị trí hông/chiều dài bước; không kéo dài xương hoặc giật gối.
+
+Root chạy giữ trên mặt bàn. Dao động nhỏ của pelvis để nhận trọng lượng là hợp lệ; không biến cả nhân vật thành chuỗi bật nhảy. Nếu model không có khớp ngón chân, mô phỏng lăn bàn chân nhẹ ở ankle, tránh xoay gót quá mức làm xuyên giáp.
+
+### Thân và tay vung chuẩn
+
+- Chân trái tiến thì tay phải tiến; chân phải tiến thì tay trái tiến. Hai tay lệch pha 180°, không vung cùng hướng và không đánh tay nhanh gấp nhịp chân.
+- Vai dẫn động, khuỷu gập tự nhiên, cổ tay tương đối ổn định. Dải thử: vai trước/sau khoảng 15–25°, khuỷu khoảng 65–90°, tinh chỉnh để không xuyên giáp hoặc ngực. Không áp cứng cùng biên độ cho mọi khớp.
+- Ngực xoay nhẹ ngược pelvis để cân bằng, thân nghiêng tới trước vừa đủ; đầu ổn định nhìn hướng chạy. Tránh lắc đầu, lắc ngực quá lớn hoặc giữ thân cứng trong khi chỉ đạp chân.
+- Khi đã rút chuôi kiếm: tay cầm kiếm dùng dáng chạy riêng, vung nhỏ hơn tay trống và giữ chuôi hướng an toàn; không vung kiếm xuyên đùi/giáp. Lưỡi sáng chỉ bật khi chuẩn bị đánh, không chạy qua người bằng lưỡi đang chĩa ngang.
+- Một hệ chịu trách nhiệm cuối cùng cho mỗi khớp trong mỗi pha. Quy định thứ tự action pose → locomotion blend → IK → attachment; không để arm swing, animation clip và weapon IK giành nhau gây rung.
+
+## 4. Nối chạy, đánh và trở về
+
+- Chạy → hãm → đặt chân trụ → windup → chém → follow-through. Không bật tức thì từ chân đang bước sang pose chém hoặc trượt thêm trong lúc kiếm đã chạm.
+- Căn thời điểm dừng với phase chân phù hợp. Nếu đoạn đường không đủ một stride, điều chỉnh bước cuối; không reset cycle để ép khớp.
+- Quay về bằng bước xoay/đổi chân, trọng lượng chuyển giữa hai chân. Không quay root 180° trong khi bàn chân vẫn khóa tại chỗ.
+- Bắt đầu chạy về sau khi đã hướng đủ về đường về; không chạy lùi trong tư thế chạy tới. Đến đội hình thì hãm, đặt hai chân, cất vũ khí và blend về idle.
+- Chỉ hoàn tất action và mở lượt địch sau khi return, sheathe và settle hoàn tất. Marker damage, cue né, cost và cooldown phải theo action timeline mới; không giữ timestamp cũ khi đã kéo dài phần chạy.
+- Cùng một lần hit chỉ gây damage một lần. Pause/resume, đổi tốc độ thử nghiệm, reset và death không để lại bước chạy, weapon hoặc callback cũ.
+
+## 5. R bay cao rồi mới dùng chiêu
+
+### Điểm thi triển trên không
+
+- Lấy chiều cao Gundam H từ kích thước rig đã chuẩn hóa, không lấy bounds đang bị ảnh hưởng bởi kiếm/booster đang bật.
+- Đề xuất ban đầu: khoảng hở từ lòng bàn chân tới mặt bàn tại điểm thi triển bằng khoảng 1.0–1.3 × H. Ví dụ H ≈ 2.6 đơn vị thì khoảng hở khoảng 2.6–3.4 đơn vị bàn đấu. Hiển thị rõ để có thể tinh chỉnh trong Inspector.
+- Phân biệt độ cao root/pivot với khoảng hở bàn chân: tính mục tiêu root từ vị trí bàn chân khi hover, không gán thẳng khoảng hở vào root.y nếu pivot khác.
+- Vị trí ngang của caster vẫn nằm ngoài vòng trụ: khoảng cách ngang từ caster tới tâm vòng ≥ bán kính vòng + bán kính thân + margin. Bay cao không cho phép đặt caster thẳng trong vùng trụ/lồng.
+- Tọa độ theo `BattleContent`/arena, xét scale đồng đều. Đổi vị trí hoặc xoay bàn không làm đường bay và VFX lệch nhau.
+
+### Timeline đề xuất để tinh chỉnh
+
+| ActionTime | Pha |
+|---|---|
+| 0–0.45s | Chuẩn bị, hạ trọng tâm nhẹ, booster tăng lực |
+| 0.45–2.20s | Bay lên cao và tiến tới điểm thi triển, tăng tốc rồi hãm êm |
+| 2.20–2.55s | Ổn định trên không, chuyển sang pose tụ lực |
+| 2.55–10.55s | Earth Prison đủ 8s; caster giữ độ cao |
+| 10.55–12.50s | Thu chiêu, bay về, hạ dần về đội hình |
+| 12.50–13.10s | Chạm đất, gối/hông hấp thụ lực, booster tắt dần, về idle |
+
+Đây là mốc khởi đầu để review, không bắt buộc ép thời lượng nếu chuyển động chưa tự nhiên. Điều kiện bắt đầu charge là đã đến vị trí và ổn định; hết một timer trong khi vẫn đang bay chưa đủ để coi là đạt.
+
+Không còn nhánh hạ về mặt đất tại `arriveTime` rồi mới thi triển. Trong toàn bộ 8 giây VFX, caster phải giữ vị trí trên không, có tư thế hover: chân hơi thu/gập, thân cân bằng, tay điều khiển năng lượng, booster mức thấp. Dao động hover rất nhẹ, khoảng 1–2% H, chu kỳ khoảng 2–3s; không nhấp nhô liên tục như nhảy.
+
+### Phóng chiêu từ trên cao xuống
+
+- Cầu điện bám CastSocket ở bàn tay trong pose trên không. Sau charge, tia đi từ bàn tay tới mặt đất ở tâm vùng địch; có góc hướng xuống rõ ràng.
+- Chỉ orb/tia đầu vào theo caster. Vòm, trụ, bụi, rubble và lồng sét vẫn đặt trên mặt bàn quanh địch, không bị nâng lên theo caster.
+- Giữ hình ảnh nhận diện và nhịp 8s của Earth Prison. Không thêm vụ nổ cuối hoặc thay cơ chế damage để che vấn đề chuyển động.
+- Quy đổi `VfxTime = ActionTime - VfxStart`. Nếu dùng VfxStart = 2.55 thì damage tại **5.90 / 7.65 / 8.05 / 8.45 / 8.85s**, tương ứng **120 / 60 / 60 / 60 / 60**. Nếu thay VfxStart, tự dịch tất cả marker liên quan từ nguồn dữ liệu chung.
+- Ultimate không tự cộng thanh; không tự thêm stun. Địch chỉ bắt đầu lượt sau khi caster đã trở về/hạ cánh/cleanup xong.
+
+## 6. Camera khi R bay cao
+
+- Giữ quyền xoay yaw 360° và zoom của người dùng. Không cắt camera sang cinematic cố định, không tự đưa yaw về sau lưng.
+- Pivot/follow blend phải xét cả caster trên cao và vùng mục tiêu dưới đất. Cho phép nới khoảng cách và điều chỉnh focus/pitch nhẹ nếu cần để thấy bàn tay, đường tia và vùng lồng trong góc đang hướng về trận đấu.
+- Không cộng độ cao caster vào pivot rồi làm toàn bộ địch biến mất dưới khung hình. Đồng thời không kéo camera ra quá xa thành nhìn toàn bản đồ.
+- Nếu người dùng chủ động xoay ra khỏi vùng địch thì tôn trọng góc đó, không cưỡng ép tự xoay lại để thấy tất cả.
+- Khi hạ xuống, camera trở về offset bình thường bằng blend, giữ yaw/zoom người dùng. AR camera do tracking quản lý vẫn không bị thay pose; chỉ dịch nội dung bàn đấu/các đối tượng theo quyền sở hữu đã thiết kế.
+
+## 7. Nghiệm thu trước khi báo hoàn thành
+
+### Quan sát chuyển động
+
+- Quay góc bên và 3/4 ở tốc độ 1×: thấy rõ bước dài, nhịp chậm, chân nhận trọng lượng; không bước li ti, không nhảy, không trượt thân trên đôi chân đạp vô nghĩa.
+- Xem 0.5× phần tiếp đất, chân trụ, đổi chân, hãm và quay: gối không bật, xương không giãn, chân không xuyên sàn, không snap vào pose đánh.
+- Tay/chân đúng pha, khuỷu/cổ tay không rung, chuôi không xuyên giáp. Xem cả hai bên vì một góc có thể che lỗi.
+- R phải cho thấy rõ đủ bốn trạng thái: bay lên cao → đứng trên không tụ/thi triển → bay về → hạ cánh. Chụp charge và cage để chứng minh caster vẫn ở trên cao trong lúc chiêu chạy.
+
+### Logic và trường hợp biên
+
+- 1v1/1v3, mục tiêu ở bên trái/phải và khoảng cách khác nhau: không tăng cadence đột ngột, không chạy xuyên đối tượng hoặc dừng trong mục tiêu.
+- 30/60/120Hz mô phỏng và bước delta lớn: vị trí/chân/marker nhất quán; phân biệt bài logic với FPS thiết bị thật.
+- Ultimate giữ đủ 5 hit, tối đa 360 mỗi mục tiêu sống đủ chuỗi; không damage sớm khi caster còn bay lên. Cost trừ một lần; callback cũ không tồn tại sau restart/death.
+- Pause khi chân đang trụ, lúc cất cánh, lúc hover, impact, bay về, hạ cánh; resume không bật pose.
+- Orbit/zoom trong mọi pha, đổi scale bàn, giao camera ngoài; thanh máu bám đầu địch. Không tuyên bố AR hoàn chỉnh khi chưa kiểm tra thiết bị.
+
+## 8. Bàn giao
+
+Lưu scene/prefab/config và cập nhật prompt. Nêu rõ các thông số mới: chiều dài bước, cadence, tốc độ chạy, thời gian hãm, biên độ vai/khuỷu, độ cao bàn chân khi R, VfxStart và thời lượng action. Giao clip so sánh trước/sau cùng góc camera, đủ toàn bộ chạy đi–đánh–chạy về và bay lên–thi triển–hạ xuống.
+
+Không kết luận “siêu mượt” chỉ vì có SmoothDamp/Slerp hoặc test đã qua. Báo rõ phần đã kiểm chứng bằng logic, phần đã xem bằng clip và điểm còn cần tinh chỉnh mỹ thuật trên rig hiện có.

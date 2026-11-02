@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a1b229a6943f74f84c69eeda5ce331, type: 3}
+  m_Name: Guard
+  m_EditorClassIdentifier: Assembly-CSharp::TurnBasedBattle.BattleActionDefinition
+  kind: 2
+  displayName: "PH\xD2NG TH\u1EE6 \xB7 Gi\u1EA3m 50% s\xE1t th\u01B0\u01A1ng"
+  clipName: Guard
+  duration: 0.65
+  releaseTime: 0
+  ultimateCost: 0
+  ultimateGain: 0
+  cooldownTurns: 0
+  allEnemies: 0
+  approachTarget: 0
+  travelStyle: 2
+  runStride: 2.1
+  castHeightRatio: 1.15
+  airborneCast: 0
+  travelStart: 0.18
+  arriveTime: 0.75
+  returnStart: 1.45
+  returnEnd: 2.3
+  stopDistance: 1.65
+  travelLift: 0.14
+  vfxStart: 0
+  weapon: 0
+  gripTime: 0.42
+  drawEnd: 0.66
+  bladeOn: 0.72
+  bladeOff: 2.05
+  sheatheStart: 3.05
+  holsterTime: 3.48
+  melee: 0
+  hits: []
