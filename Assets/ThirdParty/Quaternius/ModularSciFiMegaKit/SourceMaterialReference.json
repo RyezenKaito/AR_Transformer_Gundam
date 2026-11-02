@@ -1,0 +1,527 @@
+{
+  "M_Alien_Eyes": {
+    "name": "M_Alien_Eyes",
+    "color": [
+      0.0010511603904888034,
+      0.00290103442966938,
+      0.004038436338305473,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "M_Alien_Body_Blue": {
+    "name": "M_Alien_Body_Blue",
+    "color": [
+      0.07393164187669754,
+      0.17926785349845886,
+      0.33469557762145996,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.437007874250412,
+    "alpha": "OPAQUE"
+  },
+  "M_Alien_Orange": {
+    "name": "M_Alien_Orange",
+    "color": [
+      0.5049759745597839,
+      0.09255822747945786,
+      0.02329980954527855,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.437007874250412,
+    "alpha": "OPAQUE"
+  },
+  "M_Alien_Cyan": {
+    "name": "M_Alien_Cyan",
+    "color": [
+      0.04511015862226486,
+      0.3357159495353699,
+      0.28947392106056213,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.437007874250412,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_03": {
+    "name": "MI_Trim_03",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_03_BaseColor.png",
+    "normal": "T_Trim_03_Normal.png",
+    "orm": "T_Trim_03_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_02": {
+    "name": "MI_Trim_02",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_02_BaseColor_Red.png",
+    "normal": "T_Trim_02_Normal.png",
+    "orm": "T_Trim_02_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_01": {
+    "name": "MI_Trim_01",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_01_BaseColor_Red.png",
+    "normal": "T_Trim_01_Normal.png",
+    "orm": "T_Trim_01_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_03_Dark": {
+    "name": "MI_Trim_03_Dark",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_03_Cables.png",
+    "normal": "T_Trim_03_Normal.png",
+    "orm": "T_Trim_03_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_PaddedWall": {
+    "name": "MI_PaddedWall",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_PaddedWall_BaseColor.png",
+    "normal": "T_PaddedWall_Normal.png",
+    "orm": "T_PaddedWall_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "M_Decal_White": {
+    "name": "M_Decal_White",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Decals.png",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "MI_Decal_Line": {
+    "name": "MI_Decal_Line",
+    "color": [
+      0.8001017570495605,
+      0.18927901983261108,
+      0,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_02_Floor": {
+    "name": "MI_Trim_02_Floor",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_02_BaseColor.png",
+    "normal": "T_Trim_02_Normal.png",
+    "orm": "T_Trim_02_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_02_Rails": {
+    "name": "MI_Trim_02_Rails",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_02_BaseColor_Red.png",
+    "normal": "T_Trim_02_Normal.png",
+    "orm": "T_Trim_02_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_01_Floor": {
+    "name": "MI_Trim_01_Floor",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_01_BaseColor_Red.png",
+    "normal": "T_Trim_01_Normal.png",
+    "orm": "T_Trim_01_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Decal_Grey": {
+    "name": "MI_Decal_Grey",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Decals.png",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_01_Stairs": {
+    "name": "MI_Trim_01_Stairs",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_01_BaseColor_Red.png",
+    "normal": "T_Trim_01_Normal.png",
+    "orm": "T_Trim_01_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "M_Glass": {
+    "name": "M_Glass",
+    "color": [
+      0.800000011920929,
+      0.800000011920929,
+      0.800000011920929,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_03_Cables": {
+    "name": "MI_Trim_03_Cables",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_03_Cables.png",
+    "normal": "T_Trim_03_Normal.png",
+    "orm": "T_Trim_03_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "M_Decal_Screen": {
+    "name": "M_Decal_Screen",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Decals.png",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "M_Black": {
+    "name": "M_Black",
+    "color": [
+      0.0057737254537642,
+      0.0057737254537642,
+      0.0057737254537642,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "M_LightFade_Red": {
+    "name": "M_LightFade_Red",
+    "color": [
+      0.800000011920929,
+      0.800000011920929,
+      0.800000011920929,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "MI_Decal_Red": {
+    "name": "MI_Decal_Red",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Decals.png",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 0,
+    "roughness": 0.5,
+    "alpha": "OPAQUE"
+  },
+  "M_Light": {
+    "name": "M_Light",
+    "color": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      1,
+      1,
+      1
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_03_Cables_Blue": {
+    "name": "MI_Trim_03_Cables_Blue",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "T_Trim_03_Cables.png",
+    "normal": "T_Trim_03_Normal.png",
+    "orm": "T_Trim_03_ORM.png",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  },
+  "MI_Trim_02_Variation": {
+    "name": "MI_Trim_02_Variation",
+    "color": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "baseMap": "",
+    "normal": "",
+    "orm": "",
+    "emissionMap": "",
+    "emission": [
+      0,
+      0,
+      0
+    ],
+    "metallic": 1,
+    "roughness": 1,
+    "alpha": "OPAQUE"
+  }
+}

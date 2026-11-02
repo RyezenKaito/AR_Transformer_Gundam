@@ -1,0 +1,733 @@
+{
+  "materials": [
+    {
+      "name": "ArenaShield",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/ArenaShield.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "City",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/City.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/City_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/City_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/City_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/City_Emission.png",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Circle",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Circle.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Circle2 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Circle2 1.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Clean",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Clean.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_GalvSteel 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_GalvSteel 2.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_GalvSteel 3",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_GalvSteel 3.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_GalvSteel",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_GalvSteel.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex 1.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex 2.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex2 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex2 2.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex2.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex2_Large 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex2_Large 1.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex2_Large",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex2_Large.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_HexBranch 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_HexBranch 1.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_HexBranch 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_HexBranch 2.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_HexBranch",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_HexBranch.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_HexBranch_Boss",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_HexBranch_Boss.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_HexBranch_MetalMountain",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_HexBranch_MetalMountain.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Detail_Hex_Large",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Detail_Hex_Large.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "DistantForest",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/DistantForest.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/DistantTrees/Trees_DefaultMaterial_Normal.png"
+    },
+    {
+      "name": "DistantForest_shadow",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/DistantForest_shadow.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/DistantTrees/Trees_DefaultMaterial_Normal.png"
+    },
+    {
+      "name": "GiantSpokes_1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/GiantSpokes_1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "GiantSpokes_again",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/GiantSpokes_again.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_again_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_again_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_again_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/GiantSpokes_again_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "GiantWindows",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/GiantWindows.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "GoodLuck",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/GoodLuck.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "HDRI",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/HDRI.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Highway",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Highway.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "HighwayRing",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/HighwayRing.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/HighwayRing_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/HighwayRing_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/HighwayRing_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/HighwayRing_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_020/Metal_Plate_020_Normal.tga"
+    },
+    {
+      "name": "InnerSphere",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/InnerSphere.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "InnerSphereShield",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/InnerSphereShield.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Metal_Panels_009",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Panels_009.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Panels_009/Metal_Panels_009_Normal.tga"
+    },
+    {
+      "name": "Metal_Panels_009_Large",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Panels_009_Large.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Large_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Large_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Large_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Panels_009_Large_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Panels_009/Metal_Panels_009_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_012 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_012 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_012 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_012 2.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 2_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 2_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 2_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 2_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_012 3",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_012 3.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 3_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 3_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 3_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012 3_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_012",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_012.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_012_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_017 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_017 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_017/Metal_Plate_017_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_017 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_017 2.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 2_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 2_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 2_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017 2_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_017/Metal_Plate_017_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_017",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_017.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_017_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_017/Metal_Plate_017_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_020 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_020 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_020/Metal_Plate_020_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_020",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_020.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_020_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_020/Metal_Plate_020_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_022 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_022 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_022/Metal_Plate_022_Normal.tga"
+    },
+    {
+      "name": "Metal_Plate_022",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Metal_Plate_022.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Metal_Plate_022_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_022/Metal_Plate_022_Normal.tga"
+    },
+    {
+      "name": "Mountain",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Mountain.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Mountain/mountain_DefaultMaterial_BaseColor.tga",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Mountain/mountain_DefaultMaterial_Normal.tga"
+    },
+    {
+      "name": "MountainBuildings",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/MountainBuildings.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/MountainBuildings_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/MountainBuildings_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/MountainBuildings_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/MountainBuildings_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "RimCity_BigBuildings",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/RimCity_BigBuildings.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/RimCity_BigBuildings/BigBuildings_DefaultMaterial_BaseColor.tga",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Rocks",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Rocks.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Mountain/mountain_DefaultMaterial_BaseColor.tga",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Mountain/mountain_DefaultMaterial_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Door_001",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Door_001.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Door_001_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Door_001_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Door_001_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Door_001_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Door_001/Sci-fi_Door_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 2",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 2.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 2_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 2_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 2_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 2_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 3",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 3.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 3_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 3_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 3_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 3_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 4",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 4.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 4_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 4_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 4_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 4_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 5",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 5.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 5_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 5_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 5_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 5_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 6",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 6.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 6_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 6_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 6_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 6_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 7",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 7.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 7_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 7_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 7_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 7_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 8",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 8.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 8_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 8_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 8_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 8_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001 9",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001 9.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 9_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 9_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 9_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001 9_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001_higherDetailTiling 1",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001_higherDetailTiling 1.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_higherDetailTiling 1_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_higherDetailTiling 1_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_higherDetailTiling 1_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_higherDetailTiling 1_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "Sci-fi_Walll_001_Large",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Sci-fi_Walll_001_Large.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Large_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Large_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Large_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/Sci-fi_Walll_001_Large_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Sci-fi_Walll_001/Sci-fi_Walll_001_Normal.tga"
+    },
+    {
+      "name": "SmallBuildings.001",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/SmallBuildings.001.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings.001_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings.001_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings.001_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings.001_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/SmallBuildings.001/SmallBuildings.001_Normal.tga"
+    },
+    {
+      "name": "SmallBuildings",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/SmallBuildings.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/SmallBuildings_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/SmallBuildings/SmallBuildings_Normal.tga"
+    },
+    {
+      "name": "TempGrass",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/TempGrass.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/DistantTrees/Trees_DefaultMaterial_Normal.png"
+    },
+    {
+      "name": "TempWater",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/TempWater.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "VFX_Traffic",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/VFX_Traffic.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "VFX_Traffic_Faster",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/VFX_Traffic_Faster.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "VFX_Traffic_lessDisplacement",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/VFX_Traffic_lessDisplacement.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "VFX_Traffic_mainStrip",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/VFX_Traffic_mainStrip.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "Water",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Water.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "WaterRise",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/WaterRise.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "WindowRotate",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/WindowRotate.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/URP/WindowRotate_Base.png",
+      "metalMap": "Assets/ThirdParty/SphereCity/URP/WindowRotate_MetalSmooth.png",
+      "aoMap": "Assets/ThirdParty/SphereCity/URP/WindowRotate_AO.png",
+      "emissionMap": "Assets/ThirdParty/SphereCity/URP/WindowRotate_Emission.png",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Metal_Plate_012/Metal_Plate_012_Normal.tga"
+    },
+    {
+      "name": "M_D_01",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_01.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_Normal.png"
+    },
+    {
+      "name": "M_D_BigCrack",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_BigCrack.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_BigCrack_BaseMap.png",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_BigCrack_Normal.png"
+    },
+    {
+      "name": "M_D_Chips",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_Chips.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_BaseMap.png",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_Normal.png"
+    },
+    {
+      "name": "M_D_Chips_color",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_Chips_color.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_BaseMap.png",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_Normal.png"
+    },
+    {
+      "name": "M_D_Crack",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_Crack.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Crack_BaseMap.png",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Crack_Normal.png"
+    },
+    {
+      "name": "M_D_GlassCrack",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_GlassCrack.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_GlassCrack_BaseMap.tga",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_GlassCrack_Normal.tga"
+    },
+    {
+      "name": "M_D_Hero_New",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_Hero_New.mat",
+      "baseMap": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/robotHeroDecal_BaseMap.png",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": ""
+    },
+    {
+      "name": "M_D_Training",
+      "path": "Assets/ThirdParty/SphereCity/Art/Materials/Decals/M_D_Training.mat",
+      "baseMap": "",
+      "metalMap": "",
+      "aoMap": "",
+      "emissionMap": "",
+      "normal": "Assets/ThirdParty/SphereCity/Art/Textures/Decals/Decal_Chips_Normal.png"
+    }
+  ]
+}
