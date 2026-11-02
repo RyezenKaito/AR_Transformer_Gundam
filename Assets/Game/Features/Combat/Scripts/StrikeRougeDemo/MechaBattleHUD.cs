@@ -34,8 +34,8 @@ namespace GundamGame.CombatDemo
         bool bound;
         Rect? safeOverride;
         static readonly Color White=new Color(.91f,.96f,1),Muted=new Color(.58f,.69f,.77f),Cyan=new Color(.32f,.91f,1),Amber=new Color(1,.66f,.20f),Red=new Color(1,.30f,.39f),Pink=new Color(1,.45f,.65f);
-        static readonly string[] Names={"BEAM RIFLE","ANTI-SHIP","OOTORI MISSILES","FULL BURST"};
-        static readonly string[] Details={"Single target / Rifle volley","Single target / Blade assault","All enemies / Missile barrage","Primary + splash / Cinematic"};
+        static readonly string[] Names={"V-FIN PULSE","ANTI-SHIP","OOTORI MISSILES","FULL BURST"};
+        static readonly string[] Details={"Single target / Antenna pulse","Single target / Blade assault","All enemies / Missile barrage","Primary + splash / Cinematic"};
 
         public static MechaBattleHUD CreateFallback()
         {

@@ -49,7 +49,7 @@ namespace GundamGame.CombatDemo.Editor
             presentation.placement=UnityEngine.Object.FindAnyObjectByType<RougeArenaPlacement>();
             presentation.glowShader=Shader.Find("Gundam/AR Skill Glow");presentation.solidShader=Shader.Find("Universal Render Pipeline/Unlit");
             if(presentation.glowShader==null)throw new InvalidOperationException("AR Skill Glow shader was not imported.");
-            battle.presentation=presentation;battle.player.muzzle=presentation.rifleMuzzle;
+            battle.presentation=presentation;RougeAntennaAuthoring.Configure(battle);
             ConfigureCameras(presentation);
             EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
             Selection.activeGameObject=battle.gameObject;

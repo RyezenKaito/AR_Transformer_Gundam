@@ -13,6 +13,7 @@ namespace GundamGame.CombatDemo
         public RougeBattleDemo battle;
         public RougeAnimationDriver animationRig;
         public Transform rifleMuzzle, beamMuzzle, railMuzzle, swordBase, swordTip, core, shield;
+        public Transform antennaMuzzle, antennaLeftTip, antennaRightTip;
         public Transform[] missilePorts = Array.Empty<Transform>();
         public Camera virtualCamera;
         public RougeArenaPlacement placement;
@@ -27,7 +28,7 @@ namespace GundamGame.CombatDemo
         public int DamageEvents { get; private set; }
         public int MissilesLaunched { get; private set; }
         public int SourceAnimationsPlayed => animationRig != null ? animationRig.ImportedClipsPlayed : 0;
-        public bool AnimationReady => animationRig != null && animationRig.idle != null && animationRig.launcher != null && animationRig.rifle != null && animationRig.blade != null;
+        public bool AnimationReady => animationRig != null && animationRig.idle != null && animationRig.launcher != null && animationRig.antenna != null && animationRig.blade != null;
         readonly List<GameObject> fx = new List<GameObject>();
         readonly List<Material> materials = new List<Material>();
         readonly Dictionary<Color,Material> glowMaterials = new Dictionary<Color,Material>();
@@ -56,7 +57,7 @@ namespace GundamGame.CombatDemo
             visualHome=Player.visual.localPosition; visualRotation=Player.visual.localRotation;
             animationRig.Initialize();
             audioSource=gameObject.AddComponent<AudioSource>(); audioSource.playOnAwake=false; audioSource.volume=.3f; audioSource.spatialBlend=0;
-            shotSound=Tone("Rifle pulse",.16f,700,110,.12f);
+            shotSound=Tone("Antenna pulse",.16f,700,110,.12f);
             slashSound=Tone("Blade sweep",.24f,160,45,.7f);
             impactSound=Tone("Missile impact",.3f,100,28,.8f);
             chargeSound=Tone("Core charging",.85f,120,800,.04f);
@@ -147,7 +148,7 @@ namespace GundamGame.CombatDemo
         public IEnumerator Perform(int skill, DemoFighter target, DemoFighter[] enemies, Action<DemoFighter,int> damage)
         {
             EndDefense();
-            if(skill==0) yield return Rifle(target,damage);
+            if(skill==0) yield return AntennaPulse(target,damage);
             else if(skill==1) yield return Blade(target,damage);
             else if(skill==2) yield return Barrage(enemies,damage);
             else yield return Ultimate(target,enemies,damage);
@@ -166,18 +167,38 @@ namespace GundamGame.CombatDemo
             Vector3 d=Arena.InverseTransformPoint(target.transform.position)-Arena.InverseTransformPoint(Player.transform.position);d.y=0;
             Player.visual.localRotation=d.sqrMagnitude>.001f?Quaternion.LookRotation(d.normalized,Vector3.up):visualRotation;
         }
-        IEnumerator Rifle(DemoFighter target,Action<DemoFighter,int> damage)
+        IEnumerator AntennaPulse(DemoFighter target,Action<DemoFighter,int> damage)
         {
-            LastSkill="Beam Rifle / 3-round burst"; Face(target); animationRig.Play(animationRig.rifle);
-            yield return Wait(.31f);
+            LastSkill="V-Fin Pulse / 3-round burst"; Face(target); animationRig.Play(animationRig.antenna);
+            yield return ChargeAntenna(.31f);
             int total=battle.beamDamage;
             for(int i=0;i<3;i++)
             {
                 Sound(shotSound);
-                yield return Beam(rifleMuzzle,target,Green,.045f,.14f,()=>Hit(target,i==2?total-2*(total/3):total/3,damage,Green));
+                if(antennaLeftTip!=null)RunFx(Flash(antennaLeftTip.position,Green,.075f,.14f));
+                if(antennaRightTip!=null)RunFx(Flash(antennaRightTip.position,Green,.075f,.14f));
+                yield return Beam(antennaMuzzle,target,Green,.045f,.14f,()=>Hit(target,i==2?total-2*(total/3):total/3,damage,Green));
                 if(i<2)yield return Wait(.17f);
             }
             yield return Wait(.25f);
+        }
+        IEnumerator ChargeAntenna(float seconds)
+        {
+            if(antennaMuzzle==null || antennaLeftTip==null || antennaRightTip==null)
+            { yield return Wait(seconds);yield break; }
+            var go=Effect("V-Fin charge");var line=Line(go,Green,3,.012f);
+            RunFx(Flash(antennaMuzzle.position,Green,.12f,seconds));
+            float elapsed=0;
+            while(elapsed<seconds)
+            {
+                elapsed+=Time.deltaTime;
+                line.SetPosition(0,Arena.InverseTransformPoint(antennaLeftTip.position));
+                line.SetPosition(1,Arena.InverseTransformPoint(antennaMuzzle.position));
+                line.SetPosition(2,Arena.InverseTransformPoint(antennaRightTip.position));
+                line.startWidth=line.endWidth=Mathf.Lerp(.004f,.023f,elapsed/seconds)*Scale;
+                yield return null;
+            }
+            Release(go);
         }
         IEnumerator Blade(DemoFighter target,Action<DemoFighter,int> damage)
         {

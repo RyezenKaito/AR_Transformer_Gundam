@@ -10,14 +10,14 @@ HUD hiện dùng prefab Mecha với chân dung, HP và Armor, năm ô Burst, tim
 
 | Chiêu | Animation và hiệu ứng | Chi phí Burst |
 |---|---|---|
-| Beam Rifle Burst | Ngắm mục tiêu, ba tia beam và hiệu ứng đầu nòng | 0 và hồi 1 ô khi hoàn thành |
+| V-Fin Pulse | Ăng-ten đầu tích sáng, bắn ba nhịp beam xanh vào mục tiêu; tay giữ tư thế idle | 0 và hồi 1 ô khi hoàn thành |
 | Anti Ship Blade | Lao tới, hai nhịp chém, vệt kiếm rồi trở về vị trí | 1 ô |
 | Ootori Missile Barrage | Lộn người và phóng chín tên lửa theo quỹ đạo cong vào các địch | 2 ô |
 | Full Burst | Tích năng lượng, triển khai pháo, railgun và beam launcher; cinematic tập trung vào nhân vật | 5 ô |
 
 Mỗi lượt của người chơi hoàn tất hồi thêm một ô Burst, tối đa năm. Bắt đầu trận với hai ô. Không còn thanh Energy 100 hoặc thanh Burst phần trăm của bản demo trước nâng cấp HUD.
 
-Model có sáu clip nhúng: O-00-POSE, O-01-APPER, O-02-IDLE, O-03-LAUNCHER, O-04-SEPARATION, O-99-POSE2. Bản demo sử dụng trực tiếp APPER, IDLE và LAUNCHER. Năm clip Generic bổ sung cho rifle, đại kiếm, barrage, guard và dodge nằm trong `Assets/Game/Features/Combat/Animations/StrikeRouge`. Clip SEPARATION được giữ để nghiên cứu sau.
+Model có sáu clip nhúng: O-00-POSE, O-01-APPER, O-02-IDLE, O-03-LAUNCHER, O-04-SEPARATION, O-99-POSE2. Bản demo sử dụng trực tiếp APPER, IDLE và LAUNCHER. Các clip Generic bổ sung cho V-Fin Pulse, đại kiếm, barrage, guard và dodge (clip rifle cũ được giữ làm tài nguyên trước đây) nằm trong `Assets/Game/Features/Combat/Animations/StrikeRouge`. Clip SEPARATION được giữ để nghiên cứu sau.
 
 RougeAnimationDriver dùng PlayableGraph để phát và trộn clip trên rig gốc. Khi mất tracking, đồng hồ combat, animation và các hiệu ứng tạm dừng. Trong sân ảo, giữ chuột phải để xoay, cuộn để zoom và F để trả góc ban đầu. Ulti dùng camera cinematic riêng và khôi phục góc đang xem sau khi kết thúc hoặc Reset.
 

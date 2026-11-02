@@ -56,6 +56,7 @@ namespace GundamGame.CombatDemo.Editor
                 art.weaponIcons=AssetDatabase.LoadAllAssetsAtPath(atlasPath).OfType<Sprite>().OrderBy(x=>x.name).ToArray();
                 if(art.weaponIcons.Length!=4)throw new InvalidOperationException("Weapon atlas needs four sprites.");
             }
+            RougeAntennaAuthoring.UseAntennaIcon(art);
             EditorUtility.SetDirty(art);
             var root=new GameObject("Strike Rouge Mecha HUD",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster),typeof(MechaBattleHUD));
             try

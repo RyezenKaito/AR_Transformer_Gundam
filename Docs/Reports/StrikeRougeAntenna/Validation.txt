@@ -1,0 +1,32 @@
+Rouge V-Fin Pulse / Unity 6000.5.8f1 / 2026-10-31T18:52:47
+Real Editor Play Mode, virtual arena. Device AR not tested.
+PASS: Dedicated head-fire clip assigned and presentation ready
+PASS: Emitter is parented to the head bone
+PASS: Both V-fin tips follow the same animated head
+PASS: Basic attack and fallback use head, not hand/shield socket
+PASS: HUD uses the new antenna icon
+PASS: Skill button label matches the antenna attack
+PASS: Skill preview describes antenna firing
+PASS: Execute accepts skill one against enemy 2
+PASS: Visible beam starts at animated V-fin muzzle for enemy 2
+PASS: Tracking pause freezes head animation and unfinished attack
+PASS: Exactly three damage callbacks for enemy 2
+PASS: Only the selected enemy is damaged
+PASS: Start 2/5, zero cost, skill +1 and turn +1 gives 4/5 Burst
+PASS: Skill preview describes antenna firing
+PASS: Execute accepts skill one against enemy 1
+PASS: Visible beam starts at animated V-fin muzzle for enemy 1
+PASS: Exactly three damage callbacks for enemy 1
+PASS: Only the selected enemy is damaged
+PASS: Start 2/5, zero cost, skill +1 and turn +1 gives 4/5 Burst
+PASS: Skill preview describes antenna firing
+PASS: Execute accepts skill one against enemy 0
+PASS: Visible beam starts at animated V-fin muzzle for enemy 0
+PASS: Exactly three damage callbacks for enemy 0
+PASS: Only the selected enemy is damaged
+PASS: Start 2/5, zero cost, skill +1 and turn +1 gives 4/5 Burst
+PASS: Begin basic attack for reset cancellation
+PASS: Reset cancels antenna charge and clears all VFX/damage counters
+PASS: Normal HUD and camera remain available after reset
+RESULT: PASS
+All three targets passed, including scaled arena, pause/resume and reset. Damage/armor tuning and Burst costs unchanged.

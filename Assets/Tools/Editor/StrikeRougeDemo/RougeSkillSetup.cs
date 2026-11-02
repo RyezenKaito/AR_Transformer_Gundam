@@ -25,6 +25,8 @@ namespace GundamGame.CombatDemo.Editor
                 if (mode == "inspect") Inspect();
                 else if (mode == "upgrade") RougeCombatAuthoring.Upgrade();
                 else if (mode == "camera") RougeCombatAuthoring.UpgradeCameras();
+                else if (mode == "antenna") RougeAntennaAuthoring.Upgrade();
+                else if (mode == "validate-antenna") RougeAntennaValidation.Run();
                 else Debug.LogWarning("Unknown Rouge setup request: " + mode);
             }
             catch (Exception e)

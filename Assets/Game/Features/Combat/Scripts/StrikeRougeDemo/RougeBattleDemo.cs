@@ -348,7 +348,7 @@ namespace GundamGame.CombatDemo
 
         IEnumerator PlayerSequence(int skill, DemoFighter target)
         {
-            LastMessage=new[]{"BEAM RIFLE BURST","ANTI-SHIP BLADE","OOTORI MISSILES","FULL BURST / 5 CELLS"}[skill];
+            LastMessage=new[]{"V-FIN PULSE / 3 SHOTS","ANTI-SHIP BLADE","OOTORI MISSILES","FULL BURST / 5 CELLS"}[skill];
             if(presentation!=null)
                 yield return presentation.Perform(skill,target,enemies,(victim,amount)=>ResolvePlayerHit(victim,amount,skill,target));
             else

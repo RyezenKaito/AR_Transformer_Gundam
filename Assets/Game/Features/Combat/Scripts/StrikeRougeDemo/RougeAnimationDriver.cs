@@ -8,7 +8,7 @@ namespace GundamGame.CombatDemo
     public sealed class RougeAnimationDriver : MonoBehaviour
     {
         public Animator rig;
-        public AnimationClip idle, arrival, launcher, separation, rifle, blade, barrage, guard, dodge;
+        public AnimationClip idle, arrival, launcher, separation, rifle, antenna, blade, barrage, guard, dodge;
         public string CurrentClipName => action.IsValid() && blend > .01f ? action.GetAnimationClip().name : idle != null ? idle.name : "None";
         public float ActionTime { get; private set; }
         public int ImportedClipsPlayed { get; private set; }

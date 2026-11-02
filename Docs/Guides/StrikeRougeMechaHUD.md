@@ -11,6 +11,8 @@ Mở scene `Assets/Sandbox/StrikeRougeCombat/Scenes/StrikeRougeCombatDemo.unity`
 - Giữ chuột phải và kéo để xoay sân ảo; cuộn lên để zoom gần, cuộn xuống để zoom xa. Mặc định mỗi nấc cuộn giảm khoảng 20% khoảng cách; chỉnh Mouse Wheel Zoom Speed trên RougeArenaCamera nếu muốn đổi độ nhạy. Zoom luôn bị giới hạn khoảng cách an toàn, không hoạt động khi trỏ trên nút UI hoặc trong cinematic. F đưa camera về góc ban đầu. Trong AR, đổi góc bằng cách di chuyển thiết bị.
 - Bấm chân dung nhân vật để xem thuộc tính. Bấm SYSTEM / ARENA để mở Reset, nạp Burst thử, chuyển sân ảo hoặc AR, đặt lại sân và reset camera.
 
+Skill 1 **V-Fin Pulse** phát ba nhịp beam từ socket trên xương đầu, có tích sáng ở hai đầu V-fin và animation đầu/thân nhẹ; không phát đạn từ tay hoặc khiên. Tổng sát thương và luật Burst giữ nguyên.
+
 ## Các luật được nối vào HUD
 
 Burst có năm ô, bắt đầu với hai ô. Chi phí bốn chiêu là 0, 1, 2 và 5. Chiêu 1 hồi một ô sau khi hoàn thành; mỗi lượt hành động của người chơi hoàn tất hồi thêm một ô. Full Burst tiêu hao năm ô rồi hồi một ô cuối lượt. Burst không hồi theo lượt của địch. Bản mới không dùng thanh Energy phần trăm hoặc cộng Burst khi bị đánh như demo cũ.
@@ -34,11 +36,14 @@ Sát thương giáp cơ sở bằng 0,5 Attack cộng 0,5 Break Dmg. Tổng lư�
 - `MechaPlateGraphic` vẽ khung cắt góc bằng mesh UI, không dùng ảnh chụp nguyên giao diện làm nút.
 - `RougeTurnOrder` tính lịch hành động và dự báo timeline.
 
-Chân dung được render từ bản sao model trong Editor. Bộ icon mặc định lấy từ atlas minh họa sinh bằng công cụ Imagegen tích hợp, gồm rifle, đại kiếm, tên lửa và đầu Gundam; các ảnh vũ khí bake từ rig cũng được giữ làm tài nguyên thay thế. Không sửa hoặc unpack file trong Models. HUD hiển thị trên Canvas theo safe area, còn camera và Gundam là scene thật. Trong ulti, camera cinematic riêng ẩn HUD combat và giữ góc nhìn trước đó. Mất tracking thì tạm dừng combat, animation và timing.
+Chân dung được render từ bản sao model trong Editor. Icon skill 1 là `Icon_AntennaPulse.png`, minh họa đầu Gundam bắn năng lượng xanh từ V-fin. Ba icon còn lại lấy từ atlas minh họa sinh bằng công cụ Imagegen tích hợp, gồm đại kiếm, tên lửa và đầu Gundam cho ulti; các ảnh vũ khí bake từ rig cũng được giữ làm tài nguyên thay thế. Không sửa hoặc unpack file trong Models. HUD hiển thị trên Canvas theo safe area, còn camera và Gundam là scene thật. Trong ulti, camera cinematic riêng ẩn HUD combat và giữ góc nhìn trước đó. Mất tracking thì tạm dừng combat, animation và timing.
 
 Atlas nằm tại `Assets/Game/Features/Combat/UI/StrikeRouge/Art/MechaWeaponsAtlas.png`. Prompt và nguồn tài nguyên được ghi trong `Docs/Design/StrikeRougeHUDArt.md`.
 
 ## Công cụ Editor
+
+- **Gundam > Strike Rouge > Use V-Fin Pulse for Skill One**: gắn socket đầu, tạo clip riêng và cập nhật icon/prefab hiện có.
+- **Gundam > Strike Rouge > Validate V-Fin Pulse**: kiểm tra điểm bắn, ba mục tiêu, Burst, sân thu nhỏ, pause và Reset trong Play Mode. Báo cáo tại `Docs/Reports/StrikeRougeAntenna`.
 
 - **Gundam > Strike Rouge > Upgrade Mecha HUD**: tạo art còn thiếu, dựng prefab và gắn vào scene; lưu bản sao scene trước thay đổi.
 - **Gundam > Strike Rouge > Validate Mecha HUD**: chạy Play Mode, kiểm tra luật, tương tác nút, cinematic và bố cục ở các độ phân giải mô phỏng.
