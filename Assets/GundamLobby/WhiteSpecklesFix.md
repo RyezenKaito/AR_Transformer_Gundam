@@ -1,0 +1,2 @@
+HomeLobby render fix: Mobile_RPAsset Soft Shadows enabled. Keep HDR and MSAA 4x. Verified in a new Play session on Intel Iris Xe / Direct3D11 / Android target: no white speckles. The issue is reproduced by Unity UUM-121981. Do not disable Soft Shadows on this configuration. Backup: Assets/GundamLobby/Backups/Mobile_RPAsset_BeforeSpeckleFix_20261102_093322.asset.
+https://issuetracker.unity.com/issues/6091/flickering-bright-white-dots-in-the-scene-when-the-android-platform-is-selected-and-dx11-graphics-api-is-used-with-irisr-xe-graphics-gpu

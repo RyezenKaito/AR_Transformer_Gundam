@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8998209e182ae048b16d9c74e427966, type: 3}
+  m_Name: StrikerCatalog
+  m_EditorClassIdentifier: 
+  units:
+  - id: SkyDefender
+    displayName: SKY DEFENDER
+    code: SKY / DEFENDER
+    role: HEAVY ASSAULT
+    prefab: {fileID: 4573551808102898128, guid: 3365ed0d963e8cd4291d04e3a5fa55d7, type: 3}
+    portrait: {fileID: 21300000, guid: 90a9646f4d0105140b287f3c9bf19856, type: 3}
+    level: 20
+    hp: 21600
+    attack: 2760
+    defense: 1380
+    speed: 104
+    power: 19820
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: Unicorn
+    displayName: UNICORN
+    code: RX-0 / PSYCHO FRAME
+    role: BALANCED ATTACKER
+    prefab: {fileID: 7420709272864310243, guid: 2d0be72b9612f2d45b6da042fff1338e, type: 3}
+    portrait: {fileID: 21300000, guid: 6744a22532c4fa845a7bbed68bec88c1, type: 3}
+    level: 20
+    hp: 18240
+    attack: 2480
+    defense: 1220
+    speed: 112
+    power: 18460
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: Justice
+    displayName: JUSTICE GUNDAM
+    code: ZGMF-X09A / JUSTICE
+    role: MOBILE STRIKER
+    prefab: {fileID: 7121443075166283289, guid: 885ccb5650d8b95479d583e5658c0903, type: 3}
+    portrait: {fileID: 21300000, guid: a9712e4ec157a2f4db4dec179817bfb2, type: 3}
+    level: 20
+    hp: 17800
+    attack: 2540
+    defense: 1110
+    speed: 118
+    power: 18720
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: BlueFlame
+    displayName: BLUE FLAME
+    code: BF / BLUE FLAME
+    role: ENERGY ATTACKER
+    prefab: {fileID: 8604311340836876954, guid: 8ae9f94e9afc26644965ce47237e0bad, type: 3}
+    portrait: {fileID: 21300000, guid: 44d493c735265df4aa250d27bbd2fc1a, type: 3}
+    level: 20
+    hp: 16900
+    attack: 2880
+    defense: 1040
+    speed: 116
+    power: 19140
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: Extreme
+    displayName: EXTREME GUNDAM
+    code: EXTREME / APPLICATION
+    role: BURST ATTACKER
+    prefab: {fileID: 7028774125652119288, guid: 83bf6ac88e0ea0947ac086657e13d393, type: 3}
+    portrait: {fileID: 21300000, guid: 47d9f5bb2c09a8447a69ea812576cc6a, type: 3}
+    level: 20
+    hp: 18600
+    attack: 2940
+    defense: 1180
+    speed: 108
+    power: 20120
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: HaoLing
+    displayName: HAO LING
+    code: EMP02 / HAO LING
+    role: TACTICAL SUPPORT
+    prefab: {fileID: 3688205654328078893, guid: 44a03bde5517ddb40a3d16ef03bd6ed5, type: 3}
+    portrait: {fileID: 21300000, guid: 97f187c32b95ea64588cf833886fe8dc, type: 3}
+    level: 20
+    hp: 19400
+    attack: 2210
+    defense: 1320
+    speed: 114
+    power: 18980
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: Kamiki
+    displayName: KAMIKI BURNING
+    code: KAMIKI / BURNING GUNDAM
+    role: MELEE BRAWLER
+    prefab: {fileID: 9163824797206377411, guid: 4f85b813a54b0184987e17495ea8abd8, type: 3}
+    portrait: {fileID: 21300000, guid: 13d76c447d9e0ea46bf5e8224e6fc9b3, type: 3}
+    level: 20
+    hp: 18900
+    attack: 2820
+    defense: 1160
+    speed: 120
+    power: 19660
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: MELEE
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: StrikeRouge
+    displayName: STRIKE ROUGE
+    code: MBF-02 / OOTORI
+    role: RANGED ASSAULT
+    prefab: {fileID: 4348849079746779427, guid: 4fbf4052255344243845d1669e5e9bf4, type: 3}
+    portrait: {fileID: 21300000, guid: a2a9de1ee861f91449f971ab6af45058, type: 3}
+    level: 20
+    hp: 17600
+    attack: 2620
+    defense: 1090
+    speed: 115
+    power: 18840
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: RX78
+    displayName: RX-78-2 GUNDAM
+    code: RX-78-2 / RIFLE
+    role: RIFLE SPECIALIST
+    prefab: {fileID: 6273070570390569570, guid: 33691101303626e479f4c41ac39be758, type: 3}
+    portrait: {fileID: 21300000, guid: b6f06815810f4804199b6d2dc8a1d5bc, type: 3}
+    level: 20
+    hp: 17200
+    attack: 2360
+    defense: 1260
+    speed: 110
+    power: 17980
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: RX78Saber
+    displayName: RX-78-2 / SABER
+    code: RX-78-2 / BEAM SABER
+    role: CLOSE COMBAT
+    prefab: {fileID: 8599445317758289996, guid: e4149274a68c9464b9bcb51c5164f1fa, type: 3}
+    portrait: {fileID: 21300000, guid: d0fde78131f33c14f8edd22db2990551, type: 3}
+    level: 20
+    hp: 17600
+    attack: 2500
+    defense: 1180
+    speed: 114
+    power: 18220
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: MELEE
+    shieldCapacity: 2600
+    maxEnergy: 120

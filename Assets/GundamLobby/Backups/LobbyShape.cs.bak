@@ -1,0 +1,90 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace GundamLobby
+{
+    [RequireComponent(typeof(CanvasRenderer))]
+    [AddComponentMenu("Gundam Lobby/HUD Shape")]
+    public class LobbyShape : MaskableGraphic
+    {
+        public enum Geometry { Panel, Tab, Hexagon, Diamond, Radar, Grid, Crosshair }
+        public Geometry geometry;
+        public Color border = new Color(.12f, .6f, .75f, .6f);
+        public float cut = 14f;
+        public float thickness = 1f;
+
+        protected override void OnPopulateMesh(VertexHelper vh)
+        {
+            vh.Clear();
+            Rect r = rectTransform.rect;
+            if (geometry == Geometry.Grid)
+            {
+                for (float x = r.xMin; x <= r.xMax; x += 28) Line(vh, new Vector2(x, r.yMin), new Vector2(x, r.yMax), color, .6f);
+                for (float y = r.yMin; y <= r.yMax; y += 28) Line(vh, new Vector2(r.xMin, y), new Vector2(r.xMax, y), color, .6f);
+                return;
+            }
+            if (geometry == Geometry.Radar)
+            {
+                Vector2 center = r.center;
+                float radius = Mathf.Min(r.width, r.height) * .43f;
+                for (int ring = 1; ring <= 4; ring++)
+                {
+                    Vector2[] points = Radial(center, radius * ring / 4f, 7);
+                    Outline(vh, points, border, 1);
+                }
+                Vector2[] outer = Radial(center, radius, 7);
+                for (int i = 0; i < 7; i++) Line(vh, center, outer[i], border * new Color(1, 1, 1, .5f), .7f);
+                float[] values = { .88f, .6f, .47f, .95f, .62f, .7f, .85f };
+                Vector2[] data = new Vector2[7];
+                for (int i = 0; i < 7; i++) data[i] = center + (outer[i] - center) * values[i];
+                Fill(vh, data, color);
+                Outline(vh, data, new Color(.2f, .83f, 1, .9f), 1.4f);
+                return;
+            }
+            if (geometry == Geometry.Crosshair)
+            {
+                float a = Mathf.Min(r.width, r.height) * .25f;
+                Line(vh, r.center + Vector2.left * a, r.center + Vector2.right * a, color, thickness);
+                Line(vh, r.center + Vector2.down * a, r.center + Vector2.up * a, color, thickness);
+                return;
+            }
+            Vector2[] p;
+            float c = Mathf.Min(cut, Mathf.Min(r.width, r.height) * .4f);
+            if (geometry == Geometry.Hexagon) p = Radial(r.center, Mathf.Min(r.width, r.height) * .48f, 6);
+            else if (geometry == Geometry.Diamond) p = new[] { new Vector2(r.center.x, r.yMax), new Vector2(r.xMax, r.center.y), new Vector2(r.center.x, r.yMin), new Vector2(r.xMin, r.center.y) };
+            else if (geometry == Geometry.Tab) p = new[] { new Vector2(r.xMin + c, r.yMin), new Vector2(r.xMax - c, r.yMin), new Vector2(r.xMax, r.yMax), new Vector2(r.xMin, r.yMax) };
+            else p = new[] { new Vector2(r.xMin, r.yMin + c), new Vector2(r.xMin + c, r.yMin), new Vector2(r.xMax, r.yMin), new Vector2(r.xMax, r.yMax - c), new Vector2(r.xMax - c, r.yMax), new Vector2(r.xMin, r.yMax) };
+            Fill(vh, p, color);
+            if (thickness > 0) Outline(vh, p, border, thickness);
+        }
+
+        static Vector2[] Radial(Vector2 center, float radius, int count)
+        {
+            var points = new Vector2[count];
+            for (int i = 0; i < count; i++)
+            {
+                float a = (90 - i * 360f / count) * Mathf.Deg2Rad;
+                points[i] = center + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * radius;
+            }
+            return points;
+        }
+        static void Fill(VertexHelper vh, Vector2[] p, Color c)
+        {
+            int offset = vh.currentVertCount;
+            for (int i = 0; i < p.Length; i++) vh.AddVert(p[i], c, Vector2.zero);
+            for (int i = 1; i < p.Length - 1; i++) vh.AddTriangle(offset, offset + i, offset + i + 1);
+        }
+        static void Outline(VertexHelper vh, Vector2[] p, Color c, float width)
+        {
+            for (int i = 0; i < p.Length; i++) Line(vh, p[i], p[(i + 1) % p.Length], c, width);
+        }
+        static void Line(VertexHelper vh, Vector2 a, Vector2 b, Color c, float width)
+        {
+            Vector2 n = new Vector2(-(b - a).y, (b - a).x).normalized * width * .5f;
+            int i = vh.currentVertCount;
+            vh.AddVert(a - n, c, Vector2.zero); vh.AddVert(a + n, c, Vector2.zero);
+            vh.AddVert(b + n, c, Vector2.zero); vh.AddVert(b - n, c, Vector2.zero);
+            vh.AddTriangle(i, i + 1, i + 2); vh.AddTriangle(i, i + 2, i + 3);
+        }
+    }
+}
