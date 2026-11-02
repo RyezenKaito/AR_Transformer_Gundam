@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c0fd3a745f6e74ea0c4132dda6cb69, type: 3}
+  m_Name: VolcanoConfig
+  m_EditorClassIdentifier: Assembly-CSharp::VolcanoArena.VolcanoConfig
+  seed: 83417
+  arenaSize: {x: 54, y: 40}
+  lavaHeight: -1.4
+  mainLavaStreams: 11
+  surroundingLavaCoverage: 0.8
+  mainVolcanoPosition: {x: 210, y: -9, z: -55}
+  lavaEmission: 2.4
+  crustCoverage: 0.58
+  flowSpeed: 0.22
+  flowWaves: 0.45
+  lavaVapourDensity: 0.9
+  lavaVapourOpacity: 0.9
+  ashDensity: 0.4
+  smokeDensity: 0.8
+  mountainSmokeDensity: 0.85
+  skySmokeDensity: 0.75
+  skyAshCoverage: 0.82
+  ambienceVolume: 0.15
+  lowQuality: 0
+  eruptionInterval: 17

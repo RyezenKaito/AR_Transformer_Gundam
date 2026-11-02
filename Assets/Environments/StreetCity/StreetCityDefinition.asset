@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666721d4dfead7a48a06b26cc0708964, type: 3}
+  m_Name: StreetCityDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentDefinition
+  id: street-city
+  displayName: "CITY STREET \xB7 GUNDAM"
+  description: "\u0110\u1EA1i l\u1ED9 gi\u1EEFa c\xE1c kh\u1ED1i nh\xE0 \xB7 Gundam
+    1v1 / 1v3."
+  thumbnail: {fileID: 2800000, guid: 2cb755864b1739942bcdf2a90052b252, type: 3}
+  accent: {r: 0.37, g: 0.48, b: 0.62, a: 1}
+  available: 1
+  battleVariant: -1
+  scenePath: Assets/Environments/StreetCity/Scenes/StreetCity_Battle.unity
+  scene: {fileID: 102900000, guid: 469abb6d4f34bb344acce673632d588e, type: 3}

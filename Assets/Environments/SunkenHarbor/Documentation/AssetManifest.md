@@ -1,0 +1,129 @@
+# Sunken Harbor asset manifest
+
+Source art assets left unchanged. WaterWorks volume-code compatibility exception: see WaterCompatibilityNotes.md.
+
+- Renderer: Assets/Environments/SunkenHarbor/Lighting/HarborRenderer.asset at pipeline index 1. Default renderer left at its existing index; no Render Graph toggle.
+- Crane GLB: 9 parts / 255362 triangles; one source imported; duplicate download not used. Original pages/creator attribution not inferred from local filename.
+- Material source: Assets/Shipping Container Environment/Source/FBX/Materials/items_diffuse.mat → Assets/Environments/SunkenHarbor/Materials/items_diffuse_d10eff0b.mat
+- S01 Broken buried quay slab 0: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (-22.00, -0.20, 8.00)
+- S01 Broken buried quay slab 1: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (-16.00, -0.20, 11.00)
+- S01 Broken buried quay slab 2: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (-10.00, -0.20, 8.00)
+- S01 Broken buried quay slab 3: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (-4.00, -0.20, 11.00)
+- S01 Broken buried quay slab 4: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (2.00, -0.20, 8.00)
+- S01 Broken buried quay slab 5: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (8.00, -0.20, 11.00)
+- S01 Broken buried quay slab 6: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (14.00, -0.20, 8.00)
+- S01 Broken buried quay slab 7: Assets/Shipping Container Environment/Prefabs/Structures/concrete_slab.prefab at (20.00, -0.20, 11.00)
+- Material source: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Materials/MountainsRocks01.mat → Assets/Environments/SunkenHarbor/Materials/MountainsRocks01_34dfbaaa.mat
+- R01 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01.prefab at (63.00, -1.00, 0.00)
+- Material source: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Materials/MountainsRocks02.mat → Assets/Environments/SunkenHarbor/Materials/MountainsRocks02_ec445cf5.mat
+- R02 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02.prefab at (66.65, -1.00, 16.05)
+- Material source: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Materials/RockMoutain03.mat → Assets/Environments/SunkenHarbor/Materials/RockMoutain03_77ce9408.mat
+- R03 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainsRocks03.prefab at (64.95, -1.00, 33.00)
+- R04 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01_B.prefab at (44.55, -1.00, 49.50)
+- R05 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02_A.prefab at (34.50, -1.00, 50.23)
+- R06 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01.prefab at (19.41, -1.00, 59.89)
+- R07 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02.prefab at (0.00, -1.00, 66.00)
+- R08 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainsRocks03.prefab at (-17.86, -1.00, 67.61)
+- R09 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01_B.prefab at (-37.50, -1.00, 50.23)
+- R10 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02_A.prefab at (-44.55, -1.00, 43.84)
+- R11 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01.prefab at (-59.76, -1.00, 33.00)
+- R12 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02.prefab at (-72.44, -1.00, 18.12)
+- R13 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainsRocks03.prefab at (-63.00, -1.00, 0.00)
+- R14 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01_B.prefab at (-66.65, -1.00, -16.05)
+- R15 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02_A.prefab at (-64.95, -1.00, -33.00)
+- R16 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01.prefab at (-44.55, -1.00, -49.50)
+- R17 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02.prefab at (-34.50, -1.00, -50.23)
+- R18 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainsRocks03.prefab at (-19.41, -1.00, -59.89)
+- R19 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01_B.prefab at (0.00, -1.00, -66.00)
+- R20 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02_A.prefab at (17.86, -1.00, -67.61)
+- R21 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01.prefab at (37.50, -1.00, -50.23)
+- R22 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks02.prefab at (44.55, -1.00, -43.84)
+- R23 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainsRocks03.prefab at (59.76, -1.00, -33.00)
+- R24 Reef rock: Assets/TheTalesFactory/Photoscanned MoutainsRocks PBR/Prefabs/MountainRocks01_B.prefab at (72.44, -1.00, -18.12)
+- Roof access ladder: Assets/Shipping Container Environment/Prefabs/Props/ladder_1.prefab at (-7.30, 0.00, 1.00)
+- U02 Submerged warehouse: Assets/Shipping Container Environment/Prefabs/Structures/warehouse_1.prefab at (-32.00, -0.50, 29.00)
+- Material source: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Materials/Metal.mat → Assets/Environments/SunkenHarbor/Materials/Metal_54d6a1e2.mat
+- Pressure station wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (-4.00, 0.00, 4.00)
+- Side wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (-6.00, 0.00, -3.00)
+- Pressure station wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (0.00, 0.00, 4.00)
+- Side wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (-6.00, 0.00, 0.00)
+- Pressure station wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (4.00, 0.00, 4.00)
+- Side wall: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Wall1/Wall2_3.prefab at (-6.00, 0.00, 3.00)
+- Industrial pressure door: Assets/Modular_SciFi_Pack (146 Objects, LowPoly)/Prefabs/Metal/Door/Door4.prefab at (3.00, 0.00, -4.00)
+- Material source: Assets/Shipping Container Environment/Source/FBX/Materials/containers_diffuse.mat → Assets/Environments/SunkenHarbor/Materials/containers_diffuse_2cfdeecd.mat
+- U05 Container 0: Assets/Shipping Container Environment/Prefabs/Containers/container_1.prefab at (-37.00, 0.00, -1.00)
+- U05 Container 1: Assets/Shipping Container Environment/Prefabs/Containers/container_2.prefab at (-32.00, 0.00, -1.00)
+- U05 Container 2: Assets/Shipping Container Environment/Prefabs/Containers/container_3.prefab at (-27.00, 0.00, -1.00)
+- U05 Container 3: Assets/Shipping Container Environment/Prefabs/Containers/container_4_open.prefab at (-37.00, 0.00, 7.00)
+- U05 Container 4: Assets/Shipping Container Environment/Prefabs/Containers/container_1.prefab at (-32.00, 0.00, 7.00)
+- U05 Container 5: Assets/Shipping Container Environment/Prefabs/Containers/container_2.prefab at (-27.00, 0.00, 7.00)
+- U05 Container 6: Assets/Shipping Container Environment/Prefabs/Containers/container_3.prefab at (-37.00, 0.00, 15.00)
+- U06 Container 7: Assets/Shipping Container Environment/Prefabs/Containers/container_4.prefab at (45.00, 0.00, -13.00)
+- U06 Container 8: Assets/Shipping Container Environment/Prefabs/Containers/container_1.prefab at (38.00, 0.00, -6.00)
+- U06 Container 9: Assets/Shipping Container Environment/Prefabs/Containers/container_2_open.prefab at (45.00, 0.00, 1.00)
+- U06 Container 10: Assets/Shipping Container Environment/Prefabs/Containers/container_3.prefab at (38.00, 0.00, 8.00)
+- U06 Container 11: Assets/Shipping Container Environment/Prefabs/Containers/container_4.prefab at (45.00, 0.00, 15.00)
+- Corroded railing: Assets/Shipping Container Environment/Prefabs/Structures/rail_1.prefab at (-44.00, 5.40, 44.00)
+- Corroded railing: Assets/Shipping Container Environment/Prefabs/Structures/rail_1.prefab at (-26.00, 5.40, 44.00)
+- Corroded railing: Assets/Shipping Container Environment/Prefabs/Structures/rail_1.prefab at (-8.00, 5.40, 44.00)
+- Corroded railing: Assets/Shipping Container Environment/Prefabs/Structures/rail_1.prefab at (10.00, 5.40, 44.00)
+- Corroded railing: Assets/Shipping Container Environment/Prefabs/Structures/rail_1.prefab at (28.00, 5.40, 44.00)
+- Material source: Assets/Industrial Tanks/Round Tanks/Round_tanks.fbx → Assets/Environments/SunkenHarbor/Materials/Stairs_Material_669c20f8.mat
+- Material source: Assets/Industrial Tanks/Round Tanks/Round_tanks.fbx → Assets/Environments/SunkenHarbor/Materials/Round_Tank_Material_669c20f8.mat
+- U08 Storage tanks: Assets/Industrial Tanks/Round Tanks/Round_tanks.fbx at (48.00, 0.00, 35.00)
+- Material source: Assets/Industrial Tanks/Long Tanks/Long_Tanks.fbx → Assets/Environments/SunkenHarbor/Materials/Long_TankA_Material_81fbe5e7.mat
+- Material source: Assets/Industrial Tanks/Long Tanks/Long_Tanks.fbx → Assets/Environments/SunkenHarbor/Materials/lambert3_81fbe5e7.mat
+- U09 Fallen horizontal tank: Assets/Industrial Tanks/Long Tanks/Long_Tanks.fbx at (35.00, -0.30, -37.00)
+- Material source: Assets/TirgamesAssets/Factory/Models/Materials/FanBig01.mat → Assets/Environments/SunkenHarbor/Materials/FanBig01_175bbf69.mat
+- Material source: Assets/TirgamesAssets/Factory/Models/Materials/Motor01.mat → Assets/Environments/SunkenHarbor/Materials/Motor01_a92ae1c8.mat
+- U07 Pump motor: Assets/TirgamesAssets/Factory/Prefabs/FanBig01Motor01.prefab at (34.00, 0.00, 25.00)
+- Material source: Assets/TirgamesAssets/Factory/Models/Materials/PowerBox01_1.mat → Assets/Environments/SunkenHarbor/Materials/PowerBox01_1_a193cd46.mat
+- U07 Corroded controls: Assets/TirgamesAssets/Factory/Prefabs/PowerBox01_1.prefab at (30.00, 0.00, 28.00)
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_0.mat → Assets/Environments/SunkenHarbor/Materials/Crane_0_2051a24e.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_1.mat → Assets/Environments/SunkenHarbor/Materials/Crane_1_946b27a2.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_2.mat → Assets/Environments/SunkenHarbor/Materials/Crane_2_ce87db6a.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_3.mat → Assets/Environments/SunkenHarbor/Materials/Crane_3_a520aa11.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_4.mat → Assets/Environments/SunkenHarbor/Materials/Crane_4_12d97dcb.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_5.mat → Assets/Environments/SunkenHarbor/Materials/Crane_5_3b66b113.mat
+- Material source: Assets/Environments/SunkenHarbor/Materials/Crane_6.mat → Assets/Environments/SunkenHarbor/Materials/Crane_6_140e621f.mat
+- U10 Leaning harbour crane: Assets/Environments/SunkenHarbor/Prefabs/HarborCrane_Imported.prefab at (-42.00, -0.40, 47.00)
+- Material source: Assets/TirgamesAssets/Factory/Models/Materials/Barrels01.mat → Assets/Environments/SunkenHarbor/Materials/Barrels01_aebf964b.mat
+- U12 Seabed machinery debris 0: Assets/TirgamesAssets/Factory/Prefabs/Barrel01a.prefab at (-42.00, 0.00, -27.00)
+- Material source: Assets/TirgamesAssets/Factory/Models/Materials/Debris01.mat → Assets/Environments/SunkenHarbor/Materials/Debris01_591f4031.mat
+- U12 Seabed machinery debris 1: Assets/TirgamesAssets/Factory/Prefabs/Debris01_2.prefab at (-46.00, 0.00, -27.00)
+- U12 Seabed machinery debris 2: Assets/TirgamesAssets/Factory/Prefabs/Debris01_3.prefab at (-47.00, 0.00, -31.00)
+- U12 Seabed machinery debris 3: Assets/TirgamesAssets/Factory/Prefabs/Barrel01a.prefab at (-44.00, 0.00, -30.00)
+- U12 Seabed machinery debris 4: Assets/TirgamesAssets/Factory/Prefabs/Debris01_5.prefab at (-41.00, 0.00, -31.00)
+- U12 Seabed machinery debris 5: Assets/TirgamesAssets/Factory/Prefabs/Debris01_6.prefab at (-49.00, 0.00, -30.00)
+- U12 Seabed machinery debris 6: Assets/TirgamesAssets/Factory/Prefabs/Barrel01a.prefab at (-39.00, 0.00, -35.00)
+- U12 Seabed machinery debris 7: Assets/TirgamesAssets/Factory/Prefabs/Debris01_2.prefab at (-39.00, 0.00, -28.00)
+- U12 Seabed machinery debris 8: Assets/TirgamesAssets/Factory/Prefabs/Debris01_3.prefab at (-42.00, 0.00, -28.00)
+- U12 Seabed machinery debris 9: Assets/TirgamesAssets/Factory/Prefabs/Barrel01a.prefab at (-44.00, 0.00, -35.00)
+- U12 Seabed machinery debris 10: Assets/TirgamesAssets/Factory/Prefabs/Debris01_5.prefab at (-41.00, 0.00, -32.00)
+- U12 Seabed machinery debris 11: Assets/TirgamesAssets/Factory/Prefabs/Debris01_6.prefab at (-48.00, 0.00, -27.00)
+- U12 Seabed machinery debris 12: Assets/TirgamesAssets/Factory/Prefabs/Barrel01a.prefab at (-48.00, 0.00, -28.00)
+- U12 Seabed machinery debris 13: Assets/TirgamesAssets/Factory/Prefabs/Debris01_2.prefab at (-44.00, 0.00, -30.00)
+- Material source: Assets/Flora-Form/Resources/Materials/Juniper_Bush_01_Trunk.mat → Assets/Environments/SunkenHarbor/Materials/Juniper_Bush_01_Trunk_3d78b260.mat
+- Material source: Assets/Flora-Form/Resources/Materials/Juniper_Bush_01.mat → Assets/Environments/SunkenHarbor/Materials/Juniper_Bush_01_1b491366.mat
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (24.38, 67.10, -30.47)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (14.22, 81.06, -10.16)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-16.25, 48.93, -4.06)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (32.50, 65.46, -26.41)
+- Island 0: sampled independent mesh from Terrain 1; original TerrainData unchanged.
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-18.75, 71.06, -3.13)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-12.50, 57.30, -9.38)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-23.44, 73.96, -1.56)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-4.69, 57.26, -3.13)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-1.56, 49.78, -3.13)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-7.81, 65.88, 1.56)
+- Island 1: sampled independent mesh from Terrain 2; original TerrainData unchanged.
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-1.51, 48.16, -51.35)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (7.55, 52.44, -30.21)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (4.53, 48.75, -46.82)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (19.64, 49.59, -22.66)
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (4.53, 61.44, -42.29)
+- Island 2: sampled independent mesh from Terrain 3; original TerrainData unchanged.
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (4.58, 63.63, -13.75)
+- Island 3: sampled independent mesh from Terrain 4; original TerrainData unchanged.
+- Island coastal shrub: Assets/Flora-Form/Vegetation/Juniper_Bush_01.prefab at (-22.50, 68.77, -7.50)
+- Island 4: sampled independent mesh from Terrain 5; original TerrainData unchanged.

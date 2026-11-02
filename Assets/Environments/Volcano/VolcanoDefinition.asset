@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666721d4dfead7a48a06b26cc0708964, type: 3}
+  m_Name: VolcanoDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentDefinition
+  id: volcanic-caldera
+  displayName: "VOLCANIC CALDERA \xB7 EMBERFALL"
+  description: "Gundam giao chi\u1EBFn tr\xEAn n\u1EC1n basalt \xB7 h\u1ED3 dung
+    nham v\xE0 n\xFAi l\u1EEDa."
+  thumbnail: {fileID: 2800000, guid: 726ba29d93041af41b8185ab3eb10fca, type: 3}
+  accent: {r: 1, g: 0.25, b: 0.04, a: 1}
+  available: 1
+  battleVariant: -1
+  scenePath: Assets/Environments/Volcano/Scenes/Volcano_Battle.unity
+  scene: {fileID: 102900000, guid: fd7e65aaa8e5e9244935945ba0ca3e1f, type: 3}

@@ -1,0 +1,61 @@
+# V2 space scenery revision
+
+- Omega damaged outer hull: Assets/Omega_fighterG/Prefabs/OutBody.prefab; (0.00, 0.00, 0.00) extent=22
+- Exposed frame drifting away: Assets/Omega_fighterG/Prefabs/Frame_body.prefab; (-3.00, -2.00, 5.00) extent=17
+- Separated cockpit block: Assets/Omega_fighterG/Prefabs/Cockipt.prefab; (1.00, 1.00, -13.00) extent=5
+- Detached drive assembly: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (12.00, 0.00, 7.00) extent=6
+- Torn-off stabilizer: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (-12.00, 4.00, 3.00) extent=9
+- Cracked red fuselage: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (0.00, 0.00, 0.00) extent=12
+- Bent port wing: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_1_LP_Red.prefab; (-5.00, 0.00, 1.00) extent=11
+- Detached starboard wing: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_1_Mirrored_LP_Red.prefab; (9.00, 3.00, 4.00) extent=10
+- Broken power section: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (0.00, -2.00, 9.00) extent=7
+- Skeletal drive spine: Assets/Omega_fighterG/Prefabs/Frame_body.prefab; (0.00, 0.00, 0.00) extent=16
+- Drifting drive nacelle 0: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (-5.00, 0.00, 5.00) extent=5
+- Drifting drive nacelle 1: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (0.00, 0.00, 6.00) extent=5
+- Drifting drive nacelle 2: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (5.00, 0.00, 7.00) extent=5
+- V2: primitive cylinder station removed. W01–W03 are wrecks made from supplied Omega hull/frame/cockpit and StarSparrow core/wing/engine prefabs.
+- D00 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (33.00, 2.00, 67.00) extent=4
+- D01 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (41.00, 5.00, 80.00) extent=5
+- D02 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (49.00, 8.00, 67.00) extent=6
+- D03 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (57.00, 2.00, 80.00) extent=4
+- D04 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (65.00, 5.00, 67.00) extent=5
+- D05 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (73.00, 8.00, 80.00) extent=6
+- D06 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (-24.66, -18.00, 82.09) extent=2.5
+- D07 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (-49.78, -25.00, -84.31) extent=3.15
+- D08 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (64.81, -32.00, 36.02) extent=1.2
+- D09 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (-75.80, -39.00, 43.88) extent=1.85
+- D10 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (40.27, -46.00, -67.93) extent=2.5
+- D11 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (32.32, -53.00, 81.10) extent=3.15
+- D12 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (-59.70, -18.00, -47.63) extent=1.2
+- D13 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (80.09, -25.00, -22.55) extent=1.85
+- D14 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (-54.64, -32.00, 94.08) extent=2.5
+- D15 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (-13.88, -39.00, -74.38) extent=3.15
+- D16 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (52.76, -46.00, 54.78) extent=1.2
+- D17 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (-81.93, -53.00, 3.93) extent=1.85
+- D18 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (67.34, -18.00, -74.07) extent=2.5
+- D19 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (-4.99, -25.00, 114.88) extent=3.15
+- D20 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (-44.21, -32.00, -57.58) extent=1.2
+- D21 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (81.27, -39.00, 11.33) extent=1.85
+- D22 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (-77.98, -46.00, 54.26) extent=2.5
+- D23 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (23.70, -53.00, -102.44) extent=3.15
+- D24 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (34.31, -18.00, 99.78) extent=1.2
+- D25 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (-78.12, -25.00, -22.79) extent=1.85
+- D26 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (86.24, -32.00, -35.65) extent=2.5
+- D27 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (-41.69, -39.00, 87.64) extent=3.15
+- D28 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (-23.35, -46.00, -98.80) extent=1.2
+- D29 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (72.59, -53.00, 53.50) extent=1.85
+- D30 Salvaged StarSparrow_Wing_3_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_3_LP_Red.prefab; (-91.86, -18.00, 19.12) extent=2.5
+- D31 Salvaged StarSparrow_Engine_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Engine_LP_Red.prefab; (58.41, -25.00, -71.50) extent=3.15
+- D32 Salvaged StarSparrow_Weapon_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Weapon_LP_Red.prefab; (11.69, -32.00, 93.63) extent=1.2
+- D33 Salvaged StarSparrow_Wing_2_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Wing_2_LP_Red.prefab; (-64.83, -39.00, -64.29) extent=1.85
+- D34 Salvaged StarSparrow_Thruster_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Thruster_LP_Red.prefab; (94.68, -46.00, -9.50) extent=2.5
+- D35 Salvaged StarSparrow_Core_LP_Red: Assets/FreeSciFi/Prefabs/PolygonSpaceship/StarSparrow_Core_LP_Red.prefab; (-73.34, -53.00, 55.06) extent=3.15
+- V2: toy satellite and generic boxes replaced with 36 source-asset ship parts, including wings, nacelles, weapons, thrusters and torn cores.
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_12.prefab; (0.00, 0.00, 0.00) extent=0.65
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_15.prefab; (0.00, 0.00, 0.00) extent=0.87
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_18.prefab; (0.00, 0.00, 0.00) extent=1.09
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_21.prefab; (0.00, 0.00, 0.00) extent=0.65
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_24.prefab; (0.00, 0.00, 0.00) extent=0.87
+- Small tumbling meteor head: Assets/Environments/OrbitalFrontier/Prefabs/Asteroids_27.prefab; (0.00, 0.00, 0.00) extent=1.09
+- V2: six continuously recycled flybys, staggered phases, dual tapered luminous wakes; fixed paths remain outside combat. Analytic tails do not join the endpoints at wrap.
+- V2: Jupiter cloud belts/vortex and Saturn body/rings use procedural shaders. Celestial bodies are composed for the game view, not astronomical distances.

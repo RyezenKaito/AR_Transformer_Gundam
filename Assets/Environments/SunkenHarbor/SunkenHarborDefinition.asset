@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666721d4dfead7a48a06b26cc0708964, type: 3}
+  m_Name: SunkenHarborDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectEnvironments.EnvironmentDefinition
+  id: sunken-harbor
+  displayName: "SUNKEN HARBOR \xB7 THALASSA"
+  description: "Gundam d\u01B0\u1EDBi \u0111\xE1y bi\u1EC3n \xB7 c\u1EA3ng ch\xECm,
+    c\u1EA7n c\u1EA9u, rong v\xE0 qu\u1EA7n \u0111\u1EA3o."
+  thumbnail: {fileID: 2800000, guid: fe12bb043c01e6241a78d75568b95836, type: 3}
+  accent: {r: 0.1, g: 0.65, b: 0.69, a: 1}
+  available: 1
+  battleVariant: -1
+  scenePath: Assets/Environments/SunkenHarbor/Scenes/SunkenHarbor_Battle.unity
+  scene: {fileID: 102900000, guid: a92a28fce022b7e4d85ab0f1efa7d9b5, type: 3}
