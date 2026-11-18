@@ -1,0 +1,8 @@
+PASS: Preview controls, Animator and camera loaded
+PASS: Root motion disabled for turn-based placement
+PASS: 16 skinned meshes imported from 375 rigid source parts
+PASS: Meshes, bones and materials assigned
+FAIL: Idle moves the head in Play Mode
+FAIL: System.Exception: Idle moves the head in Play Mode
+  at GundamGame.UnicornPrototype.Editor.UnicornMotionValidation.Check (System.Boolean pass, System.String text) [0x00029] in G:\MotChutVibe\Unity\AR_Transformer_Gundam\Assets\Tools\Editor\UnicornMotionPrototype\UnicornMotionValidation.cs:46 
+  at GundamGame.UnicornPrototype.Editor.UnicornMotionValidation.Tick () [0x001c1] in G:\MotChutVibe\Unity\AR_Transformer_Gundam\Assets\Tools\Editor\UnicornMotionPrototype\UnicornMotionValidation.cs:86 

@@ -1,0 +1,60 @@
+using System;
+using System.IO;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+using GundamGame.CombatDemo;
+using GundamGame.Unicorn;
+internal class CommandScript:IRunCommand
+{
+    CombatTestScene runner;
+    public void Execute(ExecutionResult result)
+    {
+        runner=UnityEngine.Object.FindAnyObjectByType<CombatTestScene>();
+        if(!Application.isPlaying||!runner){result.LogError("Combat Test must be playing");return;}
+        runner.StartCoroutine(Run());result.Log("Running integrated HP and defense timing check");
+    }
+    IEnumerator Run()
+    {
+        while(runner.Loading||!runner.ActivePackage)yield return null;
+        if(runner.enemyPreset!=3)runner.SelectEnemyPreset(3);
+        while(runner.Loading)yield return null;
+        yield return null;
+        var d=runner.ActivePackage.unicorn;
+        var step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),d,"Step");
+        var lines=new List<string>();
+        d.SetPaused(true);
+        try
+        {
+            for(int defending=0;defending<2;defending++)
+            {
+                d.ResetBattle();
+                d.deterministicDefense=true;d.defenseTestRoll=0;
+                if(d.State==UnicornCombatDemo.Phase.Select){d.SelectSkill(0);d.ExecuteSkill();}
+                d.SetPaused(true);
+                for(int i=0;i<240&&d.State!=UnicornCombatDemo.Phase.Windup;i++)step(1f/60);
+                var enemy=d.Acting.GetComponent<EnemyBrain>();
+                lines.Add("First enemy: "+enemy.Move.label);
+                while(d.DefenseRemaining>.105f)step(1f/240);
+                int before=d.player.Health;float armor=d.player.Armor;
+                d.SetPaused(false);
+                bool accepted=defending==1&&d.Defend(false);
+                d.SetPaused(true);
+                while(d.State==UnicornCombatDemo.Phase.Windup&&d.DefenseRemaining>.012f)step(1f/240);
+                bool noEarly=before==d.player.Health&&Mathf.Approximately(armor,d.player.Armor);
+                while(d.State==UnicornCombatDemo.Phase.Windup)step(1f/240);
+                bool outcome=defending==1?accepted&&before==d.player.Health&&Mathf.Approximately(armor,d.player.Armor):d.player.Health<before&&d.player.Armor<armor;
+                lines.Add((noEarly&&outcome?"PASS ":"FAIL ")+(defending==1?"Timed Dodge avoids HP and Armor loss":"No damage before event, damage begins at first advertised contact"));
+            }
+        }
+        catch(Exception e){lines.Add(e.ToString());}
+        finally
+        {
+            d.ResetBattle();
+            d.deterministicDefense=false;
+            d.SetPaused(false);
+            File.WriteAllLines("Docs/Reports/RX78EnemyBattleValidation.txt",lines);
+        }
+    }
+}

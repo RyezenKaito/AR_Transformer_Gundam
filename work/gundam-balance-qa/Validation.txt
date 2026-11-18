@@ -1,0 +1,26 @@
+PASS Unicorn has all six approved stats
+PASS Unicorn has the approved Burst costs
+PASS Unicorn has all approved skill coefficients
+PASS StrikeRouge has all six approved stats
+PASS StrikeRouge has the approved Burst costs
+PASS StrikeRouge has all approved skill coefficients
+PASS Unicorn deploys with approved stats and Burst 2/5
+PASS Unicorn begins at base Attack and Defense
+PASS Awakening spends one Burst
+PASS Buff waits for the authored activation event
+PASS Buff activates for one following turn with Attack 126 and Defense 88
+PASS Buffed Parry blocks Attack 100 and takes half against Attack 110
+PASS Awakening uses the ordinary Armor damage formula
+PASS Buff covers enemy actions and Awakening ends with two Burst
+PASS Awakening can be recast on the next turn
+PASS Recast refreshes one turn and uses the same Defense
+PASS Beam Magnum can follow Awakening
+PASS Attack buff remains during the following action
+PASS Buff expires after the following attack
+PASS Rouge deploys with approved stats and Burst 2/5
+PASS Rouge executes V-Fin Pulse against 190 Armor
+PASS V-Fin Pulse removes 57 Armor
+PASS Rouge follows up with Anti-Ship
+PASS V-Fin Pulse and Anti-Ship break 190 Armor in two actions
+PASS Chapter 1 Parry thresholds match both profiles
+PASS Chapter 1 Dodge thresholds distinguish both profiles

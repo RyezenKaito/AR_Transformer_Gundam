@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1522021336
+--- !u!1 &533903751
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1522021338}
-  - component: {fileID: 1522021337}
+  - component: {fileID: 533903753}
+  - component: {fileID: 533903752}
   m_Layer: 0
   m_Name: Unicorn Demo Controller
   m_TagString: Untagged
@@ -136,13 +136,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1522021337
+--- !u!114 &533903752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522021336}
+  m_GameObject: {fileID: 533903751}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de88c2aaae1614942a12b7aa0cf0253c, type: 3}
@@ -151,13 +151,13 @@ MonoBehaviour:
   unicornPrefab: {fileID: 7235157934199114982, guid: ec168ddd685df74488ee4f2c459d3052, type: 3}
   effectTemplate: {fileID: 2100000, guid: 821e66343273d1c40a37d24caa66b5ca, type: 2}
   floorTemplate: {fileID: 2100000, guid: 6db23a4693bf2834c935941455d38161, type: 2}
---- !u!4 &1522021338
+--- !u!4 &533903753
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522021336}
+  m_GameObject: {fileID: 533903751}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -170,4 +170,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1522021338}
+  - {fileID: 533903753}

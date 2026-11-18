@@ -1,0 +1,276 @@
+{
+  "backup_branch": "backup/pre-ui-merge-20261102",
+  "source_branch": "duy",
+  "source_commit": "e74c18a",
+  "imported_roots": [
+    "Assets/GundamLobby",
+    "Assets/GundamLobby.meta",
+    "Assets/Settings/Mobile_Renderer.asset",
+    "Assets/Settings/PC_Renderer.asset",
+    "Assets/Settings/SampleSceneProfile.asset",
+    "Assets/Settings/Mobile_Renderer.asset.meta",
+    "Assets/Settings/PC_Renderer.asset.meta",
+    "Assets/Settings/SampleSceneProfile.asset.meta"
+  ],
+  "reused_assets": [
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/01_IceWhite_CeramicLacquer.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/01_IceWhite_CeramicLacquer.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/02_CoolWhite_ArmorInset.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/02_CoolWhite_ArmorInset.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/03_CobaltBlue_AnodizedAlloy.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/03_CobaltBlue_AnodizedAlloy.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/04_DeepBlue_StructuralCarrier.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/04_DeepBlue_StructuralCarrier.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/05_DarkGunmetal_CastFrame.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/05_DarkGunmetal_CastFrame.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/06_MachinedTitanium.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/06_MachinedTitanium.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/07_ChampagneGold.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/07_ChampagneGold.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/08_Crimson_Enamel.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/08_Crimson_Enamel.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/09_Recesses_AndSeals.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/09_Recesses_AndSeals.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/10_Cyan_OpticalEmission.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/10_Cyan_OpticalEmission.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/11_Reactor_SapphireLens.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/11_Reactor_SapphireLens.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/13_ServiceStencils.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/13_ServiceStencils.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Materials/14_Procedural_BlueFlame.mat",
+      "reuse": "Assets/Models/BlueFlame/Materials/14_Procedural_BlueFlame.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Meshes/BlueFlame_AuthoredGeometry 4.asset",
+      "reuse": "Assets/Models/BlueFlame/Meshes/BlueFlame_AuthoredGeometry 4.asset"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Prefabs/BlueFlame_Detailed.prefab",
+      "reuse": "Assets/Models/BlueFlame/Prefabs/BlueFlame_Detailed.prefab"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Shaders/BlueFlameEnergy.shader",
+      "reuse": "Assets/Models/BlueFlame/Shaders/BlueFlameEnergy.shader"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/01_IceWhite_CeramicLacquer_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/01_IceWhite_CeramicLacquer_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/02_CoolWhite_ArmorInset_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/02_CoolWhite_ArmorInset_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/03_CobaltBlue_AnodizedAlloy_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/03_CobaltBlue_AnodizedAlloy_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/04_DeepBlue_StructuralCarrier_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/04_DeepBlue_StructuralCarrier_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/05_DarkGunmetal_CastFrame_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/05_DarkGunmetal_CastFrame_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/06_MachinedTitanium_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/06_MachinedTitanium_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/07_ChampagneGold_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/07_ChampagneGold_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/08_Crimson_Enamel_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/08_Crimson_Enamel_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/10_Cyan_OpticalEmission_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/10_Cyan_OpticalEmission_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/11_Reactor_SapphireLens_MetallicSmoothness.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/11_Reactor_SapphireLens_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/BlueFlame/Textures/BlueFlame_ServiceMarkings.png",
+      "reuse": "Assets/Models/BlueFlame/Textures/BlueFlame_ServiceMarkings.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/01_Porcelain_white.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/01_Porcelain_white.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/02_Pearl_highlight.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/02_Pearl_highlight.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/03_Midnight_indigo.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/03_Midnight_indigo.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/04_Titanium_skeleton.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/04_Titanium_skeleton.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/05_Champagne_gold.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/05_Champagne_gold.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/06_Panel_recess.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/06_Panel_recess.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/08_Ruby_energy_crystal.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/08_Ruby_energy_crystal.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Materials/09_Jade_optics.mat",
+      "reuse": "Assets/Models/HaoLing/Materials/09_Jade_optics.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Meshes/HaoLing_AuthoredGeometry 3.asset",
+      "reuse": "Assets/Models/HaoLing/Meshes/HaoLing_AuthoredGeometry 3.asset"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Prefabs/EMP02_HaoLing_Detailed.prefab",
+      "reuse": "Assets/Models/HaoLing/Prefabs/EMP02_HaoLing_Detailed.prefab"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Textures/Brushed_Alloy_Albedo.png",
+      "reuse": "Assets/Models/HaoLing/Textures/Brushed_Alloy_Albedo.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Textures/Ceramic_Albedo.png",
+      "reuse": "Assets/Models/HaoLing/Textures/Ceramic_Albedo.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Textures/MicroSurface_Normal.png",
+      "reuse": "Assets/Models/HaoLing/Textures/MicroSurface_Normal.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/HaoLing/Textures/Ruby_Facets_Albedo.png",
+      "reuse": "Assets/Models/HaoLing/Textures/Ruby_Facets_Albedo.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/01_Oxblood_anodized_alloy.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/01_Oxblood_anodized_alloy.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/02_Crimson_lacquer_metal.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/02_Crimson_lacquer_metal.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/03_Ivory_ceramic_armor.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/03_Ivory_ceramic_armor.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/04_Brushed_champagne_gold.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/04_Brushed_champagne_gold.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/05_Gunmetal_internal_frame.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/05_Gunmetal_internal_frame.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/06_Machined_titanium.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/06_Machined_titanium.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/07_Deep_panel_recess.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/07_Deep_panel_recess.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/08_Emerald_optics.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/08_Emerald_optics.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/10_Engraved_gold_markings.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/10_Engraved_gold_markings.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Materials/11_Technical_stencil_decals.mat",
+      "reuse": "Assets/Models/SkyDefender/Materials/11_Technical_stencil_decals.mat"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Meshes/SkyDefender_AuthoredGeometry 3.asset",
+      "reuse": "Assets/Models/SkyDefender/Meshes/SkyDefender_AuthoredGeometry 3.asset"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Prefabs/SkyDefender_Detailed.prefab",
+      "reuse": "Assets/Models/SkyDefender/Prefabs/SkyDefender_Detailed.prefab"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/01_Oxblood_anodized_alloy_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/01_Oxblood_anodized_alloy_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/02_Crimson_lacquer_metal_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/02_Crimson_lacquer_metal_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/03_Ivory_ceramic_armor_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/03_Ivory_ceramic_armor_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/04_Brushed_champagne_gold_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/04_Brushed_champagne_gold_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/05_Gunmetal_internal_frame_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/05_Gunmetal_internal_frame_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/06_Machined_titanium_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/06_Machined_titanium_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/08_Emerald_optics_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/08_Emerald_optics_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/10_Engraved_gold_markings_MetallicSmoothness.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/10_Engraved_gold_markings_MetallicSmoothness.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/Metal_RoughnessVariation.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/Metal_RoughnessVariation.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/MicroMetal_Normal.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/MicroMetal_Normal.png"
+    },
+    {
+      "imported": "Assets/GundamLobby/Striker/SourceModels/SkyDefender/Textures/TechnicalStencils_Atlas.png",
+      "reuse": "Assets/Models/SkyDefender/Textures/TechnicalStencils_Atlas.png"
+    }
+  ],
+  "folder_guid_changes": [],
+  "strategy": "Selective UI integration from unrelated Unity project; original main Packages/ProjectSettings and Models retained.",
+  "dependency_relocation": "Incoming renderer/profile dependencies moved under Assets/GundamLobby/Integration/Settings, preserving their GUIDs; original Assets/Settings retained."
+}

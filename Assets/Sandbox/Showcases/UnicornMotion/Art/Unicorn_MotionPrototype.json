@@ -1,0 +1,299 @@
+{
+  "fbx": "G:\\MotChutVibe\\Unity\\AR_Transformer_Gundam\\Assets\\Sandbox\\UnicornMotion\\Art\\Unicorn_MotionPrototype.fbx",
+  "export_meshes": 16,
+  "bones": 17,
+  "source_parts_preserved": 375,
+  "materials": [
+    {
+      "name": "blinn10SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_WAIST_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn11SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LHAND_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn12SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LHAND_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn13SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LHAND_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn14SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LLEG_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn15SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LLEG_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn16SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_LLEG_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn17SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_BPACK_MAIN_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn18SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_BPACK_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn19SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_COCKPIT_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn1SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_HEAD_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn20SG",
+      "color": [
+        0.6100000143051147,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn2SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_HEAD_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn4SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_HEAD_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn5SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_BODY_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn6SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_BODY_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn7SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_BODY_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn8SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_WAIST_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "blinn9SG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_WAIST_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rhand_other_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RHAND_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rhand_red_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RHAND_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rhand_white_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RHAND_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rleg_other_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RLEG_OTHER_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rleg_red_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RLEG_RED_COL.jpg",
+      "smoothness": 0.550000011920929
+    },
+    {
+      "name": "rleg_white_texSG",
+      "color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "colorTexture": "Assets/Models/Unicorn Gundam/Textures/UC_RLEG_WHITE_COL.jpg",
+      "smoothness": 0.550000011920929
+    }
+  ],
+  "clips": [
+    {
+      "name": "Unicorn_Idle",
+      "start": 1,
+      "end": 121,
+      "fps": 30,
+      "loop": true
+    },
+    {
+      "name": "Unicorn_HitReact",
+      "start": 1,
+      "end": 25,
+      "fps": 30,
+      "loop": false
+    }
+  ]
+}

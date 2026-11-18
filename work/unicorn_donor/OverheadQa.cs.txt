@@ -1,0 +1,141 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using GundamGame.Unicorn;
+
+internal class CommandScript : IRunCommand
+{
+    const string Reports="Docs/Reports/UnicornCombat/";
+    UnicornCombatDemo demo;
+    Action<float> step;
+    Action camera;
+    readonly List<string> notes=new();
+    void Check(bool ok,string reason){if(!ok)throw new Exception(reason);}
+    void Test(string name,Action run){try{run();notes.Add("PASS "+name);}catch(Exception e){notes.Add("FAIL "+name+" | "+e.Message);}}
+    Transform Find(string name)=>demo.model.GetComponentsInChildren<Transform>(true).Single(o=>o.name==name);
+    Vector3 InModel(Vector3 p)=>demo.model.transform.InverseTransformPoint(p);
+    void Ready()
+    {
+        demo.ResetBattle();
+        for(int i=0;i<1200&&demo.State!=UnicornCombatDemo.Phase.Select;i++)step(1f/60f);
+        Check(demo.State==UnicornCombatDemo.Phase.Select,"no player turn");
+        camera();
+    }
+    void Fire(int skill,int target=1)
+    {
+        Ready();if(skill==3)demo.ChargeForTest();
+        Check(demo.SelectTarget(target)&&demo.SelectSkill(skill)&&demo.ExecuteSkill(),"Execute failed");
+    }
+    void At(int frame)
+    {
+        while(demo.State==UnicornCombatDemo.Phase.Skill&&demo.ActionSeconds+.00001f<frame/30f)step(1f/60f);
+        camera();
+    }
+    Vector3 Tip(string side)
+    {
+        var blade=Find("Emissive_Blade_"+side);
+        var bounds=blade.GetComponent<MeshFilter>().sharedMesh.bounds;
+        var points=new[]{bounds.center+Vector3.right*bounds.extents.x,bounds.center+Vector3.up*bounds.extents.y,bounds.center+Vector3.forward*bounds.extents.z};
+        return blade.TransformPoint(points.OrderByDescending(p=>Vector3.Distance(p,bounds.center)).First());
+    }
+    bool SlashVisible()=>!Find("Crimson_Sweep_R").GetComponent<Renderer>().forceRenderingOff;
+    public void Execute(ExecutionResult result)
+    {
+        demo=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+        if(!demo||!Application.isPlaying){result.LogError("Unicorn Combat not playing");return;}
+        step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),demo,"Step");
+        camera=(Action)Delegate.CreateDelegate(typeof(Action),demo,"UpdateCamera");
+        var window=EditorWindow.GetWindow(typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GameView"));
+        window.maximized=true;window.Focus();
+        demo.StartCoroutine(Validate());
+        result.Log("Validating overhead strikes.");
+    }
+    IEnumerator Validate()
+    {
+        float previous=Time.timeScale;
+        Time.timeScale=0;
+        try
+        {
+            notes.Add("Unity "+Application.unityVersion+" | virtual arena | "+Screen.width+"x"+Screen.height);
+            Test("Both imported clips have exactly one Animation Event at the Blender impact frame",()=>{
+                foreach(var pair in new[]{("BackpackBeamSaber",48),("FullBurst",108)})
+                {
+                    var cue=demo.clips.Single(c=>c.name=="Unicorn_"+pair.Item1).events.Single();
+                    Check(cue.functionName=="OnSaberImpact"&&Mathf.Abs(cue.time-pair.Item2/30f)<.001f,"wrong clip event "+pair);
+                }
+            });
+            Test("Skill 2 blade descends vertically, FX and single hit only at frame 48",()=>{
+                for(int target=0;target<3;target++)
+                {
+                    Fire(1,target);At(39);Vector3 high=InModel(Tip("R"));
+                    At(47);Vector3 previousTip=InModel(Tip("R"));
+                    Check(!SlashVisible()&&demo.DamageEvents==0,"early FX or damage");
+                    At(48);Vector3 low=InModel(Tip("R"));
+                    float distance=Vector3.Distance(Tip("R"),demo.enemies[target].AimPoint);
+                    notes.Add("Skill 2 target "+target+" tip-to-target-center "+distance.ToString("0.00")+" m");
+                    Check(high.y>low.y+2&&previousTip.y>low.y+.6f&&Mathf.Abs(high.x-low.x)<.25f,"blade does not move down in a vertical plane");
+                    Check(distance<.70f,"blade misses target boundary");
+                    Check(SlashVisible()&&demo.DamageEvents==1,"event did not activate FX and damage");
+                    demo.OnSaberImpact();At(96);
+                    Check(demo.DamageEvents==1&&!SlashVisible()&&demo.Burst==2,"repeat hit, stuck VFX or Burst change");
+                }
+            });
+            Test("Full Burst throws real shield before advancing and impacts once with both swords",()=>{
+                Fire(3);Vector3 home=demo.player.visual.position;
+                At(24);Vector3 held=Find("ShieldMount").position;
+                At(54);Vector3 thrown=Find("ShieldMount").position;
+                Check(Vector3.Distance(held,thrown)>1.5f && Vector3.Distance(home,demo.player.visual.position)<.001f,"shield did not leave before lunge");
+                At(107);
+                Check(Vector3.Distance(thrown,Find("ShieldMount").position)<.09f,"detached shield follows attacker");
+                Check(!SlashVisible()&&demo.DamageEvents==0,"early Full Burst effect");
+                At(108);
+                Check(demo.DamageEvents==1&&SlashVisible(),"missing Full Burst hit or effect");
+                Check(Vector3.Distance(Tip("R"),demo.enemies[1].AimPoint)<.72f&&Vector3.Distance(Tip("L"),demo.enemies[1].AimPoint)<.72f,"saber tips miss at impact");
+                At(172);
+                Check(demo.DamageEvents==1&&demo.SkillCompletions==1&&demo.Burst==1&&!SlashVisible(),"incorrect completion");
+                Check(Vector3.Distance(home,Find("ShieldMount").position)<2.6f,"shield failed to remount");
+            });
+            Test("Skip before and after impact resolves once and restores the shield",()=>{
+                int expected=demo.enemies[1].Health;
+                foreach(int f in new[]{28,109})
+                {
+                    Fire(3);At(f);Check(demo.SkipCinematic()&&!demo.SkipCinematic(),"skip failed");
+                    Check(demo.DamageEvents==1&&demo.Burst==1&&demo.enemies[1].Health==expected&&!SlashVisible(),"skip changed result");
+                }
+                Fire(3);At(52);Ready();Check(demo.DamageEvents==0&&!SlashVisible()&&demo.Burst==2,"reset left active effect");
+            });
+            Test("Vulcan and Magnum still deal one hit each",()=>{
+                Fire(0);At(14);Check(demo.DamageEvents==1,"Vulcan");
+                Fire(2);At(22);Check(demo.DamageEvents==1,"Magnum");
+            });
+            File.WriteAllLines(Reports+"OverheadValidation.txt",notes);
+            const string frames="work/unicorn_donor/overhead_frames";
+            Directory.CreateDirectory(frames);
+            int frame=0;
+            foreach(int s in new[]{1,3})
+            {
+                Fire(s);
+                int total=s==1?79:139;
+                for(int i=0;i<total;i++)
+                {
+                    At(Mathf.RoundToInt(i*30f/24f));
+                    yield return new WaitForEndOfFrame();
+                    var img=ScreenCapture.CaptureScreenshotAsTexture();
+                    File.WriteAllBytes(Path.Combine(frames,frame++.ToString("0000")+".jpg"),img.EncodeToJPG(82));
+                    UnityEngine.Object.Destroy(img);
+                    if((s==1 && (i==31||i==39))||(s==3&&(i==29||i==87)))
+                    {
+                        string label=s==1?(i==31?"Overhead_Windup":"Overhead_Impact"):(i==29?"Overhead_ShieldToss":"Overhead_FullBurst");
+                        ScreenCapture.CaptureScreenshot(Path.GetFullPath(Reports+label+".png"));
+                    }
+                }
+            }
+            File.WriteAllText(Path.Combine(frames,"complete.txt"),frame.ToString());
+            Ready();
+        }finally{Time.timeScale=previous;}
+    }
+}

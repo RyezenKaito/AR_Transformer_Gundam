@@ -15,7 +15,7 @@ namespace BlueFlame.Editor
     public static partial class BlueFlameBuilder
     {
         public const string Root="Assets/Models/BlueFlame";
-        public const string ScenePath=Root+"/Scenes/BlueFlame_Atelier.unity";
+        public const string ScenePath="Assets/Sandbox/Showcases/BlueFlame/Scenes/BlueFlame_Atelier.unity";
         [MenuItem("BlueFlame/Build full model and atelier")]
         public static void BuildFull()=>Build(false);
         [MenuItem("BlueFlame/Preview head and thorax study")]
@@ -28,7 +28,7 @@ namespace BlueFlame.Editor
             var previous=SceneManager.GetActiveScene();
             if(previous.isDirty && !previous.name.StartsWith("BlueFlame"))
             {
-                var backup=Root+"/Scenes/Preserved_"+previous.name+"_"+DateTime.Now.ToString("yyyyMMdd_HHmmss")+".unity";
+                var backup="Assets/Sandbox/Showcases/BlueFlame/Scenes/Preserved_"+previous.name+"_"+DateTime.Now.ToString("yyyyMMdd_HHmmss")+".unity";
                 if(!EditorSceneManager.SaveScene(previous,backup,true))throw new IOException("Unable to preserve previous unsaved scene.");
             }
             var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);scene.name=study?"BlueFlame_Study":"BlueFlame_Atelier";

@@ -1,0 +1,276 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using GundamGame.CombatDemo;
+using GundamGame.Story;
+using GundamGame.Unicorn;
+using GundamLobby;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+internal class CommandScript:IRunCommand
+{
+    const string Folder="work/production-story-qa/";
+    readonly List<string> checks=new();
+    readonly string[] preferenceKeys={PlayerSelectionData.PreferenceKey,"Gundam.Story.Cleared.1-1","Gundam.Story.Cleared.1-2"};
+    string equippedBefore;
+    int[] completedBefore;
+    bool[] existedBefore;
+    int step;
+    double wait,deadline;
+    float oldScale;
+
+    public void Execute(ExecutionResult result)
+    {
+        if(!Application.isPlaying||SceneManager.GetActiveScene().name!="HomeLobby")throw new InvalidOperationException("Start Play from HomeLobby.");
+        Directory.CreateDirectory(Folder);
+        var gameView=typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView");
+        if(gameView!=null)EditorWindow.GetWindow(gameView).Focus();
+        existedBefore=preferenceKeys.Select(PlayerPrefs.HasKey).ToArray();
+        equippedBefore=PlayerPrefs.GetString(preferenceKeys[0]);
+        completedBefore=preferenceKeys.Skip(1).Select(key=>PlayerPrefs.GetInt(key)).ToArray();
+        oldScale=Time.timeScale;
+        Next();EditorApplication.update+=Tick;
+        result.Log("Running four production stage and Gundam combinations in Play Mode.");
+    }
+
+    void Tick()
+    {
+        try
+        {
+            double now=EditorApplication.timeSinceStartup;
+            if(!Application.isPlaying||now>deadline)throw new TimeoutException("Step "+step+" in "+SceneManager.GetActiveScene().name);
+            if(now<wait)return;
+            string scene=SceneManager.GetActiveScene().name;
+            var story=UnityEngine.Object.FindAnyObjectByType<StoryBattleController>();
+            var package=story?story.ActivePackage:null;
+            switch(step)
+            {
+                case 1:
+                    Check(Application.CanStreamedLevelBeLoaded("Stage_1_1")&&Application.CanStreamedLevelBeLoaded("Stage_1_2"),"Production stages in Build Settings");
+                    Check(!Application.CanStreamedLevelBeLoaded("Combat Test"),"Combat Test is excluded from player builds");
+                    Equip("Unicorn");
+                    OpenMode("Play");
+                    Snap("01-Mode");
+                    Next();break;
+                case 2:
+                    Click("RANK");
+                    Check(Find("Mode popup").GetComponentsInChildren<TMP_Text>().Any(l=>l.text=="Rank đang phát triển"),"Rank shows inline development notice");
+                    Click("STORY");
+                    Check(Find("Chapter selection").activeInHierarchy&&!Find("Mode popup").activeInHierarchy,"Story opens fullscreen chapter page");
+                    Snap("02-Chapters");
+                    Next();break;
+                case 3:
+                    Click("ENTER CHAPTER");
+                    Check(Find("Stage selection").activeInHierarchy&&!Find("Chapter selection").activeInHierarchy,"Stage briefing replaces chapter page");
+                    Click("1-2");CheckIntel("Street City","Unicorn");
+                    Snap("03-City-Briefing");
+                    Next();break;
+                case 4:
+                    Click("1-1");CheckIntel("Desert Outpost","Unicorn");Click("DEPLOY / XUẤT KÍCH");
+                    Next();break;
+                case 5:
+                    if(scene!="Stage_1_1"||!Own(package))return;
+                    CheckBattle(package,"Unicorn",EnemyProfile.Role.Ranged);
+                    Pause(story,package);
+                    Snap("04-Unicorn-Desert");
+                    Win(package);Next();break;
+                case 6:
+                    if(!Result("Chiến thắng"))return;
+                    Check(Button("Retry").gameObject.activeInHierarchy&&Button("Return to Lobby").gameObject.activeInHierarchy,"Stage 1-1 victory exposes Retry and Lobby");
+                    Click("Primary");Next();break;
+                case 7:
+                    if(scene!="Stage_1_2"||!Own(package))return;
+                    CheckBattle(package,"Unicorn",EnemyProfile.Role.Melee);
+                    Lose(package);Next();break;
+                case 8:
+                    if(!Result("Thất bại"))return;
+                    Check(!Find("Primary").activeInHierarchy,"Defeat hides Next Stage");
+                    Click("Retry");Next();break;
+                case 9:
+                    if(scene!="Stage_1_2"||!Own(package))return;
+                    Check(package.player.Health==package.player.maxHealth,"Retry resets HP with the selected Gundam");
+                    story.TogglePause();Click("Return to Lobby");Next();break;
+                case 10:
+                    if(scene!="HomeLobby")return;
+                    Equip("StrikeRouge");
+                    OpenMode("Nav TACTICAL STATION");Click("STORY");Click("ENTER CHAPTER");
+                    CheckIntel("Desert Outpost","Strike Rouge");
+                    Click("DEPLOY / XUẤT KÍCH");Next();break;
+                case 11:
+                    if(scene!="Stage_1_1"||!Own(package))return;
+                    CheckBattle(package,"StrikeRouge",EnemyProfile.Role.Ranged);
+                    Pause(story,package);
+                    Snap("05-Rouge-Desert");
+                    Check(package.rouge.TryUseSkill(0),"Strike Rouge executes V-Fin Pulse");
+                    Next();break;
+                case 12:
+                    if(!Own(package)||package.rouge.ActionsResolved==0)return;
+                    if(package.rouge.ActionsResolved==1)
+                    {
+                        Check(package.Opponents[0].Health<package.Opponents[0].maxHealth,"V-Fin Pulse hits through the Rouge battle package");
+                        Check(package.Opponents.Any(enemy=>enemy.GetComponent<EnemyBrain>().Move.timeline!=null),"Strike Rouge battles enemies with authored timelines");
+                        Check(package.rouge.Hud.targetButtons.Select(button=>button.GetComponentInChildren<Text>(true).text)
+                            .SequenceEqual(package.Opponents.Select(enemy=>enemy.displayName)),"Rouge HUD target cards match all three physical opponents");
+                        Check(package.rouge.TryUseSkill(1),"Strike Rouge executes the Anti-Ship Blade");
+                        break;
+                    }
+                    if(package.rouge.ActionsResolved==2)
+                    {
+                        Check(package.rouge.presentation.LastSkill.StartsWith("Anti-Ship"),"Anti-Ship Blade uses its own animation presentation");
+                        Check(package.rouge.TryUseSkill(2),"Strike Rouge executes Ootori Missiles");
+                        break;
+                    }
+                    Check(package.Opponents.All(enemy=>enemy.Health<enemy.maxHealth),"Ootori Missiles hit all three targets");
+                    Win(package);Next();break;
+                case 13:
+                    if(!Result("Chiến thắng"))return;
+                    Click("Primary");Next();break;
+                case 14:
+                    if(scene!="Stage_1_2"||!Own(package))return;
+                    CheckBattle(package,"StrikeRouge",EnemyProfile.Role.Melee);
+                    package.rouge.ChargeUltimateForTest();
+                    Check(package.rouge.TryUseSkill(3)&&package.rouge.Burst==0,"Strike Rouge Ultimate spends all five Burst cells");
+                    Next();break;
+                case 15:
+                    if(package.Cinematic && !cinemaChecked)
+                    {
+                        Check(!Find("Stage Badge").activeInHierarchy&&!Find("Reset during cinematic").activeInHierarchy,
+                            "Production ultimate hides the HUD stage badge and test reset");
+                        Snap("06-Rouge-City-Cinematic");
+                        cinemaChecked=true;
+                    }
+                    if(!Own(package)||package.rouge.ActionsResolved==0)return;
+                    Check(package.rouge.Burst==1,"Strike Rouge Ultimate restores one Burst when the turn ends");
+                    Win(package);Next();break;
+                case 16:
+                    if(!Result("Chiến thắng"))return;
+                    Check(Button("Retry").gameObject.activeInHierarchy&&!Find("Primary").activeInHierarchy,"Final stage shows Retry and Lobby");
+                    Click("Return to Lobby");Next();break;
+                case 17:
+                    if(scene!="HomeLobby")return;
+                    Check(PlayerSelectionData.EquippedId=="StrikeRouge","Returning to Lobby retains equipped Gundam");
+                    OpenMode("Play");Click("STORY");Click("ENTER CHAPTER");Click("1-2");Click("DEPLOY / XUẤT KÍCH");Next();break;
+                case 18:
+                    if(scene!="Stage_1_2"||!Own(package))return;
+                    Check(package.rouge&&package.Opponents.All(enemy=>enemy.GetComponent<EnemyBrain>().profile.role==EnemyProfile.Role.Melee),
+                        "Direct deployment to Stage 1-2 uses selected Rouge and three Melee enemies");
+                    Complete();break;
+            }
+        }
+        catch(Exception exception)
+        {
+            checks.Add("FAIL "+exception);
+            Complete();
+        }
+    }
+
+    bool cinemaChecked;
+
+    void Equip(string id)
+    {
+        var selector=UnityEngine.Object.FindAnyObjectByType<StrikerSelectionController>();
+        selector.Open();
+        Check(selector.cards.Count(card=>card.gameObject.activeInHierarchy)==2&&selector.counterLabel.text=="02/02","Only the two playable Gundam appear");
+        int index=Array.FindIndex(selector.catalog.units,unit=>unit.id==id);
+        selector.cards[index].GetComponent<Button>().onClick.Invoke();
+        var data=PlayerSelectionData.Load(id);
+        Check(selector.statValues[0].text==data.maxHealth.ToString()&&selector.statValues[12].text=="5","Roster reads the combat profile for "+id);
+        if(selector.confirmButton.interactable)selector.confirmButton.onClick.Invoke();
+        else selector.Close();
+        Check(PlayerSelectionData.EquippedId==id,"Equipment persists as "+id);
+    }
+
+    void OpenMode(string entry)
+    {
+        Click(entry);
+        Check(Find("Mode popup").activeInHierarchy,"Mode popup opened via "+entry);
+    }
+
+    void CheckIntel(string location,string unit)
+    {
+        var intel=Find("Mission briefing");
+        var content=intel.GetComponentsInChildren<TMP_Text>();
+        Check(content.Any(l=>l.text.Contains(location.ToUpperInvariant()))&&content.Any(l=>l.text.Contains(unit.ToUpperInvariant()))&&
+            content.Any(l=>l.text.StartsWith("3×"))&&Find("Map preview").GetComponent<UnityEngine.UI.Image>().sprite,
+            "Fresh map, enemy intel and equipped "+unit+" for "+location);
+    }
+
+    void CheckBattle(CharacterBattlePackage package,string id,EnemyProfile.Role role)
+    {
+        var profile=PlayerSelectionData.Load(id);
+        int burst=package.unicorn?package.unicorn.Burst:package.rouge.Burst;
+        Check((id=="Unicorn"?(bool)package.unicorn:(bool)package.rouge)&&package.player.maxHealth==profile.maxHealth&&
+            package.player.defense==profile.defense&&burst==2,"Loaded "+id+" stats, animation package and Burst 2/5");
+        Check(package.Opponents.Length==3&&package.Opponents.All(enemy=>enemy.GetComponent<EnemyBrain>().profile.role==role),
+            "Three "+role+" actors in "+SceneManager.GetActiveScene().name);
+        Check(profile.skills.Select(skill=>skill.burstCost).SequenceEqual(new[]{0,1,2,5})&&profile.skills.All(skill=>skill.animation&&skill.duration>0),
+            "Four authored clips with Burst costs 0/1/2/5 for "+id);
+        Check(package.battleCamera.isActiveAndEnabled&&package.battleCamera.clearFlags==CameraClearFlags.Skybox,"Production camera with rendered sky");
+    }
+
+    void Pause(StoryBattleController story,CharacterBattlePackage package)
+    {
+        var hud=UnityEngine.Object.FindObjectsByType<Canvas>().SelectMany(c=>c.GetComponentsInChildren<Button>(true))
+            .First(button=>button.name=="System Menu"&&button.gameObject.activeInHierarchy);
+        hud.onClick.Invoke();
+        Check(Result("Tạm dừng")&&(package.unicorn?package.unicorn.IsPaused:!package.rouge.gameplayEnabled),"HUD Pause opens and freezes combat");
+        Click("Resume");
+        Check(!Find("Battle Result").activeInHierarchy&&Own(package),"Resume restores the battle turn");
+    }
+
+    static void Win(CharacterBattlePackage package)
+    {
+        var target=package.Opponents.First(enemy=>enemy.IsAlive);
+        for(int i=0;i<package.Opponents.Length;i++)
+        {
+            var enemy=package.Opponents[i];
+            if(!enemy.IsAlive)continue;
+            enemy.TakeDamage(enemy==target?enemy.Health-1:enemy.Health);
+            if(enemy!=target)continue;
+            if(package.unicorn){package.unicorn.SelectTarget(i);package.unicorn.SelectSkill(0);package.unicorn.ExecuteSkill();}
+            else{package.rouge.SelectTarget(i);package.rouge.TryUseSkill(0);}
+        }
+    }
+    static void Lose(CharacterBattlePackage package)
+    {
+        package.player.TakeDamage(package.player.Health-1);
+        package.unicorn.SelectSkill(1);package.unicorn.ExecuteSkill();
+    }
+    static bool Own(CharacterBattlePackage package)=>package&&(package.unicorn?
+        package.unicorn.State==UnicornCombatDemo.Phase.Select:package.rouge.Phase==RougeBattleDemo.BattlePhase.PlayerTurn&&!package.rouge.IsOpening);
+    static bool Result(string title)=>Find("Battle Result").activeInHierarchy&&Find("Result").GetComponent<TMP_Text>().text==title;
+    static GameObject Find(string name)=>SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<Transform>(true))
+        .First(node=>node.name==name).gameObject;
+    static Button Button(string name)=>Find(name).GetComponent<Button>();
+    static void Click(string name)=>Button(name).onClick.Invoke();
+    static void Snap(string name)=>ScreenCapture.CaptureScreenshot(Folder+name+".png");
+    void Check(bool valid,string criterion)
+    {
+        if(!valid)throw new InvalidOperationException(criterion);
+        checks.Add("PASS "+criterion);
+    }
+    void Next()
+    {
+        step++;
+        wait=EditorApplication.timeSinceStartup+.40;
+        deadline=wait+85;
+        Time.timeScale=step>=5?3:1;
+    }
+    void Complete()
+    {
+        EditorApplication.update-=Tick;
+        Time.timeScale=oldScale;
+        if(existedBefore[0])PlayerPrefs.SetString(preferenceKeys[0],equippedBefore);else PlayerPrefs.DeleteKey(preferenceKeys[0]);
+        for(int i=1;i<preferenceKeys.Length;i++)
+            if(existedBefore[i])PlayerPrefs.SetInt(preferenceKeys[i],completedBefore[i-1]);else PlayerPrefs.DeleteKey(preferenceKeys[i]);
+        PlayerPrefs.Save();
+        File.WriteAllLines(Folder+"Validation.txt",checks);
+        if(checks.Any(line=>line.StartsWith("FAIL")))Debug.LogError(checks.Last());
+        else Debug.Log("Production Story passed "+checks.Count+" checks.");
+    }
+}

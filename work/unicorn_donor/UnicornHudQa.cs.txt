@@ -1,0 +1,90 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using GundamGame.Unicorn;
+using GundamGame.CombatDemo;
+
+internal class CommandScript:IRunCommand {
+const string Reports="Docs/Reports/UnicornCombat/";
+UnicornCombatDemo battle;
+MechaBattleHUD hud;
+Action<float> step;
+Action camera;
+readonly List<string> report=new();
+public void Execute(ExecutionResult result) {
+battle=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+hud=UnityEngine.Object.FindAnyObjectByType<MechaBattleHUD>();
+if(!Application.isPlaying || !battle || !hud){result.LogError("Expected active Unicorn HUD");return;}
+step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),battle,"Step");
+camera=(Action)Delegate.CreateDelegate(typeof(Action),battle,"UpdateCamera");
+var view=EditorWindow.GetWindow(typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GameView"));
+view.maximized=true;view.Focus();
+battle.StartCoroutine(Run());result.Log("Running Unicorn HUD integration checks");
+}
+void Check(bool ok,string message){if(!ok)throw new Exception(message);}
+void Test(string name,Action test){try{test();report.Add("PASS "+name);}catch(Exception e){report.Add("FAIL "+name+" | "+e.Message);}}
+static void Click(Button button) {
+var data=new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left};
+ExecuteEvents.Execute(button.gameObject,data,ExecuteEvents.pointerClickHandler);
+}
+void Ready(){
+battle.ResetBattle();for(int i=0;i<1500&&!battle.CanChooseAction;i++)step(1f/60);
+camera();Check(battle.CanChooseAction,"No player turn");
+}
+Text SkillName(int i)=>hud.skillButtons[i].transform.Find("Skill Name").GetComponent<Text>();
+Text Cost(int i)=>hud.skillButtons[i].transform.Find("Cost").GetComponentInChildren<Text>();
+IEnumerator Run(){
+float scale=Time.timeScale;Time.timeScale=0;
+try{
+Ready();yield return new WaitForSecondsRealtime(.12f);
+report.Add("Unity "+Application.unityVersion+" | "+Screen.width+"x"+Screen.height);
+Test("Original Rouge layout asset, new Unicorn art and matching costs 0/1/2/5",()=>{
+Check(AssetDatabase.GetAssetPath(battle.hudPrefab).EndsWith("StrikeRougeMechaHUD.prefab"),"wrong shared layout");
+Check(EventSystem.current!=null&&hud.safeRoot.gameObject.activeInHierarchy,"UI or input unavailable");
+Check(Enumerable.Range(0,4).All(i=>Cost(i).text==UnicornCombatDemo.Skills[i].cost.ToString()),"wrong cost");
+Check(Enumerable.Range(0,4).All(i=>hud.skillButtons[i].transform.Find("Artwork").GetComponent<Image>().sprite!=null),"missing sprite");
+Check(SkillName(0).text=="TWIN VULCAN"&&SkillName(3).text=="FULL BURST","wrong labels");});
+Test("Clicking an unaffordable skill previews it and Execute stays disabled",()=>{
+Click(hud.skillButtons[3]);Check(battle.SelectedSkill==3&&hud.PreviewLabel.Contains("INSUFFICIENT")&&!hud.executeButton.interactable,"locked state");
+Click(hud.executeButton);Check(battle.State==UnicornCombatDemo.Phase.Select&&battle.Burst==2,"locked still executed");
+});
+yield return Capture("UnicornHUD_BurstLocked.png");
+Test("Buff button previews the player; target selectors still select the three opponents",()=>{
+Click(hud.targetButtons[2]);Check(battle.TargetIndex==2,"target not selected");
+Click(hud.skillButtons[1]);Check(battle.SelectedSkill==1&&hud.PreviewLabel.Contains("Self buff")&&hud.executeButton.interactable,"self preview");
+});
+yield return Capture("UnicornHUD_SelfBuff.png");
+Test("Charge updates fifth Burst cell, Ultimate artwork and execution",()=>{
+battle.ChargeForTest();Click(hud.skillButtons[3]);
+Check(battle.Burst==5&&hud.skillState[3].text=="READY"&&hud.executeButton.interactable,"charged state");
+Check(hud.burstCells.All(c=>c.top.r>.9f),"unlit charge");
+});
+yield return Capture("UnicornHUD_FullBurstReady.png");
+Test("Execute goes through the new buttons and starts the agreed Ultimate",()=>{
+Click(hud.executeButton);Check(battle.Cinematic&&battle.Burst==0,"Ultimate not running");
+});
+yield return null;
+Test("Only cinematic hides the regular HUD",()=>{
+Check(!hud.safeRoot.gameObject.activeSelf,"HUD still visible");Check(battle.SkipCinematic(),"skip failed");
+});
+yield return new WaitForSecondsRealtime(.12f);
+Test("Skip restores HUD and enemy defense dock",()=>{
+Check(hud.safeRoot.gameObject.activeSelf&&hud.DefenseVisible&&battle.Burst==1,"HUD or defense not restored");
+});
+File.WriteAllLines(Reports+"UnicornHUD_Validation.txt",report);
+Ready();battle.ChargeForTest();Click(hud.skillButtons[3]);
+}finally{Time.timeScale=scale;}
+}
+IEnumerator Capture(string name){
+yield return new WaitForEndOfFrame();
+var frame=ScreenCapture.CaptureScreenshotAsTexture();
+File.WriteAllBytes(Reports+name,frame.EncodeToPNG());
+UnityEngine.Object.Destroy(frame);
+}
+}

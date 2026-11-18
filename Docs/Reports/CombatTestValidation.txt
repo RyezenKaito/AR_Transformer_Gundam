@@ -1,0 +1,29 @@
+Unity 6000.5.8f1 | fixed virtual test arena
+PASS Unicorn uses one fixed scene
+PASS Unicorn has one package and exactly four actors
+PASS Unicorn has one arena camera and one EventSystem after switching
+PASS Unicorn has valid player/camera bindings
+PASS Unicorn reads profile stats and skill data
+PASS Unicorn executes the buff
+PASS Unicorn buff reaches the authored cue and affects only itself
+PASS Select Strike Rouge
+PASS Strike Rouge uses one fixed scene
+PASS Strike Rouge has one package and exactly four actors
+PASS Strike Rouge has one arena camera and one EventSystem after switching
+PASS Strike Rouge has valid player/camera bindings
+PASS Previous Unicorn controller is destroyed
+PASS Rouge has profile stats, source animation and weapon sockets
+PASS Rouge executes V-Fin Pulse
+PASS Rouge completes V-Fin Pulse and deals damage
+PASS Rouge executes Full Burst
+PASS Character switching waits for cinematic to finish
+PASS Return to Unicorn
+PASS Unicorn reload uses one fixed scene
+PASS Unicorn reload has one package and exactly four actors
+PASS Unicorn reload has one arena camera and one EventSystem after switching
+PASS Unicorn reload has valid player/camera bindings
+PASS Switch clears prior state and initializes a new match
+PASS Unicorn can charge and execute Full Burst after reload
+PASS Unicorn cinematic and skip still work
+PASS Unicorn skip applies the finishing impacts
+PASS Zero runtime errors while swapping packages

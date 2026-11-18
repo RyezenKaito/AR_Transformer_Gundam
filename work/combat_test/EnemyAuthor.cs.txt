@@ -1,0 +1,61 @@
+using System;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using GundamGame.CombatDemo;
+internal class CommandScript:IRunCommand {
+ const string Folder="Assets/Game/Features/Combat/Enemies";
+ public void Execute(ExecutionResult result){
+ var scene=SceneManager.GetActiveScene();
+ if(EditorApplication.isPlayingOrWillChangePlaymode||scene.isDirty||scene.name!="Combat Test"){result.LogError("Open saved Combat Test in Edit Mode");return;}
+ var runner=UnityEngine.Object.FindAnyObjectByType<CombatTestScene>();
+ runner.rangedEnemy=Make(false);runner.meleeEnemy=Make(true);
+ EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);
+ var settings=EditorBuildSettings.scenes.ToList();
+ foreach(var path in new[]{"Assets/Game/Scenes/HomeLobby.unity",scene.path}) {
+ int i=settings.FindIndex(s=>s.path==path);
+ if(i>=0)settings[i]=new EditorBuildSettingsScene(path,true);else settings.Add(new EditorBuildSettingsScene(path,true));}
+ EditorBuildSettings.scenes=settings.ToArray();AssetDatabase.SaveAssets();
+ result.Log("Saved both RX-78-2 prefabs, profiles and Test Scene bindings");
+ }
+ EnemyProfile Make(bool melee){
+ string id=melee?"RX-78-2 Melee":"RX-78-2 Ranged";
+ string path=AssetDatabase.FindAssets("t:GameObject",new[]{melee?"Assets/Models/RX-78-2-Gundam-Part-2":"Assets/Models/RX-78-2-Gundam"}).Select(AssetDatabase.GUIDToAssetPath).First(p=>melee?p.EndsWith("/rx-78-2_gundam_part_2.glb"):p.EndsWith(".glb"));
+ var root=new GameObject(id);try{
+ var visual=new GameObject("Visual");visual.transform.SetParent(root.transform,false);
+ var model=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path));model.transform.SetParent(visual.transform,false);
+ foreach(var a in model.GetComponentsInChildren<Animator>())a.enabled=false;
+ foreach(var a in model.GetComponentsInChildren<Animation>())a.enabled=false;
+ var nodes=model.GetComponentsInChildren<Transform>(true);
+ Transform Find(string name)=>nodes.First(t=>t.name==name);
+ var b=model.GetComponentsInChildren<Renderer>().Select(r=>r.bounds).Aggregate((x,y)=>{x.Encapsulate(y);return x;});
+ float factor=2f/b.size.y;
+ model.transform.localScale*=factor;model.transform.localPosition-=new Vector3(b.center.x,b.min.y,b.center.z)*factor;
+ var f=root.AddComponent<DemoFighter>();f.displayName=id;f.visual=visual.transform;f.height=2;f.lowerImportedArmsAtRest=false;
+ var p=AssetDatabase.LoadAssetAtPath<EnemyProfile>(Folder+"/"+id+".asset");
+ if(!p){p=ScriptableObject.CreateInstance<EnemyProfile>();AssetDatabase.CreateAsset(p,Folder+"/"+id+".asset");}
+ p.role=melee?EnemyProfile.Role.Melee:EnemyProfile.Role.Ranged;p.hp=melee?175:200;p.armor=melee?45:78;p.speed=melee?148:132;p.moveSpeed=melee?7:3.5f;
+ p.clip=AssetDatabase.LoadAllAssetsAtPath(path).OfType<AnimationClip>().Single(c=>c.name==(melee?"G02-SABER":"G01-RIFLE"));
+ p.moves=melee?new[]{Move("Beam Saber Combo",3,45,0,1.3f,1.15f,.8f,.65f),Move("60mm Head Vulcan",3,27,2,1.6f,1.05f,.58f,.42f),Move("Beam Javelin Lunge",1,53,3,1.15f,1.25f,.78f,.95f)}
+ :new[]{Move("Beam Rifle Burst",3,42,0,4.6f,1.15f,.65f,.55f),Move("Hyper Bazooka Shot",1,52,3,4.2f,1.5f,.78f,1.15f),Move("Tactical Shield Guard",0,0,2,3.5f,1.10f,.6f,0)};
+ f.maxHealth=p.hp;f.maxArmor=p.armor;f.attack=p.attack;f.defense=p.defense;f.speed=p.speed;f.breakDamage=p.breakDamage;
+ var ai=root.AddComponent<EnemyBrain>();ai.profile=p;ai.animatedModel=model;ai.fighter=f;
+ if(melee)ai.blade=Find("Object_8").gameObject;
+ else{
+ ai.rightHand=Find("手ダミー.R");ai.leftHand=Find("手ダミー.L");ai.bazookaDock=Find("バズーカ腰ダミー");ai.shieldDock=Find("盾背中ダミー");f.muzzle=ai.rightHand;
+ ai.bazooka=Prop("Hyper Bazooka",ai.bazookaDock,PrimitiveType.Cylinder,new Vector3(.16f,.53f,.16f),factor);
+ ai.shield=Prop("Tactical Shield",ai.shieldDock,PrimitiveType.Cube,new Vector3(.36f,.62f,.08f),factor);
+ }
+ p.prefab=PrefabUtility.SaveAsPrefabAsset(root,Folder+"/"+id+".prefab");EditorUtility.SetDirty(p);return p;
+ }finally{UnityEngine.Object.DestroyImmediate(root);}
+ }
+ static Transform Prop(string label,Transform socket,PrimitiveType type,Vector3 size,float modelScale){
+ var item=GameObject.CreatePrimitive(type);item.name=label;item.transform.SetParent(socket,false);
+ UnityEngine.Object.DestroyImmediate(item.GetComponent<Collider>());
+ float scale=Mathf.Max(.00001f,Mathf.Abs(socket.lossyScale.x));item.transform.localScale=size/scale;return item.transform;
+ }
+ static EnemyProfile.Move Move(string name,int hits,int damage,int cd,float range,float warning,float recovery,float armor)=>new EnemyProfile.Move{label=name,hits=hits,damage=damage,cooldownTurns=cd,range=range,telegraph=warning,recovery=recovery,armorMultiplier=armor};
+}

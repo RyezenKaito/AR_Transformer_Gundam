@@ -1,0 +1,7 @@
+FAIL
+System.InvalidOperationException: This cannot be used during play mode, please use SceneManager.LoadScene()/SceneManager.LoadSceneAsync() instead.
+  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.OpenScene_Injected(UnityEngine.Bindings.ManagedSpanWrapper&,UnityEditor.SceneManagement.OpenSceneMode,UnityEngine.SceneManagement.Scene&)
+  at UnityEditor.SceneManagement.EditorSceneManager.OpenScene (System.String scenePath, UnityEditor.SceneManagement.OpenSceneMode mode) [0x0002a] in <da871bb30d6448e2981f366171b14bb9>:0 
+  at UnityEditor.SceneManagement.EditorSceneManager.OpenScene (System.String scenePath) [0x00000] in <da871bb30d6448e2981f366171b14bb9>:0 
+  at GundamLobby.Editor.UIIntegrationValidation.Run () [0x0002c] in G:\MotChutVibe\Unity\AR_Transformer_Gundam\Assets\Tools\Editor\Lobby\UIIntegrationValidation.cs:40 
+  at GundamLobby.Editor.UIIntegrationValidation.Update () [0x0002b] in G:\MotChutVibe\Unity\AR_Transformer_Gundam\Assets\Tools\Editor\Lobby\UIIntegrationValidation.cs:62 

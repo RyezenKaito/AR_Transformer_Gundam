@@ -1,0 +1,41 @@
+using System;
+using System.Linq;
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+using GundamGame.Unicorn;
+
+internal class CommandScript:IRunCommand
+{
+    const string Base="Assets/Game/Features/Characters/Unicorn";
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode){result.LogError("Exit Play Mode first.");return;}
+        const string package=Base+"/Resources/CombatProfiles/Unicorn/Combat Package.prefab";
+        var root=PrefabUtility.LoadPrefabContents(package);
+        try
+        {
+            var battle=root.GetComponentInChildren<UnicornCombatDemo>();
+            var previous=battle.model;
+            var shared=AssetDatabase.LoadAssetAtPath<GameObject>(Base+"/Prefabs/Unicorn_Base.prefab");
+            if(!shared || !previous){result.LogError("Unicorn prefabs missing.");return;}
+            var canonical=(GameObject)PrefabUtility.InstantiatePrefab(shared,root.scene);
+            var newTransform=canonical.transform;
+            newTransform.SetParent(previous.transform.parent,false);
+            newTransform.localPosition=previous.transform.localPosition;newTransform.localRotation=previous.transform.localRotation;newTransform.localScale=previous.transform.localScale;
+            canonical.GetComponent<Animator>().enabled=false;
+            Transform Socket(string name)=>canonical.GetComponentsInChildren<Transform>(true).Single(t=>t.name==name);
+            battle.model=canonical;
+            battle.muzzle=Socket("Muzzle");battle.eject=Socket("Eject");
+            battle.vulcanL=Socket("Vulcan_L");battle.vulcanR=Socket("Vulcan_R");
+            battle.focusHead=Socket("CameraFocus_Head");battle.focusBody=Socket("CameraFocus_Body");
+            battle.handLeft=Socket("Hand.L");battle.handRight=Socket("Hand.R");battle.kickFoot=Socket("Foot.R");
+            UnityEngine.Object.DestroyImmediate(previous);
+            PrefabUtility.SaveAsPrefabAsset(root,package);
+            AssetDatabase.SaveAssets();
+            result.Log("Test package now nests the canonical Unicorn prefab instead of keeping a separate copy.");
+        }
+        finally{PrefabUtility.UnloadPrefabContents(root);}
+    }
+}

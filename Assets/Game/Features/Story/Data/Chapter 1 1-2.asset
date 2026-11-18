@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c447ff657bc26f048b981a4ec008d718, type: 3}
+  m_Name: Chapter 1 1-2
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.Story.StoryStage
+  stageId: 1-2
+  locationName: Street City
+  scenePath: Assets/Game/Scenes/Story/Stage_1_2.unity
+  battlefieldPrefab: {fileID: 971426654481109695, guid: 18eae783bee941f43b0cae953e9ede8e, type: 3}
+  thumbnail: {fileID: 21300000, guid: 7bda49746328f344cb91ba711ec5a730, type: 3}
+  briefing: "M\u1EDF tuy\u1EBFn qua \u0111\u1EA1i l\u1ED9 v\xE0 ch\u1EB7n \u0111\u1ED9i
+    \u0111\u1ED9t k\xEDch c\u1EADn chi\u1EBFn."
+  opponents:
+  - {fileID: 11400000, guid: a214c1e16d455814190fdb502e5217cd, type: 2}
+  - {fileID: 11400000, guid: a214c1e16d455814190fdb502e5217cd, type: 2}
+  - {fileID: 11400000, guid: a214c1e16d455814190fdb502e5217cd, type: 2}
+  nextStage: {fileID: 0}

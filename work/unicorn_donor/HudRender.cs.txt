@@ -1,0 +1,131 @@
+using System;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using GundamGame.Unicorn;
+using GundamGame.CombatDemo;
+
+internal class CommandScript:IRunCommand
+{
+    const string Root="Assets/Game/Features/Combat/UI/Unicorn";
+    const string Art=Root+"/Art";
+    const string Scratch="work/unicorn_donor/hud_renders";
+    PreviewRenderUtility preview;
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode){result.LogError("Exit Play Mode before authoring art");return;}
+        var battle=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+        if(!battle){result.LogError("Unicorn Demo must be loaded");return;}
+        Directory.CreateDirectory(Scratch);
+        var model=battle.model;
+        Make(model,"Portrait","Unicorn_Idle",0,new Vector3(.38f,.03f,1),.37f,.75f);
+        Make(model,"Twin_Vulcan","Unicorn_TwinVulcan",7f/30,new Vector3(.64f,.035f,1),.32f,.78f);
+        Make(model,"Psycho_Frame","Unicorn_PsychoFrameAwakening",43f/30,new Vector3(.30f,.05f,1),.61f,.29f);
+        Make(model,"Beam_Magnum","Unicorn_BeamMagnum",48f/30,new Vector3(.61f,.23f,.45f),0,0);
+        Make(model,"Full_Burst","Unicorn_FullBurst",137f/30,new Vector3(-.45f,.12f,1),.78f,.17f);
+        result.Log("Rendered four Unicorn skills and the portrait from the actual game model");
+    }
+    static Transform Find(GameObject o,string name)=>o.GetComponentsInChildren<Transform>(true).Single(t=>t.name==name);
+    void Make(GameObject source,string file,string clip,float time,Vector3 facing,float tall,float rise)
+    {
+        preview=new PreviewRenderUtility();
+        GameObject clone=null;
+        try
+        {
+            clone=UnityEngine.Object.Instantiate(source);
+            clone.SetActive(true);
+            clone.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
+            clone.transform.localScale=Vector3.one;
+            foreach(var a in clone.GetComponentsInChildren<Animator>(true))a.enabled=false;
+            var clips=AssetDatabase.LoadAllAssetsAtPath("Assets/Game/Features/Characters/Unicorn/Art/Unicorn_Base.fbx").OfType<AnimationClip>();
+            clips.Single(c=>c.name==clip).SampleAnimation(clone,time);
+            Find(clone,"Unicorn_Donor_Shield").gameObject.SetActive(false);
+            preview.AddSingleGO(clone);
+            foreach(var skin in clone.GetComponentsInChildren<SkinnedMeshRenderer>(true))skin.updateWhenOffscreen=true;
+            Vector3 look;
+            float size;
+            if(file=="Beam_Magnum")
+            {
+                var gun=Find(clone,"Unicorn_Donor_Rifle");
+                foreach(var r in clone.GetComponentsInChildren<Renderer>())r.enabled=r.transform==gun;
+                gun.position=Vector3.zero;
+                gun.rotation=Quaternion.Euler(9,4,-28)*gun.rotation;
+                var box=gun.GetComponent<Renderer>().bounds;
+                look=box.center;
+                size=Mathf.Max(box.size.x,box.size.y,box.size.z)*.66f;
+            }
+            else
+            {
+                var head=Find(clone,"CameraFocus_Head").position;
+                Vector3 body=Find(clone,"CameraFocus_Body").position;
+                look=Vector3.Lerp(body,head,rise);
+                float height=clone.GetComponentsInChildren<Renderer>().Select(r=>r.bounds.max.y).Max();
+                size=Mathf.Max(.2f,tall*height*.54f);
+                if(file=="Twin_Vulcan") look+=Vector3.up*.09f;
+                if(file=="Psycho_Frame"||file=="Full_Burst")
+                {
+                    var block=new MaterialPropertyBlock();
+                    foreach(var r in clone.GetComponentsInChildren<Renderer>())
+                    {
+                        var mats=r.sharedMaterials;
+                        for(int i=0;i<mats.Length;i++)
+                        {
+                            if(!mats[i]||!mats[i].HasProperty("_EmissionMap"))continue;
+                            var map=mats[i].GetTexture("_EmissionMap");
+                            if(!map||!map.name.Contains("_RED"))continue;
+                            block.SetColor("_EmissionColor",new Color(1.25f,.024f,.08f));
+                            r.SetPropertyBlock(block,i);
+                        }
+                    }
+                }
+            }
+            var cam=preview.camera;
+            cam.orthographic=true;cam.orthographicSize=size;
+            cam.transform.position=look+facing.normalized*7;
+            cam.transform.LookAt(look);
+            cam.nearClipPlane=.01f;cam.farClipPlane=20;
+            cam.clearFlags=CameraClearFlags.SolidColor;
+            preview.lights[0].intensity=2.25f;
+            preview.lights[0].transform.rotation=Quaternion.Euler(39,216,0);
+            preview.lights[1].intensity=1.40f;preview.lights[1].color=new Color(.61f,.79f,1);
+            preview.lights[1].transform.rotation=Quaternion.Euler(-15,38,0);
+            preview.ambientColor=new Color(.5f,.53f,.59f);
+            Render(cam,Color.black,Scratch+"/"+file+"_black.png");
+            Render(cam,Color.white,Scratch+"/"+file+"_white.png");
+        }
+        finally
+        {
+            preview.Cleanup();
+            if(clone)UnityEngine.Object.DestroyImmediate(clone);
+        }
+    }
+    void Render(Camera camera,Color background,string path)
+    {
+        const int width=600,height=460;
+        camera.backgroundColor=background;
+        preview.BeginPreview(new Rect(0,0,width,height),GUIStyle.none);
+        preview.Render(true);
+        var frame=preview.EndPreview();
+        var original=RenderTexture.active;
+        var rt=RenderTexture.GetTemporary(width,height,0,RenderTextureFormat.ARGB32);
+        var img=new Texture2D(width,height,TextureFormat.RGBA32,false);
+        try
+        {
+            Graphics.Blit(frame,rt);
+            RenderTexture.active=rt;
+            img.ReadPixels(new Rect(0,0,width,height),0,0);
+            img.Apply();
+            File.WriteAllBytes(path,img.EncodeToPNG());
+        }
+        finally
+        {
+            RenderTexture.active=original;
+            RenderTexture.ReleaseTemporary(rt);
+            UnityEngine.Object.DestroyImmediate(img);
+        }
+    }
+}

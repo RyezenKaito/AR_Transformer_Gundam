@@ -1,0 +1,44 @@
+00:06.969  blend            | Read blend: "G:\MotChutVibe\Unity\AR_Transformer_Gundam\SourceArt\Blender\Unicorn\Unicorn_Combat_v01.blend"
+BONE Root (0.0, 0.0, 0.0) (0.0, 0.0, 0.12)
+BONE Pelvis (0.0, 0.0, 1.77) (0.0, 0.0, 1.89)
+BONE Chest (0.0, 0.0, 1.88) (0.0, 0.0, 2.0)
+BONE Head (0.0, 0.0, 2.36) (0.0, 0.0, 2.48)
+BONE Backpack (0.0, 0.24, 2.18) (0.0, 0.24, 2.3)
+BONE UpperArm.L (0.405, 0.025, 2.24) (0.405, 0.025, 2.36)
+BONE Forearm.L (0.51, 0.065, 1.96) (0.51, 0.065, 2.08)
+BONE Hand.L (0.603, -0.09, 1.577) (0.603, -0.09, 1.697)
+BONE UpperArm.R (-0.405, 0.025, 2.24) (-0.405, 0.025, 2.36)
+BONE Forearm.R (-0.51, 0.065, 1.96) (-0.51, 0.065, 2.08)
+BONE Hand.R (-0.603, -0.09, 1.577) (-0.603, -0.09, 1.697)
+BONE Thigh.L (0.168, -0.024, 1.677) (0.168, -0.024, 1.797)
+BONE Shin.L (0.25, -0.01, 1.195) (0.25, -0.01, 1.315)
+BONE Foot.L (0.39, -0.03, 0.345) (0.39, -0.03, 0.465)
+BONE Thigh.R (-0.168, -0.024, 1.677) (-0.168, -0.024, 1.797)
+BONE Shin.R (-0.25, -0.01, 1.195) (-0.25, -0.01, 1.315)
+BONE Foot.R (-0.39, -0.03, 0.345) (-0.39, -0.03, 0.465)
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G hook_armor hook_slide_assy_G 174 [(-0.0, 0.267, 2.372), (-0.045, 0.22, 2.282), (0.045, 0.315, 2.461)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G hook_slide_assy_G hook_inner 274 [(-0.0, 0.295, 2.363), (-0.03, 0.254, 2.284), (0.03, 0.335, 2.442)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G inner_frame 870 [(0.0, 0.3, 2.166), (-0.212, 0.19, 1.977), (0.212, 0.41, 2.354)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G l_lower_flap_assy_G flap_thruster 1001 [(0.133, 0.361, 2.018), (0.08, 0.304, 1.96), (0.186, 0.418, 2.077)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G l_upper_flap_assy_G flap_thruster 1001 [(0.243, 0.297, 2.159), (0.19, 0.24, 2.1), (0.296, 0.354, 2.217)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G l_upper_flap_assy_G upper_flap_inner 105 [(0.237, 0.287, 2.251), (0.182, 0.223, 2.184), (0.293, 0.351, 2.317)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G lower_flap l_lower_flap_assy_G 771 [(0.132, 0.331, 2.051), (0.055, 0.264, 1.84), (0.208, 0.397, 2.262)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G lower_flap r_lower_flap_assy_G 771 [(-0.132, 0.331, 2.051), (-0.208, 0.264, 1.84), (-0.055, 0.397, 2.262)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G main_armor 3905 [(-0.0, 0.307, 2.159), (-0.222, 0.148, 1.91), (0.222, 0.466, 2.407)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G r_lower_flap_assy_G flap_thruster 1001 [(-0.133, 0.361, 2.018), (-0.186, 0.304, 1.96), (-0.08, 0.418, 2.077)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G r_saber_hub_assy_G saber_hub_section_b sec_b_G 233 [(-0.179, 0.26, 2.393), (-0.223, 0.222, 2.332), (-0.134, 0.297, 2.454)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G r_upper_flap_assy_G flap_thruster 1001 [(-0.243, 0.297, 2.159), (-0.296, 0.24, 2.1), (-0.19, 0.354, 2.217)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G r_upper_flap_assy_G upper_flap_inner 105 [(-0.237, 0.287, 2.251), (-0.293, 0.223, 2.184), (-0.182, 0.351, 2.317)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G saber_hub_section_a sec_a_G r_saber_hub_assy_G 412 [(-0.257, 0.272, 2.414), (-0.3, 0.24, 2.347), (-0.214, 0.304, 2.482)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G sec_a_G r_saber_hub_assy_G light_saber_b saber_G 848 [(-0.285, 0.297, 2.622), (-0.335, 0.256, 2.465), (-0.235, 0.338, 2.778)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G upper_flap_armor l_upper_flap_assy_G 774 [(0.233, 0.276, 2.21), (0.13, 0.179, 2.038), (0.335, 0.373, 2.382)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G back_pack_assy_G upper_flap_armor r_upper_flap_assy_G 774 [(-0.233, 0.276, 2.21), (-0.335, 0.179, 2.038), (-0.13, 0.373, 2.382)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G body_assy_G upper_body_assy_G L_chest_assy_G L_inner_frame_G L_upperback_inner_frame 132 [(0.149, 0.123, 2.183), (0.073, 0.085, 2.043), (0.225, 0.161, 2.322)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G body_assy_G upper_body_assy_G R_chest_assy_G R_inner_frame_G R_upperback_inner_frame 132 [(-0.149, 0.123, 2.183), (-0.225, 0.085, 2.043), (-0.073, 0.161, 2.322)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G body_assy_G upper_body_assy_G upper_body_stationary_part_assy_G rear_armor 406 [(0.0, 0.11, 2.133), (-0.09, 0.048, 1.938), (0.09, 0.172, 2.328)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G l_saber_hub_assy_G back_pack_assy_G saber_hub_section_b sec_b_G 233 [(0.179, 0.26, 2.393), (0.134, 0.222, 2.332), (0.223, 0.297, 2.454)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G saber_hub_section_a sec_a_G l_saber_hub_assy_G back_pack_assy_G 412 [(0.257, 0.272, 2.414), (0.214, 0.24, 2.347), (0.3, 0.304, 2.482)]
+PART main_assy_G UNICORN_GUNDAM_MOD_G sec_a_G l_saber_hub_assy_G back_pack_assy_G light_saber_a saber_G 848 [(0.285, 0.297, 2.622), (0.235, 0.256, 2.465), (0.335, 0.338, 2.778)]
+Blender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:35:40)
+
+Blender quit

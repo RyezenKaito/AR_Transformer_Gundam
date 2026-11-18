@@ -1,0 +1,25 @@
+stateDiagram-v2
+    direction TB
+    state "Main GUI" as lobby
+    state "Panel chức năng đang mở" as panels {
+        state "Hồ sơ" as profile
+        state "Laboratory" as laboratory
+        state "Inventory" as inventory
+        state "Shop" as shop
+        state "Nhiệm vụ ngày" as daily
+        state "NightMarket" as market
+        state "Chọn chế độ Battle" as battleMenu
+    }
+    state "Chuẩn bị PvE - SD03" as preparing
+    [*] --> lobby
+    lobby --> profile: mở Hồ sơ
+    lobby --> laboratory: mở Laboratory
+    lobby --> inventory: mở Inventory
+    lobby --> shop: mở Shop
+    lobby --> daily: mở Nhiệm vụ
+    lobby --> market: mở NightMarket
+    lobby --> battleMenu: mở Battle
+    panels --> lobby: Back / Đóng
+    lobby --> preparing: Play
+    battleMenu --> preparing: chọn PvE
+    preparing --> [*]: bàn giao phiên PvE

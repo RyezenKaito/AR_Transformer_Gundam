@@ -13,7 +13,7 @@ namespace GundamGame.CombatDemo.Editor
     public static class RougeHudAuthoring
     {
         const string Request="Temp/RougeHud.request";
-        public const string Folder="Assets/Game/Features/Combat/UI/StrikeRouge";
+        public const string Folder="Assets/Game/Features/Characters/StrikeRouge/UI";
         static RougeHudAuthoring(){EditorApplication.update+=Poll;}
         static void Poll()
         {
@@ -33,7 +33,7 @@ namespace GundamGame.CombatDemo.Editor
             if(!EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(),backup+"/CombatBeforeHud_"+DateTime.Now.ToString("yyyyMMdd_HHmmss")+".unity",true))throw new IOException("Cannot preserve demo scene.");
             var battle=UnityEngine.Object.FindAnyObjectByType<RougeBattleDemo>();
             if(battle==null)throw new InvalidOperationException("Battle controller missing.");
-            Directory.CreateDirectory(Folder+"/Art");Directory.CreateDirectory(Folder+"/Prefabs");AssetDatabase.Refresh();
+            Directory.CreateDirectory(Folder+"/Art");Directory.CreateDirectory("Assets/Game/Features/Combat/UI/Shared/Prefabs");AssetDatabase.Refresh();
             var art=AssetDatabase.LoadAssetAtPath<RougeHudArt>(Folder+"/StrikeRougeHudArt.asset");
             if(art==null){art=ScriptableObject.CreateInstance<RougeHudArt>();AssetDatabase.CreateAsset(art,Folder+"/StrikeRougeHudArt.asset");}
             art.playerPortrait=Portrait(battle.player,"Portrait_Rouge_Close");
@@ -62,7 +62,7 @@ namespace GundamGame.CombatDemo.Editor
             try
             {
                 var hud=root.GetComponent<MechaBattleHUD>();hud.art=art;hud.BuildHierarchy();
-                string prefabPath=Folder+"/Prefabs/StrikeRougeMechaHUD.prefab";
+                string prefabPath="Assets/Game/Features/Combat/UI/Shared/Prefabs/StrikeRougeMechaHUD.prefab";
                 PrefabUtility.SaveAsPrefabAsset(root,prefabPath);battle.hudPrefab=AssetDatabase.LoadAssetAtPath<MechaBattleHUD>(prefabPath);
             }
             finally{UnityEngine.Object.DestroyImmediate(root);}

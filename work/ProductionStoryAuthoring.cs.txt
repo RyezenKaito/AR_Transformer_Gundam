@@ -1,0 +1,177 @@
+using System;
+using System.Linq;
+using System.IO;
+using GundamGame.Story;
+using GundamLobby;
+using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+internal class CommandScript : IRunCommand
+{
+    const string Feature="Assets/Game/Features/Story";
+    const string Scenes="Assets/Game/Scenes/Story/";
+    readonly string[] id={"1-1","1-2"};
+    readonly string[] names={"Stage_1_1","Stage_1_2"};
+    readonly string[] briefs={"Bảo vệ trạm tiếp tế và vô hiệu hóa hỏa lực RX-78-2.",
+        "Mở tuyến qua đại lộ và chặn đội đột kích cận chiến."};
+
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode||SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Use Edit Mode with saved scenes.");
+        var oldSettings=EditorBuildSettings.scenes;
+        if(!AssetDatabase.IsValidFolder(Feature+"/Art"))AssetDatabase.CreateFolder(Feature,"Art");
+        for(int i=0;i<2;i++)
+        {
+            string oldPath=Scenes+id[i]+".unity", path=Scenes+names[i]+".unity";
+            if(!AssetDatabase.LoadAssetAtPath<SceneAsset>(path))
+            {
+                if(SceneManager.GetActiveScene().path==oldPath)EditorSceneManager.OpenScene(StoryStage.LobbyScenePath);
+                string error=AssetDatabase.MoveAsset(oldPath,path);
+                if(!string.IsNullOrEmpty(error))throw new InvalidOperationException(error);
+            }
+            var stage=AssetDatabase.LoadAssetAtPath<StoryStage>(Feature+"/Data/Chapter 1 "+id[i]+".asset");
+            stage.scenePath=path;
+            stage.briefing=briefs[i];
+            AuthorScene(stage,i);
+            EditorUtility.SetDirty(stage);
+            AssetDatabase.SaveAssetIfDirty(stage);
+        }
+        var settings=oldSettings.Where(x=>!x.path.Contains("/Game/Scenes/Story/")).Select(x=>
+            x.path.Contains("/CombatTest/")?new EditorBuildSettingsScene(x.path,false):x).ToList();
+        foreach(string name in names)settings.Add(new EditorBuildSettingsScene(Scenes+name+".unity",true));
+        EditorBuildSettings.scenes=settings.ToArray();
+        WireLobby();
+        AssetDatabase.SaveAssets();
+        result.Log("Saved both production stages, result buttons, URP sky and live map thumbnails.");
+    }
+
+    void AuthorScene(StoryStage stage,int index)
+    {
+        var scene=EditorSceneManager.OpenScene(stage.scenePath);
+        var controller=UnityEngine.Object.FindAnyObjectByType<StoryBattleController>();
+        var data=new SerializedObject(controller);
+        var title=(TMP_Text)data.FindProperty("resultTitle").objectReferenceValue;
+        var detail=(TMP_Text)data.FindProperty("resultDetail").objectReferenceValue;
+        detail.textWrappingMode=TextWrappingModes.Normal;
+        var prototype=(Button)data.FindProperty("lobbyButton").objectReferenceValue;
+        var retry=ButtonCopy(prototype,"Retry","Chơi lại");
+        var resume=ButtonCopy(prototype,"Resume","Tiếp tục");
+        data.FindProperty("retryButton").objectReferenceValue=retry;
+        data.FindProperty("resumeButton").objectReferenceValue=resume;
+        data.ApplyModifiedPropertiesWithoutUndo();
+        title.color=new Color(.88f,.97f,1);
+
+        string skyPath=Feature+"/Art/"+(index==0?"Desert Sky":"Street Sky")+".mat";
+        var sky=AssetDatabase.LoadAssetAtPath<Material>(skyPath);
+        if(!sky)
+        {
+            sky=new Material(Shader.Find("Skybox/Procedural"));
+            sky.SetColor("_SkyTint",index==0?new Color(.68f,.79f,.91f):new Color(.64f,.80f,.95f));
+            sky.SetColor("_GroundColor",index==0?new Color(.62f,.47f,.31f):new Color(.32f,.38f,.43f));
+            sky.SetFloat("_AtmosphereThickness",index==0?1.18f:.91f);
+            sky.SetFloat("_Exposure",.95f);
+            AssetDatabase.CreateAsset(sky,skyPath);
+        }
+        RenderSettings.skybox=sky;
+        var sun=UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None)
+            .FirstOrDefault(light=>light.type==LightType.Directional&&light.enabled);
+        if(sun)RenderSettings.sun=sun;
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        stage.thumbnail=Capture(index);
+    }
+
+    static Button ButtonCopy(Button original,string name,string caption)
+    {
+        var existing=original.transform.parent.Find(name);
+        if(existing)return existing.GetComponent<Button>();
+        var copy=UnityEngine.Object.Instantiate(original,original.transform.parent);
+        copy.name=name;copy.onClick=new Button.ButtonClickedEvent();
+        copy.GetComponentInChildren<TMP_Text>(true).text=caption;
+        return copy;
+    }
+
+    Sprite Capture(int index)
+    {
+        var temporary=new GameObject("Stage thumbnail camera",typeof(Camera));
+        var camera=temporary.GetComponent<Camera>();
+        camera.enabled=false;
+        camera.clearFlags=CameraClearFlags.Skybox;
+        camera.fieldOfView=52;camera.farClipPlane=180;
+        temporary.transform.position=index==0?new Vector3(-5,5.0f,-7):new Vector3(-9,4.1f,-3);
+        temporary.transform.LookAt(index==0?new Vector3(9,1.5f,2):new Vector3(31,2.8f,3.5f));
+        var texture=RenderTexture.GetTemporary(1280,720,24,RenderTextureFormat.ARGB32);
+        var old=RenderTexture.active;
+        Texture2D bitmap=null;
+        string path=Feature+"/Art/"+names[index]+".jpg";
+        try
+        {
+            RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest{destination=texture});
+            RenderTexture.active=texture;
+            bitmap=new Texture2D(1280,720,TextureFormat.RGB24,false);
+            bitmap.ReadPixels(new Rect(0,0,1280,720),0,0);
+            bitmap.Apply();
+            File.WriteAllBytes(path,bitmap.EncodeToJPG(89));
+        }
+        finally
+        {
+            RenderTexture.active=old;RenderTexture.ReleaseTemporary(texture);
+            if(bitmap)UnityEngine.Object.DestroyImmediate(bitmap);
+            UnityEngine.Object.DestroyImmediate(temporary);
+        }
+        AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+        var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+        importer.textureType=TextureImporterType.Sprite;
+        importer.spriteImportMode=SpriteImportMode.Single;
+        importer.mipmapEnabled=false;
+        importer.maxTextureSize=1024;
+        importer.SaveAndReimport();
+        return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+    }
+
+    void WireLobby()
+    {
+        var scene=EditorSceneManager.OpenScene(StoryStage.LobbyScenePath);
+        var roster=UnityEngine.Object.FindAnyObjectByType<StrikerSelectionController>();
+        var before=new[]{"Max HP","Attack","Defense","Speed","Crit Rate","Crit DMG","Break Effect","Damage Type",
+            "Effect Resistance","Energy Regeneration","Aggro","Shield Capacity","Max Energy","Skill Cost","Basic Attack Gain","Ultimate Target"};
+        var after=new[]{"Max HP","Attack","Defense","Speed","Break Damage","Skill 1","Skill 2","Skill 3",
+            "Max Armor","Armor Protection","Dodge Check","Parry Check","Max Burst","Starting Burst","Turn Recovery","Ultimate Cost"};
+        for(int i=0;i<roster.statValues.Length;i++)
+        {
+            var value=roster.statValues[i];
+            value.transform.parent.Find("Label").GetComponent<TMP_Text>().text=after[i];
+            var rect=(RectTransform)value.transform;
+            rect.anchoredPosition=new Vector2(163,rect.anchoredPosition.y);
+            rect.sizeDelta=new Vector2(199,rect.sizeDelta.y);
+            value.enableAutoSizing=true;value.fontSizeMin=13;value.fontSizeMax=22;
+            if(i<before.Length)value.transform.parent.name="Stat "+after[i];
+        }
+        foreach(var label in scene.GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<TMP_Text>(true)))
+        {
+            label.text=label.text switch
+            {
+                "SWITCH BREAK STRIKER"=>"SWITCH GUNDAM",
+                "STRIKER ROSTER"=>"GUNDAM ROSTER",
+                "ACTIVE STRIKER"=>"ACTIVE GUNDAM",
+                "CONFIRM STRIKER"=>"EQUIP GUNDAM",
+                "STRIKER EQUIPPED"=>"GUNDAM EQUIPPED",
+                "STRIKER BAY"=>"Laboratory",
+                "SET DEFAULT STRIKERS"=>"SET DEFAULT GUNDAM",
+                "STRIKER DESIGN"=>"GUNDAM DESIGN",
+                "COMBAT POWER"=>"LOADOUT",
+                _=>label.text
+            };
+        }
+        roster.counterLabel.text="02/02";
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+}

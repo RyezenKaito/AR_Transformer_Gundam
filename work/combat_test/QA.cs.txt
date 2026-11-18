@@ -1,0 +1,113 @@
+using System;
+using System.Collections;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using GundamGame.CombatDemo;
+using GundamGame.Unicorn;
+
+internal class CommandScript: IRunCommand
+{
+    const string Report="Docs/Reports/CombatTestValidation.txt";
+    CombatTestScene runner;
+    readonly List<string> lines=new();
+    readonly List<string> errors=new();
+
+    public void Execute(ExecutionResult result)
+    {
+        runner=UnityEngine.Object.FindAnyObjectByType<CombatTestScene>();
+        if(!Application.isPlaying || !runner){result.LogError("Combat Test Play Mode required");return;}
+        runner.StartCoroutine(Run());
+        result.Log("Testing Unicorn → Strike Rouge → Unicorn in the same scene");
+    }
+
+    void Check(bool value,string test)
+    {
+        lines.Add((value?"PASS ":"FAIL ")+test);
+    }
+
+    void OnLog(string text,string stack,LogType level)
+    {
+        if(level==LogType.Exception||level==LogType.Assert||level==LogType.Error)errors.Add(text);
+    }
+
+    IEnumerator Ready(Func<bool> status)
+    {
+        float end=Time.realtimeSinceStartup+19;
+        while(!status() && Time.realtimeSinceStartup<end)yield return null;
+    }
+
+    void Population(CombatTestPackage package,string label)
+    {
+        Check(SceneManager.sceneCount==1 && SceneManager.GetActiveScene().name=="Combat Test",label+" uses one fixed scene");
+        Check(UnityEngine.Object.FindObjectsByType<CombatTestPackage>(FindObjectsSortMode.None).Length==1 &&
+            UnityEngine.Object.FindObjectsByType<DemoFighter>(FindObjectsSortMode.None).Length==4,label+" has one package and exactly four actors");
+        Check(Camera.allCamerasCount==1 && UnityEngine.Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length==1,
+            label+" has one arena camera and one EventSystem after switching");
+        Check(package.player && package.battleCamera,label+" has valid player/camera bindings");
+    }
+
+    IEnumerator Run()
+    {
+        lines.Add("Unity "+Application.unityVersion+" | fixed virtual test arena");
+        Application.logMessageReceived+=OnLog;
+        float original=Time.timeScale;
+        Time.timeScale=3;
+        try
+        {
+            yield return Ready(()=>runner.ActivePackage && runner.ActivePackage.unicorn && runner.ActivePackage.unicorn.CanChooseAction);
+            var u=runner.ActivePackage.unicorn;
+            Population(runner.ActivePackage,"Unicorn");
+            Check(u.profile && u.player.maxHealth==u.profile.maxHealth && u.GetSkill(1).clip=="Unicorn_PsychoFrameAwakening","Unicorn reads profile stats and skill data");
+            Check(u.SelectSkill(1)&&u.ExecuteSkill(),"Unicorn executes the buff");
+            yield return Ready(()=>u.BuffTurns>0);
+            Check(u.BuffTurns>0 && u.DamageEvents==0,"Unicorn buff reaches the authored cue and affects only itself");
+            var old=runner.ActivePackage;
+            Check(runner.SelectCharacter(1),"Select Strike Rouge");
+            yield return Ready(()=>!runner.Loading && runner.ActiveIndex==1);
+            yield return null;
+            var r=runner.ActivePackage.rouge;
+            if(!r){Check(false,"Strike Rouge package activated");yield break;}
+            Population(runner.ActivePackage,"Strike Rouge");
+            Check(!old && !u,"Previous Unicorn controller is destroyed");
+            yield return Ready(()=>r.Phase==RougeBattleDemo.BattlePhase.PlayerTurn);
+            Check(r.profile && r.player.maxHealth==r.profile.maxHealth && r.presentation.AnimationReady &&
+                r.presentation.antennaRightTip && r.presentation.animationRig.antenna==r.profile.skills[0].animation,
+                "Rouge has profile stats, source animation and weapon sockets");
+            int actions=r.ActionsResolved;
+            Check(r.TryUseSkill(0),"Rouge executes V-Fin Pulse");
+            yield return Ready(()=>r.ActionsResolved>actions);
+            Check(r.ActionsResolved>actions,"Rouge completes V-Fin Pulse");
+            yield return Ready(()=>r.Phase==RougeBattleDemo.BattlePhase.PlayerTurn);
+            r.ChargeUltimateForTest();
+            Check(r.TryUseSkill(3),"Rouge executes Full Burst");
+            yield return Ready(()=>r.presentation.CinematicActive);
+            Check(r.presentation.CinematicActive && !runner.SelectCharacter(0),"Character switching waits for cinematic to finish");
+            yield return Ready(()=>!r.presentation.CinematicActive);
+            Check(runner.SelectCharacter(0),"Return to Unicorn");
+            yield return Ready(()=>!runner.Loading && runner.ActiveIndex==0);
+            yield return null;
+            var again=runner.ActivePackage.unicorn;
+            Population(runner.ActivePackage,"Unicorn reload");
+            Check(!r && again && again!=u && again.Burst==2 && again.BuffTurns==0,"Switch clears prior state and initializes a new match");
+            yield return Ready(()=>again.CanChooseAction);
+            again.ChargeForTest(); Check(again.SelectSkill(3)&&again.ExecuteSkill(),"Unicorn can charge and execute Full Burst after reload");
+            yield return null;
+            Check(again.Cinematic && again.SkipCinematic(),"Unicorn cinematic and skip still work");
+            Check(again.DamageEvents>0,"Unicorn skip applies the finishing impacts");
+        }
+        finally
+        {
+            Time.timeScale=original;
+            Application.logMessageReceived-=OnLog;
+            Check(errors.Count==0,"Zero runtime errors while swapping packages");
+            if(errors.Count>0)lines.AddRange(errors);
+            File.WriteAllLines(Report,lines);
+        }
+    }
+}
+

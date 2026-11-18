@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c447ff657bc26f048b981a4ec008d718, type: 3}
+  m_Name: Chapter 1 1-1
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.Story.StoryStage
+  stageId: 1-1
+  locationName: Desert Outpost
+  scenePath: Assets/Game/Scenes/Story/Stage_1_1.unity
+  battlefieldPrefab: {fileID: 2997530274797546946, guid: d639b54eff65fc342b23adba215271ab, type: 3}
+  thumbnail: {fileID: 21300000, guid: f40d33688baa3dd48ac9cc8e4d837419, type: 3}
+  briefing: "B\u1EA3o v\u1EC7 tr\u1EA1m ti\u1EBFp t\u1EBF v\xE0 v\xF4 hi\u1EC7u h\xF3a
+    h\u1ECFa l\u1EF1c RX-78-2."
+  opponents:
+  - {fileID: 11400000, guid: d2f8fa9d17ee78b4f94a9b029ed89674, type: 2}
+  - {fileID: 11400000, guid: d2f8fa9d17ee78b4f94a9b029ed89674, type: 2}
+  - {fileID: 11400000, guid: d2f8fa9d17ee78b4f94a9b029ed89674, type: 2}
+  nextStage: {fileID: 11400000, guid: 9cadad9f8c6f3b6418ee2fd987c793af, type: 2}

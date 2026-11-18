@@ -11,8 +11,8 @@ namespace GundamGame.CombatDemo.Editor
 {
     public static class RougeAntennaAuthoring
     {
-        public const string IconPath="Assets/Game/Features/Combat/UI/StrikeRouge/Art/Icon_AntennaPulse.png";
-        public const string ClipPath="Assets/Game/Features/Combat/Animations/StrikeRouge/Rouge_AntennaPulse.anim";
+        public const string IconPath="Assets/Game/Features/Characters/StrikeRouge/UI/Art/Icon_AntennaPulse.png";
+        public const string ClipPath="Assets/Game/Features/Characters/StrikeRouge/Animations/Rouge_AntennaPulse.anim";
         public const string ReportFolder="Docs/Reports/StrikeRougeAntenna";
         static Transform Find(Transform root,string token)=>root.GetComponentsInChildren<Transform>(true).First(t=>t.name.StartsWith(token,StringComparison.Ordinal));
 

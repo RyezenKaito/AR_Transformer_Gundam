@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\__init__.py", line 622, in execute
+    return export_fbx_bin.save(self, context, **keywords)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3754, in save
+    ret = save_single(operator, context.scene, depsgraph, filepath, **kwargs_mod)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3623, in save_single
+    fbx_objects_elements(root, scene_data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3417, in fbx_objects_elements
+    fbx_data_mesh_elements(objects, me_obj, scene_data, done_meshes)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 1206, in fbx_data_mesh_elements
+    t_normal = nors_transformed(t_normal, geom_mat_no, normal_fbx_dtype)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\fbx_utils.py", line 440, in nors_transformed
+    return _mat4_vec3_array_multiply(m, raw_nors, dtype)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\fbx_utils.py", line 409, in _mat4_vec3_array_multiply
+    multiplied_vectors = vec3_array.astype(array_dtype, copy=to_add is not None)
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 2.19 MiB for an array with shape (95622, 3) and data type float64
+Traceback (most recent call last):
+  File "G:\MotChutVibe\Unity\AR_Transformer_Gundam\work\unicorn_donor\build_combat.py", line 162, in <module>
+    bpy.ops.export_scene.fbx(filepath=str(out/'Unicorn_Base.fbx'),use_selection=True,object_types={'ARMATURE','MESH','EMPTY'},axis_forward='-Z',axis_up='Y',apply_unit_scale=True,apply_scale_options='FBX_SCALE_UNITS',add_leaf_bones=False,bake_anim=True,bake_anim_use_nla_strips=False,bake_anim_use_all_actions=True,bake_anim_force_startend_keying=True,bake_anim_simplify_factor=0,mesh_smooth_type='FACE')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error: Python: Traceback (most recent call last):
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\__init__.py", line 622, in execute
+    return export_fbx_bin.save(self, context, **keywords)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3754, in save
+    ret = save_single(operator, context.scene, depsgraph, filepath, **kwargs_mod)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3623, in save_single
+    fbx_objects_elements(root, scene_data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 3417, in fbx_objects_elements
+    fbx_data_mesh_elements(objects, me_obj, scene_data, done_meshes)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\export_fbx_bin.py", line 1206, in fbx_data_mesh_elements
+    t_normal = nors_transformed(t_normal, geom_mat_no, normal_fbx_dtype)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\fbx_utils.py", line 440, in nors_transformed
+    return _mat4_vec3_array_multiply(m, raw_nors, dtype)
+  File "G:\Work_Space\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_fbx\fbx_utils.py", line 409, in _mat4_vec3_array_multiply
+    multiplied_vectors = vec3_array.astype(array_dtype, copy=to_add is not None)
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 2.19 MiB for an array with shape (95622, 3) and data type float64
+Location: G:\MotChutVibe\Unity\AR_Transformer_Gundam\work\unicorn_donor\build_combat.py:162
+
+
+Error: script failed, file: 'work/unicorn_donor/build_combat.py', exiting.

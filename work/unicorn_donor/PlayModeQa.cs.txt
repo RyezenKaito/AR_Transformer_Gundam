@@ -1,0 +1,183 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
+using UnityEditor;
+using GundamGame.Unicorn;
+using GundamGame.CombatDemo;
+
+internal class CommandScript : IRunCommand
+{
+    UnicornCombatDemo demo;
+    readonly List<string> report=new();
+    MethodInfo step, camera;
+    readonly List<string> errors=new();
+    const string Reports="Docs/Reports/UnicornCombat/";
+
+    public void Execute(ExecutionResult result)
+    {
+        demo=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+        if(!Application.isPlaying||!demo) {result.LogError("Unicorn Demo is not in Play Mode");return;}
+        step=typeof(UnicornCombatDemo).GetMethod("Step",BindingFlags.Instance|BindingFlags.NonPublic);
+        camera=typeof(UnicornCombatDemo).GetMethod("UpdateCamera",BindingFlags.Instance|BindingFlags.NonPublic);
+        demo.StartCoroutine(Run());
+        result.Log("Started live arena validation");
+    }
+    void Check(bool ok,string message) { if(!ok)throw new Exception(message); }
+    void Case(string id,Action play)
+    {
+        try{play();report.Add("PASS "+id);}
+        catch(Exception e){report.Add("FAIL "+id+" | "+(e.InnerException??e).Message);}
+    }
+    void Reset()
+    {
+        demo.SetTrackingValid(true);demo.SetPaused(false);demo.ResetBattle();
+    }
+    void Next(UnicornCombatDemo.Phase desired)
+    {
+        for(int i=0;i<600&&demo.State!=desired;i++)Tick();
+        Check(demo.State==desired,"Timed out waiting for "+desired+" ("+demo.State+")");
+    }
+    void Tick(float dt=1f/60) {step.Invoke(demo,new object[]{dt});camera.Invoke(demo,null);}
+    void Advance(float seconds)
+    {
+        int frames=Mathf.RoundToInt(seconds*60);
+        for(int i=0;i<frames;i++)Tick();
+    }
+    void Ready(){Reset();Next(UnicornCombatDemo.Phase.Select);}
+    void Fire(int index,int target)
+    {
+        Check(demo.SelectTarget(target),"Target rejected");
+        Check(demo.SelectSkill(index),"Skill rejected");
+        Check(demo.ExecuteSkill(),"Execute rejected");
+    }
+    int Damage(int target)=>demo.enemies[target].maxHealth-demo.enemies[target].Health;
+    void OnLog(string message,string _,LogType type)
+    {if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert) errors.Add(message);}
+    IEnumerator Run()
+    {
+        Application.logMessageReceived+=OnLog;
+        report.Add("Unity "+Application.unityVersion+" | virtual arena | "+SystemInfo.graphicsDeviceName+" | "+Screen.width+"x"+Screen.height);
+        Case("U01 Three resets and opening Extreme turn by Speed",()=>{
+            for(int i=0;i<3;i++)
+            {
+                Reset();
+                Check(demo.Burst==2 && demo.State==UnicornCombatDemo.Phase.Windup && demo.Notice.Contains("EXTREME"),"Bad opening turn");
+                Check(demo.player.Health==680 && demo.enemies.All(e=>e.Health==e.maxHealth),"Reset failed");
+                Check(demo.DamageEvents==0 && demo.effects.ActiveCount==0,"Reset left active hit or effect");
+            }
+            Check(demo.clips.Length==10 && Camera.allCamerasCount==1,"Missing clips or duplicate camera");
+        });
+        Case("U02 Change target and isolate damage, all three slots",()=>{
+            for(int t=0;t<3;t++)
+            {
+                Ready();
+                Check(demo.SelectTarget((t+1)%3),"First target rejected");
+                Fire(0,t);Check(!demo.SelectTarget((t+1)%3),"Retargeted during skill");
+                Next(UnicornCombatDemo.Phase.Select);
+                Check(Damage(t)>0 && Damage((t+1)%3)==0 && Damage((t+2)%3)==0,"Damage left selected slot");
+            }
+        });
+        Case("U03 Twin Vulcan 2 > 4 > 5, ultimate locked at 4",()=>{
+            Ready();Fire(0,2);Next(UnicornCombatDemo.Phase.Select);
+            Check(demo.Burst==4 && demo.DamageEvents==1,"First Vulcan resource or hit");
+            demo.SelectSkill(3);Check(!demo.ExecuteSkill()&&demo.Burst==4,"Accepted ultimate at 4");
+            Fire(0,2);Next(UnicornCombatDemo.Phase.Select);
+            Check(demo.Burst==5 && demo.DamageEvents==2,"Second Vulcan resource or hit");
+        });
+        Case("U04 Skill costs and repeated Execute",()=>{
+            Ready();Fire(2,2);
+            Check(demo.Burst==0 && !demo.ExecuteSkill(),"Magnum cost or double Execute");
+            Next(UnicornCombatDemo.Phase.Select);Check(demo.Burst==1,"Magnum end-turn gain");
+            demo.SelectSkill(2);Check(!demo.ExecuteSkill()&&demo.Burst==1,"Accepted Magnum with insufficient Burst");
+            Ready();Fire(1,0);Check(demo.Burst==1,"Tonfa cost");
+            Next(UnicornCombatDemo.Phase.Select);Check(demo.Burst==2,"Tonfa end-turn gain");
+            var p=typeof(UnicornCombatDemo).GetProperty("Burst");p.SetValue(demo,0);demo.SelectSkill(1);
+            Check(!demo.ExecuteSkill()&&demo.Burst==0,"Accepted Tonfa without Burst");
+            demo.ChargeForTest();Fire(3,2);Check(demo.Burst==0 && !demo.ExecuteSkill(),"Ultimate cost or double Execute");
+            Next(UnicornCombatDemo.Phase.Select);
+            Check(demo.Burst==1&&demo.DamageEvents==1,"Ultimate hit/gain");
+        });
+        Case("U05 Tonfa 45/55, break once, no hit on defeated target",()=>{
+            Ready();Fire(1,0);Advance(.70f);
+            Check(demo.DamageEvents==1 && demo.enemies[0].ArmorBreakCount==1 && Damage(0)==15,"Tonfa first hit");
+            Advance(.41f);Check(demo.DamageEvents==2&&demo.enemies[0].ArmorBreakCount==1&&Damage(0)==51,"Tonfa second hit");
+            Ready();demo.enemies[0].TakeDamage(demo.enemies[0].Health-1);Fire(1,0);
+            Advance(1.2f);Check(demo.DamageEvents==1&&!demo.enemies[0].IsAlive,"Second hit on dead target");
+        });
+        Case("U06 Animation moves the muzzle, Magnum at frame 22, Ultimate at frame 100",()=>{
+            Ready();Fire(2,1);var start=demo.muzzle.position;
+            Advance(40f/60);Check(demo.DamageEvents==0 && Vector3.Distance(start,demo.muzzle.position)>.07f,"Magnum readiness or static muzzle");
+            Advance(4f/60);Check(demo.DamageEvents==1,"Magnum missed frame 22");
+            Ready();demo.ChargeForTest();Fire(3,1);Advance(199f/60);
+            Check(demo.DamageEvents==0,"Ult hit early");
+            Advance(1f/60);Check(demo.DamageEvents==1,"Ult missed frame 100");
+        });
+        Case("U07 Timed Dodge, Parry, lower Speed roll and Attack/Defense branches",()=>{
+            Reset();Check(!demo.Defend(true)&&!demo.Defend(false),"Early timing accepted or retry allowed");
+            Advance(1.5f);Check(demo.player.Health==668,"Early parry altered damage");
+            Reset();Advance(1.28f);Check(demo.Defend(true)&&!demo.Defend(false),"Parry timing or double selection");
+            Advance(.21f);Check(demo.player.Health==674,"Half parry damage");
+            int original=demo.player.defense;demo.player.defense=100;
+            try
+            {
+                Reset();Advance(1.28f);Check(demo.Defend(true),"Full parry timing");Advance(.21f);
+                Check(demo.player.Health==680&&Mathf.Approximately(demo.player.Armor,185),"Full parry took damage");
+            }finally{demo.player.defense=original;}
+            demo.deterministicDefense=true;
+            try
+            {
+                foreach(float roll in new[]{.25f,.75f})
+                {
+                    demo.defenseTestRoll=roll;Reset();Advance(1.10f);Check(demo.Defend(false),"Dodge timing");
+                    Advance(.4f);Check(demo.player.Health==(roll<.5f?680:668),"50% Dodge branch");
+                }
+                int originalSpeed=demo.player.speed;demo.player.speed=160;
+                try
+                {
+                    Ready();Fire(0,1);Next(UnicornCombatDemo.Phase.Windup);Advance(1.1f);
+                    Check(demo.Defend(false),"Fast Dodge timing");Advance(.4f);
+                    Check(demo.player.Health==680,"Faster Dodge failed");
+                }finally{demo.player.speed=originalSpeed;}
+            }finally{demo.deterministicDefense=false;}
+        });
+        Case("U08 Skip early/late, restore camera and action after reset",()=>{
+            foreach(float timing in new[]{1.0f,3.5f})
+            {
+                Ready();var pos=demo.battleCamera.transform.position;
+                demo.ChargeForTest();Fire(3,2);Advance(timing);Check(demo.Cinematic,"Missing cinematic");
+                Check(demo.SkipCinematic()&&!demo.SkipCinematic(),"Skip did not finish exactly once");
+                Check(demo.DamageEvents==1&&demo.SkillCompletions==1&&demo.Burst==1&&!demo.Cinematic,"Duplicate hit, Burst or HUD");
+                Check(Vector3.Distance(pos,demo.battleCamera.transform.position)<.001f,"Camera not restored");
+            }
+            Ready();demo.ChargeForTest();Fire(3,2);Advance(2);Reset();
+            Check(!demo.Cinematic && demo.DamageEvents==0 && demo.SkillCompletions==0 && demo.effects.ActiveCount==0,"Reset retained in-flight action");
+        });
+        Ready();Fire(2,2);Advance(.3f);demo.SetPaused(true);
+        float before=demo.ActionSeconds;Vector3 held=demo.muzzle.position;
+        yield return new WaitForSecondsRealtime(.35f);
+        var manualHeld=Mathf.Approximately(demo.ActionSeconds,before)&&held==demo.muzzle.position;
+        demo.SetPaused(false);demo.SetTrackingValid(false);
+        yield return new WaitForSecondsRealtime(.35f);
+        var trackingHeld=Mathf.Approximately(demo.ActionSeconds,before)&&held==demo.muzzle.position;
+        demo.SetTrackingValid(true);
+        yield return new WaitForSecondsRealtime(.55f);
+        Case("U09 Real-time pause and simulated tracking pause",()=>Check(manualHeld&&trackingHeld&&demo.DamageEvents==1,"Pause or resume repeated/missed hit"));
+        Case("U11 Repeat all skills and drain effect pool",()=>{
+            foreach(int index in Enumerable.Range(0,4))
+            {
+                Ready();demo.ChargeForTest();Fire(index,2);
+                Next(UnicornCombatDemo.Phase.Select);Advance(2.5f);
+                Check(demo.effects.ActiveCount==0,"Active effect leaked after S"+(index+1));
+            }
+            Check(errors.Count==0,string.Join(" | ",errors));
+        });
+        Ready();
+        Application.logMessageReceived-=OnLog;
+        File.WriteAllLines(Reports+"PlayModeValidation.txt",report);
+        Debug.Log(string.Join("\n",report));
+    }
+}

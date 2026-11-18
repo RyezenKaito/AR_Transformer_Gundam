@@ -1,0 +1,179 @@
+using System;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using GundamGame.CombatDemo;
+using GundamGame.Unicorn;
+
+internal class CommandScript:IRunCommand
+{
+    const string Root="Assets/Sandbox/CombatTest";
+    const string Unicorn="Assets/Sandbox/UnicornCombat/Scenes/Unicorn Demo.unity";
+    const string Rouge="Assets/Sandbox/StrikeRougeCombat/Scenes/StrikeRougeCombatDemo.unity";
+    const string Target=Root+"/Scenes/Combat Test.unity";
+    Scene target;
+
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode || Enumerable.Range(0,SceneManager.sceneCount).Any(i=>SceneManager.GetSceneAt(i).isDirty))
+        {
+            result.LogError("Exit Play Mode and keep all open scenes saved before generating the test assets.");
+            return;
+        }
+        if(File.Exists(Target)){result.LogError("Test Scene already exists.");return;}
+        var previous=SceneManager.GetActiveScene();
+        Directory.CreateDirectory(Root+"/Scenes");
+        Directory.CreateDirectory(Root+"/Fixtures");
+        Directory.CreateDirectory(Root+"/Data");
+        foreach(var folder in new[]{"Unicorn","StrikeRouge"})
+            Directory.CreateDirectory("Assets/Game/Features/Characters/"+folder+"/Resources/CombatProfiles/"+folder);
+        AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+        target=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);
+        try
+        {
+            SceneManager.SetActiveScene(target);
+            var catalog=ScriptableObject.CreateInstance<CombatTestCatalog>();
+            catalog.characters=new[]{
+                new CombatTestCatalog.Entry{label="RX-0 Unicorn",resourcePath="CombatProfiles/Unicorn/Profile"},
+                new CombatTestCatalog.Entry{label="Strike Rouge Ootori",resourcePath="CombatProfiles/StrikeRouge/Profile"}
+            };
+            var controller=new GameObject("Combat Test").AddComponent<CombatTestScene>();
+            ReadSource(Unicorn,roots=>
+            {
+                var battle=roots.Select(root=>root.GetComponentInChildren<UnicornCombatDemo>()).First(demo=>demo);
+                var sourceArena=battle.player.transform.parent;
+                var arena=CloneInto(sourceArena.gameObject);
+                arena.name="Shared Test Arena";
+                foreach(var fighter in arena.GetComponentsInChildren<DemoFighter>(true))
+                    UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+                foreach(string name in new[]{"Key Light","Blue Rim","Combat Bloom"})
+                    CloneInto(roots.Single(root=>root.name==name)).name=name;
+                RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;
+                RenderSettings.ambientLight=new Color(.51f,.55f,.64f);
+                var fixture=new GameObject("Test Opponents");
+                foreach(var enemy in battle.enemies)
+                {
+                    var instance=CloneInto(enemy.gameObject);
+                    instance.name=enemy.name;
+                    instance.transform.SetParent(fixture.transform,true);
+                }
+                controller.opponentFixture=PrefabUtility.SaveAsPrefabAsset(fixture,Root+"/Fixtures/Test Opponents.prefab");
+                UnityEngine.Object.DestroyImmediate(fixture);
+                var skills=UnicornCombatDemo.Skills.Select(skill=>MakeSkill(skill.name,skill.cost,
+                    battle.clips.Single(clip=>clip.name=="Unicorn_"+skill.clip),skill.frames/30f,skill.hp,skill.armor)).ToArray();
+                Package("Unicorn",battle.player,battle.battleCamera,battle.gameObject,skills,true);
+            });
+            ReadSource(Rouge,roots=>
+            {
+                var battle=roots.Select(root=>root.GetComponentInChildren<RougeBattleDemo>()).First(demo=>demo);
+                var rig=battle.presentation.animationRig;
+                var skills=new[]{
+                    MakeSkill("V-Fin Pulse",0,rig.antenna,0,0,0),
+                    MakeSkill("Anti-Ship",1,rig.blade,0,0,0),
+                    MakeSkill("Ootori Missiles",2,rig.barrage,0,0,0),
+                    MakeSkill("Full Burst",5,rig.launcher,0,0,0)
+                };
+                Package("StrikeRouge",battle.player,battle.presentation.virtualCamera,battle.gameObject,skills,false);
+            });
+            AssetDatabase.CreateAsset(catalog,Root+"/Data/Combat Test Catalog.asset");
+            controller.catalog=catalog;
+            if(!EditorSceneManager.SaveScene(target,Target))throw new IOException("Could not save Test Scene.");
+            AssetDatabase.SaveAssets();
+            SceneManager.SetActiveScene(target);
+            result.Log("Saved Test Scene and two independently loadable character packages.");
+        }
+        catch(Exception e)
+        {
+            result.LogError(e.ToString());
+            EditorSceneManager.CloseScene(target,true);
+            if(previous.IsValid()&&previous.isLoaded)SceneManager.SetActiveScene(previous);
+        }
+    }
+
+    void ReadSource(string path,Action<GameObject[]> read)
+    {
+        var scene=SceneManager.GetSceneByPath(path);
+        bool temporary=!scene.isLoaded;
+        if(temporary)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
+        try
+        {
+            SceneManager.SetActiveScene(target);
+            read(scene.GetRootGameObjects());
+        }
+        finally { if(temporary)EditorSceneManager.CloseScene(scene,true); }
+    }
+
+    GameObject CloneInto(GameObject source)
+    {
+        var clone=UnityEngine.Object.Instantiate(source);
+        if(clone.scene!=target)SceneManager.MoveGameObjectToScene(clone,target);
+        return clone;
+    }
+
+    void Package(string key,DemoFighter actor,Camera camera,GameObject controller,CharacterCombatProfile.Skill[] skills,bool unicorn)
+    {
+        if(skills.Any(s=>!s.animation))throw new InvalidOperationException(key+" is missing a source skill animation.");
+        var root=new GameObject(key+" Test Package");
+        try
+        {
+            var profile=ScriptableObject.CreateInstance<CharacterCombatProfile>();
+            profile.displayName=actor.displayName;
+            profile.maxHealth=actor.maxHealth;profile.maxArmor=actor.maxArmor;
+            profile.attack=actor.attack;profile.defense=actor.defense;profile.speed=actor.speed;profile.breakDamage=actor.breakDamage;
+            profile.skills=skills;
+
+            var binding=root.AddComponent<CombatTestPackage>();
+            var player=CloneInto(actor.gameObject);player.name="Player";player.transform.SetParent(root.transform,true);
+            var rig=CloneInto(camera.gameObject);rig.name="Battle Camera";rig.transform.SetParent(root.transform,true);
+            var runtime=CloneInto(controller);runtime.name="Combat Controller";runtime.transform.SetParent(root.transform,true);
+            binding.player=player.GetComponent<DemoFighter>();
+            binding.battleCamera=rig.GetComponent<Camera>();
+            if(unicorn)
+            {
+                var d=runtime.GetComponent<UnicornCombatDemo>();
+                d.player=binding.player;d.battleCamera=binding.battleCamera;d.enemies=Array.Empty<DemoFighter>();
+                d.model=Map(actor.transform,player.transform,d.model.transform).gameObject;
+                d.muzzle=Map(actor.transform,player.transform,d.muzzle);d.eject=Map(actor.transform,player.transform,d.eject);
+                d.vulcanL=Map(actor.transform,player.transform,d.vulcanL);d.vulcanR=Map(actor.transform,player.transform,d.vulcanR);
+                d.focusHead=Map(actor.transform,player.transform,d.focusHead);d.focusBody=Map(actor.transform,player.transform,d.focusBody);
+                d.handLeft=Map(actor.transform,player.transform,d.handLeft);d.handRight=Map(actor.transform,player.transform,d.handRight);
+                d.kickFoot=Map(actor.transform,player.transform,d.kickFoot);
+                binding.unicorn=d;
+            }
+            else
+            {
+                var d=runtime.GetComponent<RougeBattleDemo>();
+                d.arenaRoot=root.transform;d.player=binding.player;d.enemies=Array.Empty<DemoFighter>();
+                var p=d.presentation;
+                p.animationRig=player.GetComponent<RougeAnimationDriver>();
+                p.rifleMuzzle=Map(actor.transform,player.transform,p.rifleMuzzle);p.beamMuzzle=Map(actor.transform,player.transform,p.beamMuzzle);
+                p.railMuzzle=Map(actor.transform,player.transform,p.railMuzzle);p.swordBase=Map(actor.transform,player.transform,p.swordBase);
+                p.swordTip=Map(actor.transform,player.transform,p.swordTip);p.core=Map(actor.transform,player.transform,p.core);
+                p.shield=Map(actor.transform,player.transform,p.shield);p.antennaMuzzle=Map(actor.transform,player.transform,p.antennaMuzzle);
+                p.antennaLeftTip=Map(actor.transform,player.transform,p.antennaLeftTip);p.antennaRightTip=Map(actor.transform,player.transform,p.antennaRightTip);
+                p.missilePorts=p.missilePorts.Select(port=>Map(actor.transform,player.transform,port)).ToArray();
+                p.virtualCamera=binding.battleCamera;p.placement=null;p.arenaCamera=rig.GetComponent<RougeArenaCamera>();
+                p.arenaCamera.arenaRoot=root.transform;p.arenaCamera.presentation=p;p.arenaCamera.placement=null;
+                binding.rouge=d;
+            }
+            string path="Assets/Game/Features/Characters/"+key+"/Resources/CombatProfiles/"+key;
+            profile.combatPrefab=PrefabUtility.SaveAsPrefabAsset(root,path+"/Combat Package.prefab");
+            AssetDatabase.CreateAsset(profile,path+"/Profile.asset");
+        }
+        finally { UnityEngine.Object.DestroyImmediate(root); }
+    }
+
+    static Transform Map(Transform source,Transform clone,Transform from)
+    {
+        if(!from)return null;
+        if(!from.IsChildOf(source))throw new InvalidOperationException("Expected "+from.name+" inside "+source.name);
+        if(from==source)return clone;
+        return Map(source,clone,from.parent).GetChild(from.GetSiblingIndex());
+    }
+
+    static CharacterCombatProfile.Skill MakeSkill(string name,int cost,AnimationClip clip,float duration,float hp,float armor) =>
+        new CharacterCombatProfile.Skill{displayName=name,burstCost=cost,animation=clip,duration=duration,damageMultiplier=hp,armorMultiplier=armor};
+}

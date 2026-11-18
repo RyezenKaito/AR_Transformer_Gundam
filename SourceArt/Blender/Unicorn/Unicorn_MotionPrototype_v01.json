@@ -1,0 +1,45 @@
+{
+  "blend": "G:\\MotChutVibe\\Unity\\AR_Transformer_Gundam\\SourceArt\\Blender\\Unicorn\\Unicorn_MotionPrototype_v01.blend",
+  "bones": 17,
+  "source_parts": 375,
+  "parts_per_bone": {
+    "Head": 26,
+    "Backpack": 20,
+    "Chest": 64,
+    "UpperArm.L": 11,
+    "UpperArm.R": 11,
+    "Forearm.L": 15,
+    "Foot.L": 11,
+    "Shin.L": 38,
+    "Thigh.L": 6,
+    "Hand.L": 33,
+    "Pelvis": 37,
+    "Hand.R": 33,
+    "Forearm.R": 15,
+    "Foot.R": 11,
+    "Shin.R": 38,
+    "Thigh.R": 6
+  },
+  "rest_error_m": 2.4578447942743725e-07,
+  "feet_drift_hit_m": 6.664001874625056e-08,
+  "clips": {
+    "Unicorn_Idle": {
+      "fps": 30,
+      "frames": [
+        1,
+        121
+      ],
+      "seconds": 4,
+      "loop": true
+    },
+    "Unicorn_HitReact": {
+      "fps": 30,
+      "frames": [
+        1,
+        25
+      ],
+      "seconds": 0.8,
+      "loop": false
+    }
+  }
+}

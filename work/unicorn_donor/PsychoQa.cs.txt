@@ -1,0 +1,56 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using GundamGame.Unicorn;
+internal class CommandScript:IRunCommand {
+UnicornCombatDemo d; Action<float> step; Action camera;
+readonly List<string> report=new();
+const string prefix="Docs/Reports/UnicornCombat/";
+void Assert(bool ok,string s){if(!ok)throw new Exception(s);}
+void Test(string name,Action run){try{run();report.Add("PASS "+name);}catch(Exception e){report.Add("FAIL "+name+" | "+e.Message);}}
+Transform Find(string name)=>d.model.GetComponentsInChildren<Transform>(true).Single(t=>t.name==name);
+void Ready(bool reset=true){if(reset)d.ResetBattle();for(int i=0;i<1500&&d.State!=UnicornCombatDemo.Phase.Select;i++)step(1f/60);Assert(d.State==UnicornCombatDemo.Phase.Select,"no player turn");camera();}
+void Fire(int s,bool reset=true){Ready(reset);Assert(d.SelectTarget(1)&&d.SelectSkill(s),"selection");if(s==3)d.ChargeForTest();Assert(d.ExecuteSkill(),"rejected");camera();}
+void At(int f){for(int i=0;i<1500&&d.State==UnicornCombatDemo.Phase.Skill&&d.ActionSeconds+.00001f<f/30f;i++)step(1f/60);camera();}
+bool Docked()=>Vector3.Distance(Find("RifleMount").position,Find("Magnum_BackpackSocket").position)<.035f;
+public void Execute(ExecutionResult result){
+d=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+if(!Application.isPlaying||!d){result.LogError("Demo is not playing");return;}
+step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),d,"Step"); camera=(Action)Delegate.CreateDelegate(typeof(Action),d,"UpdateCamera");
+d.StartCoroutine(Run());result.Log("Verifying Psycho-Frame redesign");
+}
+IEnumerator Run(){
+float scale=Time.timeScale;Time.timeScale=0;
+try{
+report.Add("Unity "+Application.unityVersion+" | "+Screen.width+"x"+Screen.height);
+Test("Shield mesh retained and disabled; Magnum docked and points downward",()=>{Ready();var s=Find("Unicorn_Donor_Shield");Assert(!s.gameObject.activeSelf&&s.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)==455*3,"shield state/geometry");Assert(Docked()&&d.muzzle.position.y<Find("RifleMount").position.y-.10f,"bad default rifle pose");});
+Test("Skills 1–3 keep exact battlefield camera, rotation and FOV throughout",()=>{
+for(int s=0;s<3;s++){Ready();var c=d.battleCamera;var p=c.transform.position;var r=c.transform.rotation;var fov=c.fieldOfView;
+Fire(s,false);int n=0;while(d.State==UnicornCombatDemo.Phase.Skill&&n++<800){step(1f/60);camera();Assert(!d.Cinematic&&Vector3.Distance(p,c.transform.position)<.0001f&&Quaternion.Angle(r,c.transform.rotation)<.01f&&Mathf.Approximately(fov,c.fieldOfView),"camera moved in skill "+(s+1));if(s<2)Assert(Docked(),"gun undocked in skill "+(s+1));}}});
+Test("Skill 2 self-only buff starts on frame 48, boosts ATK/DEF and protects armor",()=>{
+Fire(1);int hp=d.enemies[1].Health;At(47);Assert(d.BuffTurns==0&&d.DamageEvents==0,"buff fired early");At(48);Assert(d.BuffTurns==2&&d.EffectiveAttack==120&&d.EffectiveDefense==108&&d.DamageEvents==0&&d.enemies[1].Health==hp,"buff values");
+At(84);float armor=d.player.Armor;for(int i=0;i<120&&d.State==UnicornCombatDemo.Phase.Windup;i++)step(1f/60);Assert(armor>d.player.Armor&&armor-d.player.Armor<43,"armor damage reduction");
+Fire(0,false);At(27);Assert(d.BuffTurns==1,"buff duration first turn");Fire(0,false);At(27);Assert(d.BuffTurns==0&&d.EffectiveAttack==d.player.attack,"buff should expire");});
+Test("Skill 3 uses backpack, then right-hand socket, one hit at frame 48, then backpack",()=>{
+Fire(2);At(11);Assert(Docked(),"early detach");At(46);Assert(!Docked()&&Vector3.Distance(Find("RifleMount").position,Find("Magnum_RightHandSocket").position)<.03f&&d.DamageEvents==0,"aim or timing");
+At(48);Assert(d.DamageEvents==1,"fire frame");At(83);Assert(Docked()&&d.DamageEvents==1,"not docked after shot");});
+Test("Full Burst has three melee impacts and a beam from above, restores camera and position",()=>{
+Ready();var home=d.player.visual.position;var c=d.battleCamera;var pos=c.transform.position;var rot=c.transform.rotation;
+Fire(3,false);Assert(d.Cinematic&&!d.ExecuteSkill()&&!d.SelectTarget(2),"cinematic lock");int hits=0;foreach(var f in new[]{30,44,61,139}){At(f-1);Assert(d.DamageEvents==hits,"early hit "+f);At(f);Assert(d.DamageEvents==++hits&&Docked(),"hit or holster "+f);}
+Assert(d.player.visual.position.y-home.y>1.9f&&d.handLeft.position.y>d.enemies[1].AimPoint.y,"no aerial beam");
+At(195);Assert(!d.Cinematic&&d.Burst==1&&Vector3.Distance(home,d.player.visual.position)<.01f&&Vector3.Distance(pos,c.transform.position)<.001f&&Quaternion.Angle(rot,c.transform.rotation)<.02f,"restore");});
+Test("Skipping before or during the beam gives the same damage and restores runtime state",()=>{
+Fire(3);At(139);int hp=d.enemies[1].Health;
+foreach(var f in new[]{12,65,147}){Fire(3);At(f);Assert(d.SkipCinematic()&&!d.SkipCinematic()&&d.enemies[1].Health==hp&&d.DamageEvents==4&&d.Burst==1&&Docked(),"skip mismatch "+f);}
+Fire(3);At(118);Ready();Assert(d.BuffTurns==0&&d.Burst==2&&d.DamageEvents==0&&Docked(),"reset");});
+File.WriteAllLines(prefix+"PsychoFrameValidation.txt",report);
+foreach(var shot in new[]{(1,48,"PsychoFrame_Buff"),(2,48,"PsychoFrame_Magnum"),(3,61,"PsychoFrame_Kick"),(3,129,"PsychoFrame_Charge"),(3,142,"PsychoFrame_UltraBeam")}) {
+Fire(shot.Item1);At(shot.Item2);yield return new WaitForEndOfFrame();
+var img=ScreenCapture.CaptureScreenshotAsTexture();File.WriteAllBytes(prefix+shot.Item3+".png",img.EncodeToPNG());UnityEngine.Object.Destroy(img);}
+Ready();yield return null;
+}finally{Time.timeScale=scale;}
+}}

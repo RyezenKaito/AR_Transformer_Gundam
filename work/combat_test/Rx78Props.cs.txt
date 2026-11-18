@@ -1,0 +1,77 @@
+using System;
+using UnityEditor;
+using UnityEngine;
+using GundamGame.CombatDemo;
+using UnityEngine.Rendering;
+
+internal class CommandScript:IRunCommand
+{
+    const string Root="Assets/Game/Features/Combat/Enemies";
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode){result.LogError("Edit Mode required");return;}
+        var material=Paint("Weapon Graphite",new Color(.10f,.13f,.17f),.38f);
+        var steel=Paint("Weapon Steel",new Color(.35f,.40f,.43f),.50f);
+        var white=Paint("Shield Ivory",new Color(.83f,.87f,.92f),.22f);
+        var red=Paint("Shield Vermilion",new Color(.69f,.06f,.075f),.28f);
+        var gold=Paint("Shield Crest Gold",new Color(.85f,.52f,.12f),.46f);
+        string path=Root+"/RX-78-2 Ranged.prefab";
+        var root=PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            var b=root.GetComponent<EnemyBrain>();
+            var barrel=Prepare(b.bazooka);
+            Piece(barrel,"Main Tube",PrimitiveType.Cylinder,new(0,.10f,0),new(.135f,.29f,.135f),material);
+            Piece(barrel,"Barrel Jacket",PrimitiveType.Cylinder,new(0,.21f,0),new(.167f,.14f,.167f),steel);
+            Piece(barrel,"Flared Muzzle",PrimitiveType.Cylinder,new(0,.406f,0),new(.195f,.061f,.195f),material);
+            Piece(barrel,"Muzzle Bore",PrimitiveType.Cylinder,new(0,.469f,0),new(.119f,.003f,.119f),material);
+            Piece(barrel,"Breech",PrimitiveType.Cube,new(0,-.18f,0),new(.19f,.19f,.163f),steel);
+            Piece(barrel,"Grip",PrimitiveType.Cube,new(0,-.04f,-.105f),new(.067f,.12f,.12f),material);
+            Piece(barrel,"Scope",PrimitiveType.Cube,new(.086f,.22f,.109f),new(.079f,.21f,.067f),material);
+            var muzzle=new GameObject("Bazooka Muzzle").transform;muzzle.SetParent(barrel,false);muzzle.localPosition=new(0,.474f,0);
+            b.bazookaMuzzle=muzzle;
+
+            var board=Prepare(b.shield);
+            Piece(board,"Shield backing",PrimitiveType.Cube,new(0,0,.044f),new(.38f,.69f,.065f),steel);
+            Piece(board,"Shield outer plate",PrimitiveType.Cube,new(0,0,.08f),new(.39f,.67f,.061f),white);
+            Piece(board,"Shield face",PrimitiveType.Cube,new(0,0,.119f),new(.31f,.59f,.035f),red);
+            Piece(board,"Shield cross",PrimitiveType.Cube,new(0,.04f,.146f),new(.202f,.052f,.024f),gold);
+            Piece(board,"Shield cross stem",PrimitiveType.Cube,new(0,.04f,.148f),new(.055f,.215f,.024f),gold);
+            Piece(board,"Shield lower tip",PrimitiveType.Cube,new(0,-.32f,.075f),new(.26f,.12f,.06f),white).localRotation=Quaternion.Euler(0,0,45);
+            Piece(board,"Arm brace",PrimitiveType.Cube,new(0,0,-.028f),new(.18f,.12f,.077f),material);
+            PrefabUtility.SaveAsPrefabAsset(root,path);
+            AssetDatabase.SaveAssets();
+            result.Log("Ranged prefab updated with separate layered attachments and a muzzle socket");
+        }
+        finally {PrefabUtility.UnloadPrefabContents(root);}
+    }
+    static Transform Prepare(Transform anchor)
+    {
+        for(int i=anchor.childCount-1;i>=0;i--)UnityEngine.Object.DestroyImmediate(anchor.GetChild(i).gameObject);
+        var renderer=anchor.GetComponent<Renderer>();
+        if(renderer)renderer.enabled=false;
+        anchor.localScale=Vector3.one;
+        var part=new GameObject("Weapon geometry").transform;
+        part.SetParent(anchor,false);
+        Vector3 scale=anchor.lossyScale;
+        part.localScale=new Vector3(1/Mathf.Abs(scale.x),1/Mathf.Abs(scale.y),1/Mathf.Abs(scale.z));
+        return part;
+    }
+    static Transform Piece(Transform parent,string label,PrimitiveType type,Vector3 position,Vector3 scale,Material m)
+    {
+        var go=GameObject.CreatePrimitive(type);go.name=label;
+        go.transform.SetParent(parent,false);
+        go.transform.localPosition=position;go.transform.localScale=scale;
+        UnityEngine.Object.DestroyImmediate(go.GetComponent<Collider>());
+        go.GetComponent<Renderer>().sharedMaterial=m;
+        return go.transform;
+    }
+    static Material Paint(string name,Color color,float metallic)
+    {
+        string path=Root+"/"+name+".mat";
+        var m=AssetDatabase.LoadAssetAtPath<Material>(path);
+        if(!m){m=new Material(Shader.Find("Universal Render Pipeline/Lit"));m.name=name;AssetDatabase.CreateAsset(m,path);}
+        m.color=color;m.SetFloat("_Metallic",metallic);m.SetFloat("_Smoothness",.32f);EditorUtility.SetDirty(m);
+        return m;
+    }
+}

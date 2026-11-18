@@ -1,0 +1,21 @@
+stateDiagram-v2
+    direction TB
+    state "Đang khởi động" as startup
+    state "Đang tải dữ liệu" as loading
+    state "Lỗi tải dữ liệu" as loadError
+    state "Sảnh và quản lý - SD02" as management
+    state "Đang chuẩn bị trận" as preparing
+    state "Trận đang diễn ra - SD03" as playing
+    state "Đang xem kết quả" as results
+    [*] --> startup
+    startup --> loading: khởi tạo xong
+    loading --> management: tải thành công
+    loading --> loadError: tải thất bại
+    loadError --> loading: thử lại
+    management --> preparing: Play hoặc chọn PvE
+    preparing --> playing: bắt đầu [sân sẵn sàng]
+    preparing --> management: hủy chuẩn bị
+    playing --> results: trận kết thúc
+    results --> preparing: thử lại / chọn màn
+    results --> management: về sảnh
+    management --> [*]: thoát game

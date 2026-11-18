@@ -1,0 +1,244 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using GundamGame.CombatDemo;
+using GundamGame.Story;
+using GundamGame.Unicorn;
+using GundamLobby;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+internal class CommandScript : IRunCommand
+{
+    readonly List<string> report=new();
+    const string Output="work/story-shots/";
+    int state;
+    double phaseTime, deadline;
+
+    public void Execute(ExecutionResult result)
+    {
+        if(!EditorApplication.isPlaying||SceneManager.GetActiveScene().name!="HomeLobby")
+            throw new InvalidOperationException("Open HomeLobby in Play Mode for Story QA.");
+        Directory.CreateDirectory(Output);
+        var gameViewType=typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView");
+        if(gameViewType!=null)EditorWindow.GetWindow(gameViewType).Focus();
+        Next();
+        EditorApplication.update+=Tick;
+        result.Log("Testing the Lobby route, both Story maps, and the battle result buttons.");
+    }
+
+    void Tick()
+    {
+        try
+        {
+            if(!EditorApplication.isPlaying||EditorApplication.timeSinceStartup>deadline)
+                throw new TimeoutException("QA did not reach phase "+state+" in "+SceneManager.GetActiveScene().name);
+            if(EditorApplication.timeSinceStartup-phaseTime<.35)return;
+            string scene=SceneManager.GetActiveScene().name;
+            switch(state)
+            {
+                case 1:
+                    CheckLobby();
+                    Snap("01-Mode-Selection");
+                    Next();break;
+                case 2:
+                    Check(ClickHits("Second"),"Mode popup Rank button wins the canvas raycast");
+                    Click("First");Click("First");
+                    Snap("02-Stage-Selection");
+                    Next();break;
+                case 3:
+                    Click("First");
+                    Next();break;
+                case 4:
+                    if(scene!="1-1"||!Ready(out var desert))return;
+                    CheckStage(desert,EnemyProfile.Role.Ranged,"Desert_Battlefield");
+                    Snap("03-Desert-Outpost");
+                    Next();break;
+                case 5:
+                    if(!Ready(out var first))return;
+                    Resolve(first.ActivePackage.unicorn,victory:true);
+                    Next();break;
+                case 6:
+                    if(!Find("Battle Result").activeInHierarchy)return;
+                    Check(Find("Result").GetComponent<TMP_Text>().text=="Chiến thắng","1-1 victory result is visible");
+                    Snap("04-Victory");
+                    Next();break;
+                case 7:
+                    Click("Primary");
+                    Next();break;
+                case 8:
+                    if(scene!="1-2"||!Ready(out var city))return;
+                    CheckStage(city,EnemyProfile.Role.Melee,"StreetCity_Battlefield");
+                    Snap("05-Street-City");
+                    Next();break;
+                case 9:
+                    if(!Ready(out var second))return;
+                    Resolve(second.ActivePackage.unicorn,victory:false);
+                    Next();break;
+                case 10:
+                    if(!Find("Battle Result").activeInHierarchy)return;
+                    Check(Find("Result").GetComponent<TMP_Text>().text=="Thất bại","1-2 defeat result is visible");
+                    Snap("06-Defeat");
+                    Next();break;
+                case 11:
+                    Click("Primary");
+                    Next();break;
+                case 12:
+                    if(scene!="1-2"||!Ready(out var retry))return;
+                    Check(retry.ActivePackage.player.Health==retry.ActivePackage.player.maxHealth,"Retry reloads 1-2 with a full-health roster");
+                    Resolve(retry.ActivePackage.unicorn,victory:true);
+                    Next();break;
+                case 13:
+                    if(!Find("Battle Result").activeInHierarchy)return;
+                    Check(Find("Result").GetComponent<TMP_Text>().text=="Chiến thắng"&&!Find("Primary").activeInHierarchy,
+                        "Winning 1-2 presents Lobby exit");
+                    Click("Return to Lobby");
+                    Next();break;
+                case 14:
+                    if(scene!="HomeLobby")return;
+                    Click("Play");Click("First");Click("First");Click("Second");
+                    Next();break;
+                case 15:
+                    if(scene!="1-2"||!Ready(out var stageTwo))return;
+                    CheckStage(stageTwo,EnemyProfile.Role.Melee,"StreetCity_Battlefield");
+                    Check(true,"Lobby 1-2 button launches 1-2 directly");
+                    Complete();break;
+            }
+        }
+        catch(Exception exception)
+        {
+            report.Add("FAIL "+exception);
+            Complete();
+        }
+    }
+
+    void CheckLobby()
+    {
+        var flow=UnityEngine.Object.FindAnyObjectByType<LobbyStoryFlow>();
+        string[] oldNames={"STRIKER BAY","TACTICAL STATION","INVENTORY","MATRIX MARKETPLACE"};
+        string[] labels={"Laboratory","Battle","Inventory","Shop"};
+        float last=-1;
+        for(int i=0;i<oldNames.Length;i++)
+        {
+            var label=Find("Label "+oldNames[i]).GetComponent<TMP_Text>();
+            float x=label.rectTransform.anchoredPosition.x;
+            Check(label.text==labels[i]&&x>last,labels[i]+" label and top-nav ordering");
+            last=x;
+        }
+        Check(Find("Strike label").GetComponent<TMP_Text>().text=="Play","Play correctly persists after Lobby Awake");
+        Check(Application.CanStreamedLevelBeLoaded("1-1")&&Application.CanStreamedLevelBeLoaded("1-2"),
+            "Both Story scenes are enabled in Build Settings");
+        Click("Play");
+        Page(flow,LobbyStoryFlow.Page.Modes);
+        Click("Second");
+        Page(flow,LobbyStoryFlow.Page.Rank);
+        Check(Find("Description").GetComponent<TMP_Text>().text=="Đang phát triển","Rank presents Coming Soon");
+        Click("Back");Page(flow,LobbyStoryFlow.Page.Modes);
+        Click("First");Page(flow,LobbyStoryFlow.Page.Chapters);
+        Click("First");Page(flow,LobbyStoryFlow.Page.Stages);
+        Click("Back");Page(flow,LobbyStoryFlow.Page.Chapters);
+        Click("Back");Page(flow,LobbyStoryFlow.Page.Modes);
+        Click("Back");Page(flow,LobbyStoryFlow.Page.Closed);
+        Check(!Find("Mode Selection").activeInHierarchy,"Back closes the single modal");
+        Click("Nav TACTICAL STATION");
+        Page(flow,LobbyStoryFlow.Page.Modes);
+        Check(true,"Battle and Play enter the identical opening page");
+    }
+
+    void CheckStage(StoryBattleController controller,EnemyProfile.Role role,string map)
+    {
+        var package=controller.ActivePackage;
+        Check(Find(map).activeInHierarchy,"Correct map prefab present: "+map);
+        Check(package.unicorn.enemies.Length==3&&package.unicorn.enemies.All(e=>e.GetComponent<EnemyBrain>().profile.role==role),
+            "Three distinct RX-78-2 instances, role "+role);
+        Check(package.unicorn.enemies.Select(e=>e.transform.position).Distinct().Count()==3,"Three distinct enemy world positions");
+        var players=Enumerable.Range(1,3).Select(i=>Find("Player "+i).transform).ToArray();
+        Check(players.Select(a=>a.position).Distinct().Count()==3&&package.player.transform.position==players[1].position,
+            "Three player slots and active Unicorn at center");
+        Check(Camera.allCamerasCount==1&&package.battleCamera.isActiveAndEnabled,"One active battle camera");
+        var hud=Find("Unicorn Mecha HUD").GetComponent<MechaBattleHUD>();
+        var portrait=package.unicorn.enemies[0].GetComponent<EnemyBrain>().profile.portrait;
+        var enemyCards=hud.turnNames.Select((name,index)=>(name,index)).Where(item=>item.name.text.Contains("RX-78")).ToArray();
+        Check(portrait&&enemyCards.Length>0&&enemyCards.All(item=>hud.turnPortraits[item.index].sprite==portrait),
+            "Turn cards use the correct RX-78-2 portrait");
+        var horizontal=package.unicorn.enemies.Select(e=>package.battleCamera.WorldToViewportPoint(e.AimPoint).x)
+            .OrderBy(x=>x).ToArray();
+        float spacing=Mathf.Min(horizontal[1]-horizontal[0],horizontal[2]-horizontal[1])*package.battleCamera.aspect;
+        Check(spacing>.07f,"Battle camera separates all three enemies");
+        foreach(var actor in package.unicorn.enemies.Append(package.player))
+        {
+            var viewport=package.battleCamera.WorldToViewportPoint(actor.AimPoint);
+            Check(viewport.x>.08f&&viewport.x<.93f&&viewport.y>.12f&&viewport.y<.9f&&viewport.z>0,
+                actor.name+" is framed in the camera");
+        }
+    }
+
+    static void Resolve(UnicornCombatDemo battle,bool victory)
+    {
+        battle.SetPaused(false);
+        var step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),battle,"Step");
+        if(victory)
+        {
+            foreach(var enemy in battle.enemies.Skip(1))enemy.TakeDamage(enemy.Health);
+            battle.enemies[0].TakeDamage(battle.enemies[0].Health-1);
+        }
+        else battle.player.TakeDamage(battle.player.Health-1);
+        for(int i=0;i<480;i++)
+        {
+            if(battle.State==UnicornCombatDemo.Phase.Select)
+            {
+                if(victory)battle.SelectTarget(0);
+                battle.SelectSkill(victory?0:1);
+                battle.ExecuteSkill();
+            }
+            step(1f/60);
+            if(battle.State==UnicornCombatDemo.Phase.Victory||battle.State==UnicornCombatDemo.Phase.Defeat)break;
+        }
+    }
+
+    static bool Ready(out StoryBattleController controller)
+    {
+        controller=UnityEngine.Object.FindAnyObjectByType<StoryBattleController>();
+        return controller&&controller.ActivePackage&&controller.ActivePackage.unicorn.HasStarted&&
+            controller.ActivePackage.unicorn.State!=UnicornCombatDemo.Phase.Deploying;
+    }
+
+    static GameObject Find(string name)=>SceneManager.GetActiveScene().GetRootGameObjects()
+        .SelectMany(root=>root.GetComponentsInChildren<Transform>(true)).First(node=>node.name==name).gameObject;
+    static void Click(string name)=>Find(name).GetComponent<Button>().onClick.Invoke();
+    static bool ClickHits(string name)
+    {
+        Canvas.ForceUpdateCanvases();
+        var button=Find(name);
+        var pointer=new PointerEventData(EventSystem.current){position=RectTransformUtility.WorldToScreenPoint(null,button.transform.position)};
+        var hits=new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer,hits);
+        return hits.Count>0&&(hits[0].gameObject==button||hits[0].gameObject.transform.IsChildOf(button.transform));
+    }
+
+    void Page(LobbyStoryFlow flow,LobbyStoryFlow.Page page)=>Check(flow.CurrentPage==page,"UI page "+page);
+    void Snap(string file)=>ScreenCapture.CaptureScreenshot(Output+file+".png");
+    void Check(bool pass,string criterion)
+    {
+        if(!pass)throw new InvalidOperationException(criterion);
+        report.Add("PASS "+criterion);
+    }
+    void Next()
+    {
+        state++;
+        phaseTime=EditorApplication.timeSinceStartup;
+        deadline=phaseTime+120;
+    }
+    void Complete()
+    {
+        EditorApplication.update-=Tick;
+        File.WriteAllLines(Output+"StoryValidation.txt",report);
+        if(report.Any(line=>line.StartsWith("FAIL")))Debug.LogError(report.Last());
+        else Debug.Log("Story flow QA passed "+report.Count+" checks.");
+    }
+}

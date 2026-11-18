@@ -1,0 +1,72 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine;
+using GundamGame.CombatDemo;
+internal class CommandScript:IRunCommand
+{
+    CombatTestScene runner;
+    readonly List<string> lines=new();
+    public void Execute(ExecutionResult result)
+    {
+        runner=UnityEngine.Object.FindAnyObjectByType<CombatTestScene>();
+        if(!Application.isPlaying||!runner){result.LogError("Test scene not in play");return;}
+        runner.StartCoroutine(Run());
+        result.Log("Measuring all six enemy timelines");
+    }
+    IEnumerator Run()
+    {
+        while(runner.Loading || !runner.ActivePackage)yield return null;
+        if(runner.enemyPreset!=3)runner.SelectEnemyPreset(3);
+        while(runner.Loading)yield return null;
+        yield return null;
+        var battle=runner.ActivePackage.unicorn;
+        if(!battle)yield break;
+        bool old=battle.IsPaused;
+        battle.SetPaused(true);
+        try
+        {
+            foreach(var actor in battle.enemies)
+            {
+                var brain=actor.GetComponent<EnemyBrain>();
+                var slots=new HashSet<int>();
+                for(int j=0;j<10&&slots.Count<3;j++)
+                {
+                    brain.Finish();
+                    if(brain.IsRanged && j==1)brain.RegisterPressure(50);
+                    brain.Begin(battle.player);
+                    if(!slots.Add(brain.Slot)){brain.Evaluate(brain.Duration,_=>{});continue;}
+                    int hits=0,fires=0;
+                    var frames=new List<string>();
+                    for(int f=0;f<=Mathf.CeilToInt(brain.Duration*30);f++)
+                    {
+                        int frame=f;
+                        brain.Evaluate(f/30f,cue=>
+                        {
+                            if(cue==EnemyProfile.Cue.Fire)fires++;
+                            if(cue==EnemyProfile.Cue.Hit)
+                            {
+                                hits++;
+                                frames.Add(frame+" contacts="+(!brain.IsMelee||brain.BladeContacts(battle.player.AimPoint,.64f))+
+                                    (brain.IsMelee?" bladeBase="+brain.transform.InverseTransformPoint(brain.BladeBase)+" tip="+brain.transform.InverseTransformPoint(brain.BladeTip)+" aim="+brain.transform.InverseTransformPoint(battle.player.AimPoint):""));
+                            }
+                        });
+                    }
+                    lines.Add(brain.Move.label+" hits "+hits+"/"+brain.Move.hits+" shots "+fires+" | "+string.Join("; ",frames));
+                    brain.Evaluate(brain.Duration,_=>hits++);
+                    lines.Add("No repeat event at end: "+(hits==brain.Move.hits));
+                }
+                lines.Add(brain.profile.role+" tested "+slots.Count+" distinct skills");
+            }
+        }
+        catch(Exception e){lines.Add(e.ToString());}
+        finally
+        {
+            battle.ResetBattle();
+            battle.SetPaused(old);
+            File.WriteAllLines("Docs/Reports/RX78EnemyTimelines.txt",lines);
+        }
+    }
+}

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9250c4a3e3cdb964fb142714c8bd7fc3, type: 3}
+  m_Name: Profile
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.CombatDemo.CharacterCombatProfile
+  combatPrefab: {fileID: 7443708746122985378, guid: ceef5a3bfc2f2aa42a65507a92c9ce54, type: 3}
+  displayName: Strike Rouge Ootori
+  gradeBadge: REAL GRADE [RG]
+  maxHealth: 450
+  maxArmor: 145
+  attack: 100
+  defense: 68
+  breakDamage: 90
+  speed: 157
+  skills:
+  - displayName: V-Fin Pulse
+    burstCost: 0
+    animation: {fileID: 7400000, guid: e07650ad62f578d42ac33439a90e20e9, type: 2}
+    duration: 1.32
+    damageMultiplier: 0.85
+    armorMultiplier: 0.6
+  - displayName: Anti-Ship
+    burstCost: 1
+    animation: {fileID: 7400000, guid: c3e2bb67694f1634f9652b47449cfd69, type: 2}
+    duration: 1.77
+    damageMultiplier: 1.55
+    armorMultiplier: 1.45
+  - displayName: Ootori Missiles
+    burstCost: 2
+    animation: {fileID: 7400000, guid: ff970f11111b6a54383d70f3d9604d60, type: 2}
+    duration: 2.0
+    damageMultiplier: 1.1
+    armorMultiplier: 0.92
+  - displayName: Full Burst
+    burstCost: 5
+    animation: {fileID: -1488307549296383191, guid: e196b825d15f76f40a2a959d1eb3a91f, type: 3}
+    duration: 4.11
+    damageMultiplier: 2.45
+    armorMultiplier: 1.35

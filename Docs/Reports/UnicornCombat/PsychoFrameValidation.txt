@@ -1,0 +1,7 @@
+Unity 6000.5.8f1 | 1920x936
+PASS Shield mesh retained and disabled; Magnum docked and points downward
+PASS Skills 1–3 keep exact battlefield camera, rotation and FOV throughout
+PASS Skill 2 self-only buff starts on frame 48, boosts ATK/DEF and protects armor
+PASS Skill 3 uses backpack, then right-hand socket, one hit at frame 48, then backpack
+PASS Full Burst has three melee impacts and a beam from above, restores camera and position
+PASS Skipping before or during the beam gives the same damage and restores runtime state

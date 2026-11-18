@@ -24,7 +24,23 @@ namespace UnicornDemo.Editor
         static string ProjectRoot => Path.GetDirectoryName(Application.dataPath);
         static string ReportPath => Path.Combine(ProjectRoot,"Builds","UnicornDemo","build-status.json");
 
-        [MenuItem("Unicorn Demo/1 Build demo scene and animated prefab")]
+        [MenuItem("Unicorn Combat/Open Demo")]
+        static void OpenCombatDemo()
+        {
+            const string combatScenePath = "Assets/Sandbox/CombatTest/Scenes/Combat Test.unity";
+            var scene = SceneManager.GetSceneByPath(combatScenePath);
+            if (scene.IsValid() && scene.isLoaded)
+            {
+                SceneManager.SetActiveScene(scene);
+                return;
+            }
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                EditorSceneManager.OpenScene(combatScenePath);
+        }
+
+        [MenuItem("Unicorn Combat/Open Demo", true)]
+        static bool CanOpenCombatDemo() => !EditorApplication.isPlayingOrWillChangePlaymode;
+
         public static void Prepare()
         {
             if(EditorApplication.isPlaying)throw new InvalidOperationException("Exit Play mode before setup.");
@@ -232,7 +248,6 @@ namespace UnicornDemo.Editor
         }
         static void Set(SerializedObject so,string name,int value){var p=so.FindProperty(name);if(p!=null)p.intValue=value;}
         static void Set(SerializedObject so,string name,bool value){var p=so.FindProperty(name);if(p!=null)p.boolValue=value;}
-        [MenuItem("Unicorn Demo/2 Build Android APK")]
         public static void BuildAndroid()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(ReportPath));

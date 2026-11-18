@@ -1,0 +1,7 @@
+PASS: Unicorn_Base uses equipped v02 source with complete shield and rifle.
+PASS: Rifle and shield retain 458/455 triangles. Shield is disabled on the canonical Unity prefab.
+PASS: Magnum attaches to the hand socket at frame 48 and returns to the backpack before Idle.
+PASS: Ten Generic clips and muzzle motion verified.
+PASS: Original armor and donor atlas remapped to URP.
+Scene: Assets/Sandbox/UnicornCombat/Scenes/Unicorn Demo.unity
+Prefab: Assets/Game/Features/Characters/Unicorn/Prefabs/Unicorn_Base.prefab

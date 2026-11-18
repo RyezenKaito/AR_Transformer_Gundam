@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.IO;
+using UnityEngine;
+using UnityEditor;
+using GundamGame.Unicorn;
+
+internal class CommandScript : IRunCommand
+{
+    public void Execute(ExecutionResult result)
+    {
+        var demo=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+        if(!Application.isPlaying||!demo){result.LogError("Unicorn Demo not running");return;}
+        var t=typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GameView");
+        var w=EditorWindow.GetWindow(t);w.Focus();w.maximized=true;
+        demo.StartCoroutine(Capture(demo));
+        result.Log("Capturing the battle and Full Burst in Game view");
+    }
+
+    IEnumerator Capture(UnicornCombatDemo demo)
+    {
+        const string shots="Docs/Reports/UnicornCombat/";
+        const string scratch="work/unicorn_donor/preview/";
+        Directory.CreateDirectory(scratch);
+        var step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),demo,"Step");
+        var camera=(Action)Delegate.CreateDelegate(typeof(Action),demo,"UpdateCamera");
+        demo.SetTrackingValid(true);
+        demo.Playback=1;
+        demo.ResetBattle();
+        for(int i=0;i<250&&demo.State!=UnicornCombatDemo.Phase.Select;i++)step(1f/60);
+        camera();
+        yield return new WaitForEndOfFrame();
+        ScreenCapture.CaptureScreenshot(Path.GetFullPath(shots+"Arena.png"));
+        int frame=0;
+        foreach(int skill in new[]{0,1,2,3})
+        {
+            for(int i=0;i<630&&demo.State!=UnicornCombatDemo.Phase.Select;i++)step(1f/60);
+            demo.ChargeForTest();demo.SelectTarget(skill==1?0:skill==3?1:2);demo.SelectSkill(skill);
+            demo.SetPaused(true);
+            for(int lead=0;lead<12;lead++)
+            {
+                yield return new WaitForEndOfFrame();
+                Save(scratch,frame++);
+            }
+            demo.SetPaused(false);demo.ExecuteSkill();
+            for(int i=0;demo.State==UnicornCombatDemo.Phase.Skill && i<150;i++)
+            {
+                step(1f/24);camera();
+                demo.enabled=false;
+                yield return new WaitForEndOfFrame();
+                // OnGUI needs the component enabled. Suppress its simulation in the next frame instead.
+                demo.enabled=true;
+                yield return new WaitForEndOfFrame();
+                Save(scratch,frame++);
+                if(skill==3 && (i==44||i==76))
+                    ScreenCapture.CaptureScreenshot(Path.GetFullPath(shots+(i==44?"PsychoFrame.png":"FullBurst.png")));
+            }
+        }
+        File.WriteAllText(scratch+"capture_done.txt",frame+" "+Screen.width+"x"+Screen.height);
+        demo.ResetBattle();
+    }
+    static void Save(string directory,int frame)
+    {
+        var t=ScreenCapture.CaptureScreenshotAsTexture();
+        File.WriteAllBytes(directory+frame.ToString("0000")+".jpg",t.EncodeToJPG(82));
+        UnityEngine.Object.Destroy(t);
+    }
+}

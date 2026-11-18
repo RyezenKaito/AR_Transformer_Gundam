@@ -1,0 +1,329 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using GundamGame.CombatDemo;
+using GundamGame.Story;
+using GundamLobby;
+using TMPro;
+using UnityEditor;
+using UnityEditor.Events;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+internal class CommandScript : IRunCommand
+{
+    const string Feature = "Assets/Game/Features/Story";
+    const string Lobby = "Assets/Game/Features/MainMenu/Lobby";
+    const string SceneFolder = "Assets/Game/Scenes/Story";
+    static readonly Color Ink = new(.045f,.092f,.142f,.99f);
+    static readonly Color Dark = new(.018f,.039f,.071f,.99f);
+    static readonly Color Sky = new(.27f,.76f,.96f,1);
+    static readonly Color Soft = new(.64f,.80f,.90f,1);
+    static readonly Color White = new(.95f,.98f,1,1);
+    TMP_FontAsset font;
+
+    public void Execute(ExecutionResult result)
+    {
+        if(EditorApplication.isPlayingOrWillChangePlaymode || Enumerable.Range(0,SceneManager.sceneCount).Any(i=>SceneManager.GetSceneAt(i).isDirty))
+            throw new InvalidOperationException("Close Play Mode or save the open scenes before authoring.");
+        font = Need<TMP_FontAsset>(Lobby + "/Fonts/Lobby Vietnamese SDF.asset");
+        EnsureFolder(Feature + "/Data");
+        EnsureFolder(SceneFolder);
+        var last = Stage("1-2","Street City","StreetCity","Melee",null);
+        var first = Stage("1-1","Desert Outpost","Desert","Ranged",last);
+        WriteStage(first,new Vector2(25,72),14.2f, false);
+        WriteStage(last,new Vector2(25,68),14.4f, true);
+
+        var list = EditorBuildSettings.scenes.ToList();
+        foreach(var data in new[]{first,last})
+        {
+            int index = list.FindIndex(item=>item.path==data.scenePath);
+            var enabled = new EditorBuildSettingsScene(data.scenePath,true);
+            if(index>=0)list[index]=enabled;
+            else list.Add(enabled);
+        }
+        EditorBuildSettings.scenes = list.ToArray();
+        var overlay = WriteLobbyPrefab();
+        WireLobby(overlay,first,last);
+        AssetDatabase.SaveAssets();
+        result.Log("Wired the Lobby overlay and saved both Chapter 1 scenes to Build Settings.");
+    }
+
+    static T Need<T>(string path) where T : UnityEngine.Object =>
+        AssetDatabase.LoadAssetAtPath<T>(path) ?? throw new InvalidOperationException("Missing asset: "+path);
+
+    static void EnsureFolder(string path)
+    {
+        if(AssetDatabase.IsValidFolder(path))return;
+        var parent=Path.GetDirectoryName(path).Replace('\\','/');
+        EnsureFolder(parent);
+        AssetDatabase.CreateFolder(parent,Path.GetFileName(path));
+    }
+
+    static StoryStage Stage(string id,string location,string map,string role,StoryStage next)
+    {
+        var path=Feature+"/Data/Chapter 1 "+id+".asset";
+        var data=AssetDatabase.LoadAssetAtPath<StoryStage>(path);
+        if(!data)
+        {
+            data=ScriptableObject.CreateInstance<StoryStage>();
+            AssetDatabase.CreateAsset(data,path);
+        }
+        data.stageId=id;
+        data.locationName=location;
+        data.scenePath=SceneFolder+"/"+id+".unity";
+        data.battlefieldPrefab=Need<GameObject>(Feature+"/Maps/Environments/"+map+"/Prefabs/"+map+"_Battlefield.prefab");
+        var unit=Need<EnemyProfile>("Assets/Game/Features/Combat/Enemies/RX-78-2 "+role+".asset");
+        data.opponents=new[]{unit,unit,unit};
+        data.nextStage=next;
+        EditorUtility.SetDirty(data);
+        return data;
+    }
+
+    void WriteStage(StoryStage stage, Vector2 pitchYaw,float distance,bool city)
+    {
+        var previous=SceneManager.GetActiveScene();
+        var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);
+        SceneManager.SetActiveScene(scene);
+        try
+        {
+            var map=(GameObject)PrefabUtility.InstantiatePrefab(stage.battlefieldPrefab,scene);
+            foreach(var camera in map.GetComponentsInChildren<Camera>(true))camera.enabled=false;
+            foreach(var listener in map.GetComponentsInChildren<AudioListener>(true))listener.enabled=false;
+            foreach(var volume in map.GetComponentsInChildren<Volume>(true))volume.enabled=false;
+            RenderSettings.ambientMode=AmbientMode.Flat;
+            RenderSettings.ambientLight=city?new Color(.47f,.52f,.60f):new Color(.56f,.50f,.43f);
+            if(!map.GetComponentsInChildren<Light>().Any(light=>light.type==LightType.Directional&&light.enabled))
+            {
+                var sun=new GameObject("Battlefield Sun").AddComponent<Light>();
+                sun.type=LightType.Directional;sun.intensity=1.35f;sun.shadows=LightShadows.Soft;
+                sun.color=city?new Color(.95f,.97f,1):new Color(1,.87f,.67f);
+                sun.transform.rotation=Quaternion.Euler(42,-135,0);
+            }
+
+            var controller=new GameObject("Story Battle").AddComponent<StoryBattleController>();
+            var formation=new GameObject("Formation").transform;
+            formation.SetParent(controller.transform,false);
+            Vector3 center=new(5.4f,0,0);
+            Vector3[] ally={new(-1.75f,0,-4.35f),new(0,0,-2.75f),new(1.75f,0,-2.05f)};
+            Vector3[] enemy={new(1.30f,0,1.10f),new(.05f,0,2.75f),new(1.10f,0,4.10f)};
+            Transform[] friendly=new Transform[3], hostile=new Transform[3];
+            var surfaces=map.GetComponentsInChildren<Collider>();
+            Physics.SyncTransforms();
+            for(int i=0;i<3;i++)
+            {
+                friendly[i]=Anchor("Player "+(i+1),formation,center+ally[i],center+enemy[1],surfaces);
+                hostile[i]=Anchor("Enemy "+(i+1),formation,center+enemy[i],center+ally[1],surfaces);
+            }
+
+            var ui=new GameObject("Story Battle UI",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
+            var canvas=ui.GetComponent<Canvas>();
+            canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=300;
+            var scaler=ui.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);
+            scaler.matchWidthOrHeight=.5f;
+            var badge=Shape(Rect("Stage Badge",ui.transform,new(.5f,1),new(.5f,1),new(-218,-86),new(218,-26)),Dark);
+            badge.raycastTarget=false;
+            var stageText=Label("Current Stage",badge.transform,stage.stageId+"  /  "+stage.locationName,26,
+                new(.05f,.12f),new(.95f,.88f),Sky);
+            var result=Backdrop("Battle Result",ui.transform);
+            var body=Body(result.transform);
+            var title=Label("Result",body,"Đang tải",53,new(.07f,.70f),new(.93f,.90f),White);
+            var detail=Label("Detail",body,"",26,new(.07f,.45f),new(.93f,.68f),Soft);
+            var primary=MakeButton("Primary",body,new(.10f,.15f),new(.48f,.32f),true);
+            var lobby=MakeButton("Return to Lobby",body,new(.52f,.15f),new(.90f,.32f),false);
+            var primaryLabel=Label("Label",primary.transform,"",28,new(.03f,.10f),new(.97f,.90f),White);
+            Label("Label",lobby.transform,"Về Lobby",28,new(.03f,.10f),new(.97f,.90f),White);
+            new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule))
+                .GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
+            var fields=new SerializedObject(controller);
+            Set(fields,"stage",stage);Set(fields,"battlefield",map);
+            SetArray(fields,"playerSlots",friendly);SetArray(fields,"opponentSlots",hostile);
+            fields.FindProperty("cameraFocus").vector3Value=new Vector3(center.x,friendly[1].position.y+.90f,.20f);
+            fields.FindProperty("cameraPitchYaw").vector2Value=pitchYaw;
+            fields.FindProperty("cameraDistance").floatValue=distance;
+            Set(fields,"resultPanel",result);Set(fields,"stageLabel",stageText);Set(fields,"resultTitle",title);
+            Set(fields,"resultDetail",detail);Set(fields,"primaryLabel",primaryLabel);
+            Set(fields,"primaryButton",primary);Set(fields,"lobbyButton",lobby);
+            fields.ApplyModifiedPropertiesWithoutUndo();
+            result.SetActive(false);
+            EditorSceneManager.SaveScene(scene,stage.scenePath);
+        }
+        finally
+        {
+            if(previous.IsValid())SceneManager.SetActiveScene(previous);
+            EditorSceneManager.CloseScene(scene,true);
+        }
+    }
+
+    static Transform Anchor(string name,Transform parent,Vector3 position,Vector3 toward,Collider[] surfaces)
+    {
+        var ray=new Ray(position+Vector3.up*3,Vector3.down);
+        float highest=float.NegativeInfinity;
+        foreach(var surface in surfaces)
+            if(surface.Raycast(ray,out var hit,6)&&hit.normal.y>.7f)
+                highest=Mathf.Max(highest,hit.point.y);
+        if(!float.IsNegativeInfinity(highest))position.y=highest;
+        var anchor=new GameObject(name).transform;
+        anchor.SetParent(parent,false);
+        var heading=Vector3.ProjectOnPlane(toward-position,Vector3.up);
+        anchor.SetPositionAndRotation(position,Quaternion.LookRotation(heading));
+        return anchor;
+    }
+
+    GameObject WriteLobbyPrefab()
+    {
+        var root=Backdrop("Mode Selection",null);
+        var body=Body(root.transform);
+        Label("Heading",body,"Chọn chế độ",52,new(.07f,.78f),new(.93f,.93f),White);
+        Label("Description",body,"",28,new(.07f,.67f),new(.93f,.78f),Soft);
+        var first=MakeButton("First",body,new(.07f,.35f),new(.48f,.67f),true);
+        var second=MakeButton("Second",body,new(.52f,.35f),new(.93f,.67f),false);
+        foreach(var item in new[]{first,second})
+        {
+            Label("Label",item.transform,"",38,new(.04f,.44f),new(.96f,.88f),White);
+            Label("Detail",item.transform,"",23,new(.04f,.14f),new(.96f,.45f),Soft);
+        }
+        var back=MakeButton("Back",body,new(.37f,.12f),new(.63f,.26f),false);
+        Label("Label",back.transform,"Back",27,new(.06f,.09f),new(.94f,.91f),White);
+        GameObject prefab=PrefabUtility.SaveAsPrefabAsset(root,Lobby+"/Prefabs/Mode Selection.prefab");
+        UnityEngine.Object.DestroyImmediate(root);
+        return prefab;
+    }
+
+    void WireLobby(GameObject overlay,StoryStage firstStage,StoryStage secondStage)
+    {
+        var scene=EditorSceneManager.OpenScene(StoryStage.LobbyScenePath,OpenSceneMode.Single);
+        var all=scene.GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<Transform>(true)).ToArray();
+        Transform Find(string name)=>all.Single(item=>item.name==name);
+        var lab=Find("Nav STRIKER BAY");
+        var battle=Find("Nav TACTICAL STATION");
+        var inventory=Find("Nav INVENTORY");
+        var shop=Find("Nav MATRIX MARKETPLACE");
+        string[] legacy={"STRIKER BAY","TACTICAL STATION","INVENTORY","MATRIX MARKETPLACE"};
+        string[] labels={"Laboratory","Battle","Inventory","Shop"};
+        var tabs=new[]{lab,battle,inventory,shop};
+        for(int i=0;i<tabs.Length;i++)
+        {
+            var tab=(RectTransform)tabs[i];
+            var label=(RectTransform)Find("Label "+legacy[i]);
+            var labelOffset=label.anchoredPosition-tab.anchoredPosition;
+            float oldWidth=tab.sizeDelta.x;
+            tab.anchoredPosition=new Vector2(528+154*i,tab.anchoredPosition.y);
+            tab.sizeDelta=new Vector2(150,tab.sizeDelta.y);
+            label.anchoredPosition=tab.anchoredPosition+labelOffset+
+                new Vector2(label.pivot.x*(150-oldWidth),0);
+            label.sizeDelta=new Vector2(label.sizeDelta.x+150-oldWidth,label.sizeDelta.y);
+            label.GetComponent<TMP_Text>().text=labels[i];
+            if(tab.TryGetComponent<LobbyButtonAction>(out var action))action.actionLabel=labels[i];
+        }
+        foreach(string label in new[]{"OPERATION STORM","LOGISTICS"})
+        {
+            Find("Nav "+label).gameObject.SetActive(false);
+            Find("Label "+label).gameObject.SetActive(false);
+        }
+        var screen=scene.GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<LobbyScreenData>(true)).Single();
+        screen.strikeText="Play";
+        Find("Strike label").GetComponent<TMP_Text>().text="Play";
+        var play=Find("Strike");
+        play.name="Play";
+
+        var host=scene.GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<HomeLobbyController>(true)).Single();
+        var flow=host.gameObject.AddComponent<LobbyStoryFlow>();
+        var canvas=lab.GetComponentsInParent<Canvas>(true).Last();
+        var panel=(GameObject)PrefabUtility.InstantiatePrefab(overlay,canvas.transform);
+        panel.transform.SetAsLastSibling();
+        var root=panel.transform.Find("Panel");
+        var fields=new SerializedObject(flow);
+        Set(fields,"panel",panel);Set(fields,"stageOne",firstStage);Set(fields,"stageTwo",secondStage);
+        Set(fields,"title",root.Find("Heading").GetComponent<TMP_Text>());
+        Set(fields,"description",root.Find("Description").GetComponent<TMP_Text>());
+        foreach(string button in new[]{"First","Second","Back"})
+        {
+            var item=root.Find(button);
+            string field=button.ToLowerInvariant();
+            Set(fields,field,item.GetComponent<Button>());
+            Set(fields,field+"Label",item.Find("Label").GetComponent<TMP_Text>());
+            if(button!="Back")Set(fields,field+"Detail",item.Find("Detail").GetComponent<TMP_Text>());
+        }
+        fields.ApplyModifiedPropertiesWithoutUndo();
+        foreach(var entry in new[]{play,battle})
+        {
+            if(entry.TryGetComponent<LobbyButtonAction>(out var legacyAction))UnityEngine.Object.DestroyImmediate(legacyAction);
+            var button=entry.GetComponent<Button>();
+            button.onClick=new Button.ButtonClickedEvent();
+            UnityEventTools.AddPersistentListener(button.onClick,flow.Open);
+            EditorUtility.SetDirty(button);
+        }
+        panel.SetActive(false);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    static void Set(SerializedObject so,string key,UnityEngine.Object value)=>so.FindProperty(key).objectReferenceValue=value;
+    static void SetArray(SerializedObject so,string key,Transform[] values)
+    {
+        var array=so.FindProperty(key);
+        array.arraySize=values.Length;
+        for(int i=0;i<values.Length;i++)array.GetArrayElementAtIndex(i).objectReferenceValue=values[i];
+    }
+
+    static GameObject Backdrop(string name,Transform parent)
+    {
+        var backdrop=Rect(name,parent,Vector2.zero,Vector2.one);
+        backdrop.gameObject.AddComponent<Image>().color=new Color(.007f,.014f,.038f,.80f);
+        return backdrop.gameObject;
+    }
+
+    static RectTransform Body(Transform parent)
+    {
+        var body=Rect("Panel",parent,new(.5f,.5f),new(.5f,.5f),new(-410,-242),new(410,242));
+        var surface=Shape(body,Ink);
+        surface.gradient=true;surface.gradientVertical=true;surface.gradientEnd=Dark;surface.cut=27;
+        var accent=Shape(Rect("Header accent",body,new(.07f,.94f),new(.25f,.948f)),Sky);
+        accent.thickness=0;accent.raycastTarget=false;
+        return body;
+    }
+
+    static LobbyShape Shape(RectTransform rect,Color color)
+    {
+        var shape=rect.gameObject.AddComponent<LobbyShape>();
+        shape.color=color;shape.border=new Color(.26f,.64f,.82f,.82f);shape.cut=15;shape.thickness=1.5f;
+        return shape;
+    }
+
+    Button MakeButton(string name,Transform parent,Vector2 min,Vector2 max,bool emphasized)
+    {
+        var rect=Rect(name,parent,min,max);
+        var surface=Shape(rect,emphasized?new Color(.066f,.25f,.38f):new Color(.052f,.13f,.22f));
+        var button=rect.gameObject.AddComponent<Button>();
+        button.targetGraphic=surface;
+        var colors=button.colors;
+        colors.highlightedColor=new Color(.74f,.92f,1,1);colors.selectedColor=colors.highlightedColor;
+        colors.pressedColor=new Color(.56f,.81f,1,1);colors.colorMultiplier=1.22f;
+        button.colors=colors;
+        return button;
+    }
+
+    TextMeshProUGUI Label(string name,Transform parent,string value,float size,Vector2 min,Vector2 max,Color color)
+    {
+        var label=Rect(name,parent,min,max).gameObject.AddComponent<TextMeshProUGUI>();
+        label.font=font;label.fontSize=size;label.text=value;label.color=color;
+        label.alignment=TextAlignmentOptions.Center;label.raycastTarget=false;label.textWrappingMode=TextWrappingModes.NoWrap;
+        return label;
+    }
+
+    static RectTransform Rect(string name,Transform parent,Vector2 min,Vector2 max,Vector2 offsetMin=default,Vector2 offsetMax=default)
+    {
+        var rect=(RectTransform)new GameObject(name,typeof(RectTransform)).transform;
+        rect.SetParent(parent,false);
+        rect.anchorMin=min;rect.anchorMax=max;rect.offsetMin=offsetMin;rect.offsetMax=offsetMax;
+        return rect;
+    }
+}

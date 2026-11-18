@@ -10,7 +10,7 @@ namespace GundamGame.CombatDemo.Editor
 {
     public static class RougeCombatAuthoring
     {
-        const string AnimationFolder="Assets/Game/Features/Combat/Animations/StrikeRouge";
+        const string AnimationFolder="Assets/Game/Features/Characters/StrikeRouge/Animations";
         static Transform Find(Transform root,string token) => root.GetComponentsInChildren<Transform>(true).First(t=>t.name.StartsWith(token,StringComparison.Ordinal) || t.name.EndsWith(token,StringComparison.Ordinal));
         [MenuItem("Gundam/Strike Rouge/Upgrade Skills and Source Animations")]
         public static void Upgrade()

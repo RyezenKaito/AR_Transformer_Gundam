@@ -14,7 +14,7 @@ namespace SkyDefender.Editor
     public static class SkyDefenderBuilder
     {
         public const string Root = "Assets/Models/SkyDefender";
-        public const string ScenePath = Root + "/Scenes/SkyDefender_Atelier.unity";
+        public const string ScenePath = "Assets/Sandbox/Showcases/SkyDefender/Scenes/SkyDefender_Atelier.unity";
         static Material red, scarlet, white, gold, dark, steel, black, glow, floor, marking, decals;
         static readonly List<Mesh> extra = new List<Mesh>();
         static Vector3 V(float x,float y,float z=0) { return new Vector3(x,y,z); }

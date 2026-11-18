@@ -1,0 +1,127 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using GundamGame.Unicorn;
+
+internal class CommandScript : IRunCommand
+{
+    UnicornCombatDemo demo;
+    Action<float> step;
+    Action camera;
+    readonly List<string> report = new();
+    const string Reports = "Docs/Reports/UnicornCombat/";
+    void Check(bool value,string error){if(!value)throw new Exception(error);}
+    void Case(string name,Action run)
+    {
+        try{run();report.Add("PASS "+name);}
+        catch(Exception e){report.Add("FAIL "+name+": "+e.Message);}
+    }
+    public void Execute(ExecutionResult result)
+    {
+        demo=UnityEngine.Object.FindAnyObjectByType<UnicornCombatDemo>();
+        if(!Application.isPlaying||!demo){result.LogError("Unicorn Combat not playing");return;}
+        step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),demo,"Step");
+        camera=(Action)Delegate.CreateDelegate(typeof(Action),demo,"UpdateCamera");
+        var window=EditorWindow.GetWindow(typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.GameView"));
+        window.maximized=true;
+        window.Focus();
+        demo.StartCoroutine(Run());
+        result.Log("Started saber animation, hit count and cleanup checks");
+    }
+    void At(int frame)
+    {
+        while(demo.ActionSeconds+1e-5f<frame/30f && demo.State==UnicornCombatDemo.Phase.Skill) step(1f/60f);
+        camera();
+    }
+    void Ready()
+    {
+        demo.SetPaused(false);
+        demo.SetTrackingValid(true);
+        demo.ResetBattle();
+        for(int i=0;i<1600 && demo.State!=UnicornCombatDemo.Phase.Select;i++)step(1f/60f);
+        Check(demo.State==UnicornCombatDemo.Phase.Select,"No player turn");
+        camera();
+    }
+    void Fire(int skill,int target=2)
+    {
+        Ready();
+        if(skill==3)demo.ChargeForTest();
+        Check(demo.SelectTarget(target)&&demo.SelectSkill(skill)&&demo.ExecuteSkill(),"Could not execute");
+        camera();
+    }
+    Transform Find(string name)=>demo.model.GetComponentsInChildren<Transform>(true).Single(t=>t.name==name);
+    int Hp()=>demo.enemies[2].Health;
+    IEnumerator Run()
+    {
+        float scale=Time.timeScale;Time.timeScale=0;
+        try{
+        report.Add("Unity "+Application.unityVersion+" | virtual arena | "+Screen.width+"x"+Screen.height);
+        Case("S2 original right hilt moves from rack and the red Blender mesh ignites after it clears backpack",()=>{
+            Ready();
+            Vector3 rack=demo.player.visual.InverseTransformPoint(Find("Backpack_Beam_Saber_R").position);
+            Transform rightBlade=Find("Emissive_Blade_R"), leftBlade=Find("Emissive_Blade_L");
+            Check(rightBlade.lossyScale.magnitude<.005f,"Blade visible in idle");
+            Fire(1);At(15);
+            Check(rightBlade.lossyScale.magnitude<.005f,"Blade visible during draw");
+            At(31);
+            Check(rightBlade.lossyScale.magnitude>.4f&&leftBlade.lossyScale.magnitude<.005f,"Expected only one live blade");
+            Check(Vector3.Distance(rack,demo.player.visual.InverseTransformPoint(Find("Backpack_Beam_Saber_R").position))>.25f,"Hilt did not move");
+            At(41);Check(demo.DamageEvents==1,"Missing first strike");
+            At(54);Check(demo.DamageEvents==2,"Missing second strike");
+            At(96);Check(demo.LastResolvedSkill==1&&rightBlade.lossyScale.magnitude<.005f,"Saber failed to stow");
+        });
+        Case("S4 two physical hilts, two live blades, four hit windows and one Burst charge",()=>{
+            Fire(3);Check(demo.Burst==0&&!demo.ExecuteSkill(),"Cost or duplicate Execute");
+            At(46);Check(Find("Emissive_Blade_R").lossyScale.magnitude>.4f&&Find("Emissive_Blade_L").lossyScale.magnitude>.4f,"Missing dual blade");
+            int index=0;
+            foreach(int f in new[]{60,71,99,127}){
+                At(f-1);Check(demo.DamageEvents==index,"Early hit "+f);
+                At(f);Check(demo.DamageEvents==++index,"Missing hit "+f);
+            }
+            At(172);Check(demo.Burst==1&&demo.SkillCompletions==1&&!demo.Cinematic,"Wrong finish state");
+        });
+        Case("Skip at three different times resolves only outstanding hits, with identical damage",()=>{
+            Fire(3);At(127);int expected=Hp();
+            foreach(int f in new[]{23,71,132}){
+                Fire(3);At(f);Check(demo.SkipCinematic()&&!demo.SkipCinematic(),"Bad skip");
+                Check(Hp()==expected&&demo.DamageEvents==4&&demo.SkillCompletions==1&&demo.Burst==1,"Skip changed result "+f);
+                Check(Find("Emissive_Blade_R").lossyScale.magnitude<.005f,"Skip left a lit blade");
+            }
+        });
+        Case("S1 and S3 each still hit once, S3 muzzle still tracks right-hand animation",()=>{
+            Fire(0);At(14);Check(demo.DamageEvents==1,"Vulcan regression");
+            Fire(2);var m=demo.muzzle.position;At(20);
+            Check(Vector3.Distance(m,demo.muzzle.position)>.11f,"Magnum muzzle did not move");
+            At(22);Check(demo.DamageEvents==1,"Magnum regression");
+        });
+        Case("Mid-combo reset clears imported VFX and restores Burst",()=>{
+            Fire(3);At(126);Ready();
+            Check(demo.Burst==2&&demo.DamageEvents==0&&Find("Emissive_Blade_R").lossyScale.magnitude<.005f&&Find("Shockwave_Segment_0").lossyScale.magnitude<.005f,"Reset retained combo state");
+        });
+        File.WriteAllLines(Reports+"SabersValidation.txt",report);
+        string scratch="work/unicorn_donor/sabers_reel";
+        Directory.CreateDirectory(scratch);
+        int count=0;
+        foreach(int index in new[]{1,3}){
+            Fire(index,1);
+            for(int i=0;i<(index==1?78:138);i++){
+                At(Mathf.RoundToInt(i*30f/24f));
+                yield return new WaitForEndOfFrame();
+                var screenshot=ScreenCapture.CaptureScreenshotAsTexture();
+                File.WriteAllBytes(Path.Combine(scratch,count++.ToString("0000")+".jpg"),screenshot.EncodeToJPG(84));
+                UnityEngine.Object.Destroy(screenshot);
+                if(index==1 && (i==14||i==33))
+                    ScreenCapture.CaptureScreenshot(Path.GetFullPath(Reports+(i==14?"Saber_Draw.png":"Saber_Slash.png")));
+                if(index==3 && (i==34||i==79||i==102))
+                    ScreenCapture.CaptureScreenshot(Path.GetFullPath(Reports+(i==34?"Saber_Dual.png":i==79?"Saber_Cross.png":"Saber_Finisher.png")));
+            }
+        }
+        File.WriteAllText(Path.Combine(scratch,"complete.txt"),count.ToString());
+        Ready();
+        } finally {Time.timeScale=scale;}
+    }
+}

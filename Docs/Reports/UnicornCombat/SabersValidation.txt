@@ -1,0 +1,7 @@
+PASS URP plasma shader ready on both Blender blades
+Unity 6000.5.8f1 | virtual arena | 1920x1080
+PASS S2 original right hilt moves from rack and the red Blender mesh ignites after it clears backpack
+PASS S4 two physical hilts, two live blades, four hit windows and one Burst charge
+PASS Skip at three different times resolves only outstanding hits, with identical damage
+PASS S1 and S3 each still hit once, S3 muzzle still tracks right-hand animation
+PASS Mid-combo reset clears imported VFX and restores Burst

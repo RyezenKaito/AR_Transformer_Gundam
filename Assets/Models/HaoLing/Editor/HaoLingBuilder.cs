@@ -14,7 +14,7 @@ namespace HaoLing.Editor
     public static class HaoLingBuilder
     {
         public const string Root="Assets/Models/HaoLing";
-        public const string ScenePath=Root+"/Scenes/HaoLing_Phoenix_Atelier.unity";
+        public const string ScenePath="Assets/Sandbox/Showcases/HaoLing/Scenes/HaoLing_Phoenix_Atelier.unity";
         static Material stage,stageEdge,lettering;
         [MenuItem("Hao Ling/Build detailed trio and showcase")]
         public static void Build()

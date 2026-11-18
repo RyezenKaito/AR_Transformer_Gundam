@@ -22,7 +22,8 @@ namespace GundamGame.CombatDemo.Editor
         [MenuItem("Gundam/Strike Rouge/Open Combat Demo")]
         public static void OpenDemo()
         {
-            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) EditorSceneManager.OpenScene(ScenePath);
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                EditorSceneManager.OpenScene("Assets/Sandbox/CombatTest/Scenes/Combat Test.unity");
         }
         [MenuItem("Gundam/Strike Rouge/Create Combat Demo")]
         public static void CreateFromMenu()

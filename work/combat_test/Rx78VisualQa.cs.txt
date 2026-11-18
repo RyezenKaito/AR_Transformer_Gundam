@@ -1,0 +1,96 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using GundamGame.CombatDemo;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+internal class CommandScript : IRunCommand
+{
+    CombatTestScene runner;
+    public void Execute(ExecutionResult r)
+    {
+        runner=UnityEngine.Object.FindAnyObjectByType<CombatTestScene>();
+        if(!Application.isPlaying||!runner){r.LogError("Combat Test not playing");return;}
+        runner.StartCoroutine(Capture());
+        r.Log("Rendering enemy poses and effects");
+    }
+    IEnumerator Capture()
+    {
+        while(runner.Loading||!runner.ActivePackage)yield return null;
+        if(runner.enemyPreset!=3)runner.SelectEnemyPreset(3);
+        while(runner.Loading)yield return null;
+        yield return null;
+        var demo=runner.ActivePackage.unicorn;
+        demo.SetPaused(true);
+        var step=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),demo,"Step");
+        for(int i=0;i<90&&demo.State==GundamGame.Unicorn.UnicornCombatDemo.Phase.Deploying;i++)step(1f/60);
+        try
+        {
+            foreach(var enemy in demo.enemies)
+            {
+                var brain=enemy.GetComponent<EnemyBrain>();
+                var seen=new HashSet<int>();
+                for(int i=0;i<10&&seen.Count<3;i++)
+                {
+                    demo.effects.Clear();
+                    brain.Finish();
+                    if(brain.IsRanged&&i==1)brain.RegisterPressure(50);
+                    brain.Begin(demo.player);
+                    if(!seen.Add(brain.Slot)){brain.Evaluate(brain.Duration,_=>{});continue;}
+                    EnemyProfile.Cue desired=brain.IsBlast?EnemyProfile.Cue.Fire:brain.IsRanged&&brain.Slot==2?EnemyProfile.Cue.Guard:EnemyProfile.Cue.Hit;
+                    float time=brain.Move.timeline.events.First(e=>e.intParameter==(int)desired).time;
+                    brain.Evaluate(time,cue=>
+                    {
+                        if(cue==EnemyProfile.Cue.Fire&&brain.IsRanged&&!brain.IsBlast)demo.effects.Beam(brain.Origin,brain.Aim,true);
+                        if(cue==EnemyProfile.Cue.Fire&&!brain.IsRanged)demo.effects.Tracer(brain.VulcanOrigin(0),brain.Aim);
+                        if(cue==EnemyProfile.Cue.Fire&&brain.IsBlast)demo.effects.EnemyShell(brain.Origin,brain.GroundAim,brain.FirstHitTime-time,()=>.17f);
+                        if(cue==EnemyProfile.Cue.Guard)demo.effects.Shield(brain.shield.position,brain.transform.forward);
+                        if(cue==EnemyProfile.Cue.Hit&&brain.IsMelee)
+                        {
+                            if(brain.Slot==2){demo.effects.SetEnemyJavelin(true,brain.BladeBase,brain.BladeTip);demo.effects.EnemyThrust(brain.BladeBase,brain.BladeTip);}
+                            else demo.effects.EnemySlash(brain.BladeBase,brain.BladeTip,brain.BladeWindupDirection);
+                            demo.effects.Impact(demo.player.AimPoint,.4f,Color.yellow,false);
+                        }
+                    });
+                    demo.effects.Tick(.01f);
+                    Render(brain,demo.player.AimPoint);
+                    brain.Evaluate(brain.Duration,_=>{});
+                }
+            }
+        }
+        finally
+        {
+            demo.ResetBattle();demo.SetPaused(false);
+        }
+    }
+
+    void Render(EnemyBrain brain,Vector3 opponent)
+    {
+        var cameraObject=new GameObject("Temporary enemy preview camera");
+        var cam=cameraObject.AddComponent<Camera>();cam.enabled=false;cam.fieldOfView=37;
+        Vector3 look=brain.fighter.AimPoint;
+        if(brain.Move.hits>0)look=Vector3.Lerp(look,opponent,.38f);
+        cameraObject.transform.position=look-brain.transform.right*5+Vector3.up*1.5f+brain.transform.forward*2.4f;
+        cameraObject.transform.LookAt(look-Vector3.up*.28f);
+        var tex=RenderTexture.GetTemporary(830,468,24);
+        var previous=RenderTexture.active;
+        Texture2D picture=null;
+        try
+        {
+            RenderPipeline.SubmitRenderRequest(cam,new UniversalRenderPipeline.SingleCameraRequest{destination=tex});
+            RenderTexture.active=tex;
+            picture=new Texture2D(tex.width,tex.height,TextureFormat.RGB24,false);
+            picture.ReadPixels(new Rect(0,0,tex.width,tex.height),0,0);
+            File.WriteAllBytes("work/combat_test/"+brain.Move.label.Replace(' ','_')+".png",picture.EncodeToPNG());
+        }
+        finally
+        {
+            RenderTexture.active=previous; RenderTexture.ReleaseTemporary(tex);
+            if(picture)UnityEngine.Object.Destroy(picture);
+            UnityEngine.Object.Destroy(cameraObject);
+        }
+    }
+}
