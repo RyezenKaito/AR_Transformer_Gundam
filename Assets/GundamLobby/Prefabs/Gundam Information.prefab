@@ -339,7 +339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TUY\u1EC6T K\u1EF8"
+  m_text: ULTIMATE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0110\xC1NH TH\u01AF\u1EDCNG"
+  m_text: BASIC ATTACK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7427706919659230325}
   - component: {fileID: 4796194935241941350}
+  - component: {fileID: 5773705253717651517}
   m_Layer: 0
   m_Name: Stat bar
   m_TagString: Untagged
@@ -608,6 +609,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &5773705253717651517
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704340185935591136}
+  m_CullTransparentMesh: 1
 --- !u!1 &1148120462126767071
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "H\u1EC6 TH\u1ED0NG V\u0168 KH\xCD"
+  m_text: "H\u1EC6 TH\u1ED0NG WEAPONS"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -830,6 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4190932275072901154}
   - component: {fileID: 7947697848859452587}
+  - component: {fileID: 7340903656384422814}
   m_Layer: 0
   m_Name: Skill diamond
   m_TagString: Untagged
@@ -880,6 +903,27 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &7340903656384422814
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656399523456289038}
+  m_CullTransparentMesh: 1
 --- !u!1 &1788611569460131769
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +937,7 @@ GameObject:
   - component: {fileID: 4965889513446512370}
   - component: {fileID: 3382046012040863708}
   - component: {fileID: 5680381781929372812}
+  - component: {fileID: 2538636505012156936}
   m_Layer: 0
   m_Name: Details
   m_TagString: Untagged
@@ -944,6 +989,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &4965889513446512370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +1076,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: "CHI TI\u1EBET GUNDAM     \u203A"
+--- !u!222 &2538636505012156936
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788611569460131769}
+  m_CullTransparentMesh: 1
 --- !u!1 &2299293044915276067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1508,7 @@ GameObject:
   - component: {fileID: 369853590304820503}
   - component: {fileID: 1957811213203608617}
   - component: {fileID: 7364234983450300503}
+  - component: {fileID: 756040415273872677}
   m_Layer: 0
   m_Name: Skill 0
   m_TagString: Untagged
@@ -1496,6 +1563,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &369853590304820503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,6 +1650,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Skill 0
+--- !u!222 &756040415273872677
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3316162677339883588}
+  m_CullTransparentMesh: 1
 --- !u!1 &3458129152879538071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,6 +1668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 266613151158124542}
   - component: {fileID: 6157757297863098509}
+  - component: {fileID: 1322398391636752318}
   m_Layer: 0
   m_Name: Stat bar
   m_TagString: Untagged
@@ -1630,6 +1719,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1322398391636752318
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458129152879538071}
+  m_CullTransparentMesh: 1
 --- !u!1 &3964825998820896662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106192492374052929}
   - component: {fileID: 3472536317469342638}
+  - component: {fileID: 5252862497159903353}
   m_Layer: 0
   m_Name: Stat bar
   m_TagString: Untagged
@@ -1690,6 +1801,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &5252862497159903353
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3964825998820896662}
+  m_CullTransparentMesh: 1
 --- !u!1 &4042161530755106062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,6 +1832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5216847812162870696}
   - component: {fileID: 1079646638337480705}
+  - component: {fileID: 8321317533015951382}
   m_Layer: 0
   m_Name: Stat bar
   m_TagString: Untagged
@@ -1750,6 +1883,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &8321317533015951382
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4042161530755106062}
+  m_CullTransparentMesh: 1
 --- !u!1 &4180437214842382350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,6 +2462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8861115961567798545}
   - component: {fileID: 8897408337426643841}
+  - component: {fileID: 1903586845625076631}
   m_Layer: 0
   m_Name: Skill diamond
   m_TagString: Untagged
@@ -2358,6 +2513,27 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1903586845625076631
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700918957660142515}
+  m_CullTransparentMesh: 1
 --- !u!1 &4828072429158101394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,7 +2599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0110\u1ED4I GUNDAM     \u203A"
+  m_text: "SWITCH GUNDAM     \u203A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -2583,6 +2759,7 @@ GameObject:
   - component: {fileID: 4004705248913387349}
   - component: {fileID: 4022740531758176104}
   - component: {fileID: 7541892265980956681}
+  - component: {fileID: 7954482167644433989}
   m_Layer: 0
   m_Name: Skill 2
   m_TagString: Untagged
@@ -2637,6 +2814,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &4004705248913387349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,6 +2901,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Skill 2
+--- !u!222 &7954482167644433989
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912292978318137050}
+  m_CullTransparentMesh: 1
 --- !u!1 &4920350003691602265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1037813728242756265}
   - component: {fileID: 7364857818630747151}
+  - component: {fileID: 8033054590951169673}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -3182,6 +3381,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &8033054590951169673
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227564516858471049}
+  m_CullTransparentMesh: 1
 --- !u!1 &6421490929869589702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3322,7 +3542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "T\u1EA4N C\xD4NG   /   Lv. 20"
+  m_text: ATTACK   /   Lv. 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -3797,7 +4017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TH\xD4NG S\u1ED0 CHI\u1EBEN \u0110\u1EA4U"
+  m_text: "TH\xD4NG S\u1ED0 BATTLE"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -4153,6 +4373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127488240676781052}
   - component: {fileID: 3798373177588193085}
+  - component: {fileID: 970246403291375756}
   m_Layer: 0
   m_Name: Skill diamond
   m_TagString: Untagged
@@ -4203,6 +4424,27 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &970246403291375756
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543480355727995317}
+  m_CullTransparentMesh: 1
 --- !u!1 &7688925001935014322
 GameObject:
   m_ObjectHideFlags: 0
@@ -4216,6 +4458,7 @@ GameObject:
   - component: {fileID: 6537193774056077104}
   - component: {fileID: 7322579223611943499}
   - component: {fileID: 5446865876277686674}
+  - component: {fileID: 3866411696028311260}
   m_Layer: 0
   m_Name: Switch Gundam
   m_TagString: Untagged
@@ -4267,6 +4510,19 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1.5
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &6537193774056077104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,7 +4596,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ed482dc1ac9204a8616c607384a963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionLabel: "\u0110\u1ED4I GUNDAM     \u203A"
+  actionLabel: "SWITCH GUNDAM     \u203A"
+--- !u!222 &3866411696028311260
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688925001935014322}
+  m_CullTransparentMesh: 1
 --- !u!1 &7935636117831597998
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +5026,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6055311159937693406}
   - component: {fileID: 2927952452546144302}
+  - component: {fileID: 1482333292984229377}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -4812,6 +5077,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1482333292984229377
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8194222916895365180}
+  m_CullTransparentMesh: 1
 --- !u!1 &8244883885614962169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,7 +5163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "K\u1EF8 N\u0102NG"
+  m_text: SKILL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -4962,6 +5248,7 @@ GameObject:
   - component: {fileID: 3798020894959246033}
   - component: {fileID: 2080307236290776200}
   - component: {fileID: 5502716494156709943}
+  - component: {fileID: 6434857853162579246}
   m_Layer: 0
   m_Name: Skill 1
   m_TagString: Untagged
@@ -5016,6 +5303,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &3798020894959246033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5090,3 +5390,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Skill 1
+--- !u!222 &6434857853162579246
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973901040245811515}
+  m_CullTransparentMesh: 1

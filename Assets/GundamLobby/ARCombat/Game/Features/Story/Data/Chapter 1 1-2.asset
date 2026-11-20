@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f881cc41cb784b9e82a9534a441dbe7a, type: 3}
+  m_Name: Chapter 1 1-2
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.Story.StoryStage
+  stageId: 1-2
+  creditReward: 1800
+  fCoreReward: 3
+  locationName: Street City
+  scenePath: Assets/GundamLobby/ARCombat/Game/Scenes/Story/Stage_1_2.unity
+  battlefieldPrefab: {fileID: 971426654481109695, guid: 30efc2460d044f5c92c4033fff64f883, type: 3}
+  thumbnail: {fileID: 21300000, guid: 9ddf6122b9bb482c8e8e987a81cde6a1, type: 3}
+  briefing: Advance into Street City and defeat the melee defense squad.
+  opponents:
+  - {fileID: 11400000, guid: 6a3a52fe212746008ebaa7807775e0f4, type: 2}
+  - {fileID: 11400000, guid: 6a3a52fe212746008ebaa7807775e0f4, type: 2}
+  - {fileID: 11400000, guid: 6a3a52fe212746008ebaa7807775e0f4, type: 2}
+  nextStage: {fileID: 0}

@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e716b45e3e7a47319738be502463c3ee, type: 3}
+  m_Name: RX-78-2 Ranged
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.CombatDemo.EnemyProfile
+  role: 0
+  prefab: {fileID: 532515237678433043, guid: 62b35b13e12d4c47893ad776b747136a, type: 3}
+  portrait: {fileID: 21300000, guid: b6f06815810f4804199b6d2dc8a1d5bc, type: 3}
+  clip: {fileID: 8034747193188478773, guid: a5a12079adaf4bea9a2abe3f31bc8b15, type: 3}
+  moves:
+  - label: Beam Rifle Burst
+    hits: 3
+    damage: 42
+    cooldownTurns: 0
+    range: 4.6
+    telegraph: 1.15
+    recovery: 0.65
+    armorMultiplier: 0.55
+    timeline: {fileID: 7400000, guid: eb1a891d2f8449178b681e64901ff8cc, type: 2}
+    sourceTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 4.607143
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.46666667
+        value: 2.15
+        inSlope: 4.607143
+        outSlope: 1.7699999
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.1333333
+        value: 3.33
+        inSlope: 1.7699999
+        outSlope: 0.105000265
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.8
+        value: 3.4
+        inSlope: 0.105000265
+        outSlope: 0.18749984
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2.3333333
+        value: 3.5
+        inSlope: 0.18749984
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - label: Hyper Bazooka Shot
+    hits: 1
+    damage: 52
+    cooldownTurns: 3
+    range: 4.2
+    telegraph: 1.5
+    recovery: 0.78
+    armorMultiplier: 1.15
+    timeline: {fileID: 7400000, guid: 3985035a46a342019b06d95d69b76e0c, type: 2}
+    sourceTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 3.9749997
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.53333336
+        value: 2.12
+        inSlope: 3.9749997
+        outSlope: 1.9500003
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.1333333
+        value: 3.29
+        inSlope: 1.9500003
+        outSlope: 0.14482771
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2.1
+        value: 3.43
+        inSlope: 0.14482771
+        outSlope: 0.104999885
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2.7666667
+        value: 3.5
+        inSlope: 0.104999885
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - label: Tactical Shield Guard
+    hits: 0
+    damage: 0
+    cooldownTurns: 2
+    range: 3.5
+    telegraph: 1.1
+    recovery: 0.6
+    armorMultiplier: 0
+    timeline: {fileID: 7400000, guid: f85c43911cd34f719a46dccf67a3ddba, type: 2}
+    sourceTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 3.9166663
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.6
+        value: 2.35
+        inSlope: 3.9166663
+        outSlope: 0.3800001
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1.1
+        value: 2.54
+        inSlope: 0.3800001
+        outSlope: 0.10312512
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 2.1666667
+        value: 2.65
+        inSlope: 0.10312512
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  hp: 200
+  armor: 78
+  attack: 85
+  defense: 65
+  speed: 132
+  breakDamage: 40
+  moveSpeed: 3.5

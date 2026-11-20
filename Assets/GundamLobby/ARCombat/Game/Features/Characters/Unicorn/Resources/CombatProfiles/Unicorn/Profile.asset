@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0555baa3659423fb6c27b97fd5b022a, type: 3}
+  m_Name: Profile
+  m_EditorClassIdentifier: Assembly-CSharp::GundamGame.CombatDemo.CharacterCombatProfile
+  combatPrefab: {fileID: 2122867302485494606, guid: 1c579ee394454b33a4bfe005effbd31b, type: 3}
+  displayName: Unicorn
+  gradeBadge: PERFECT GRADE [PG]
+  maxHealth: 650
+  maxArmor: 190
+  attack: 110
+  defense: 80
+  breakDamage: 50
+  speed: 146
+  skills:
+  - displayName: Twin Vulcan
+    burstCost: 0
+    animation: {fileID: 1041977554287733992, guid: 7bbc6d2099f246a2b23cc7314ee74beb, type: 3}
+    duration: 0.9
+    damageMultiplier: 0.65
+    armorMultiplier: 0.45
+  - displayName: Psycho-Frame Awakening
+    burstCost: 1
+    animation: {fileID: -2362968697691735236, guid: 7bbc6d2099f246a2b23cc7314ee74beb, type: 3}
+    duration: 2.8
+    damageMultiplier: 0
+    armorMultiplier: 0
+  - displayName: Beam Magnum
+    burstCost: 2
+    animation: {fileID: 6880404020306576236, guid: 7bbc6d2099f246a2b23cc7314ee74beb, type: 3}
+    duration: 3.0666666
+    damageMultiplier: 1.85
+    armorMultiplier: 1.1
+  - displayName: Psycho-Frame Full Burst
+    burstCost: 5
+    animation: {fileID: 6988358224688513557, guid: 7bbc6d2099f246a2b23cc7314ee74beb, type: 3}
+    duration: 6.5
+    damageMultiplier: 3.4
+    armorMultiplier: 1.65

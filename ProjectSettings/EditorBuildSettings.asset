@@ -17,6 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/W7/W7Scene.unity
     guid: 03c84e03f230ca04598887c6eee708d5
+  - enabled: 1
+    path: Assets/GundamLobby/Scenes/HomeLobby.unity
+    guid: e26e806b30da45a4aaa97df0055cdf54
+  - enabled: 1
+    path: Assets/GundamLobby/ARCombat/Game/Scenes/Story/Stage_1_1.unity
+    guid: b4e2504c81b743f2b75dbe3ea55974f2
+  - enabled: 1
+    path: Assets/GundamLobby/ARCombat/Game/Scenes/Story/Stage_1_2.unity
+    guid: 6c649352801140d699677eee82fad5bd
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 0379abeb022f26b4fa6befa988f91666, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: fc0f641f453aebe4a8fe6d786d8daa80, type: 2}

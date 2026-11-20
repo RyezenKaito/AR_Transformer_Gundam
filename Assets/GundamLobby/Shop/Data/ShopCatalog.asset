@@ -1,0 +1,328 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e95d0801107029042bd4576fc6dd83b8, type: 3}
+  m_Name: ShopCatalog
+  m_EditorClassIdentifier: 
+  categories:
+  - GUNDAM
+  - UPGRADE MATERIALS
+  - SUPPLIES
+  - MODULES
+  - STRIKE DESIGNS
+  items:
+  - title: UNICORN
+    description: Starter mobile suit. Balanced armor and beam attacks. Select from
+      Switch Gundam; upgrade in Laboratory > Update.
+    code: gundam:Unicorn
+    category: 0
+    rarity: 2
+    price: 0
+    unitPrice: 0
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 45a851a6c4c068048bfb27dc0ec3fc87, type: 2}
+  - title: STRIKE ROUGE
+    description: Playable Strike Rouge with Ootori equipment and four combat skills.
+      Purchase permanently, then equip from Switch Gundam.
+    code: gundam:StrikeRouge
+    category: 0
+    rarity: 2
+    price: 10000
+    unitPrice: 10000
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: bfd4849652a5cc94a81f685802a9b9c9, type: 2}
+  - title: F-CORE
+    description: Calibration core. Combine with a Data Chip and Credits in Laboratory
+      > Update to permanently improve Gundam stats.
+    code: fcore
+    category: 1
+    rarity: 1
+    price: 500
+    unitPrice: 500
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: cc4eb462dff9b594dab576099c89702b, type: 3}
+  - title: COMBAT DATA CHIP
+    description: 'Tactical training data. Each upgrade consumes 1 chip, F-Cores and
+      Credits. Improves combat stats. Maximum level: 40.'
+    code: xp_chip
+    category: 1
+    rarity: 0
+    price: 300
+    unitPrice: 300
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 3d209c35fcdf76b4d9923b3d1fc4fff3, type: 3}
+  - title: MAINTENANCE CRATE
+    description: 'Guaranteed contents: 3 Data Chips, 1 Credit Cache and 2 F-Cores.
+      Contents are stored in Inventory.'
+    code: supply_crate
+    category: 2
+    rarity: 1
+    price: 1200
+    unitPrice: 1200
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 2dbfb7ad4a56bd0478b0518915cb7f24, type: 3}
+  - title: ASSAULT CIRCUIT
+    description: 'Reusable module: +15% ATK in every battle. One module per Gundam.
+      Equip or unequip without consuming it.'
+    code: assault_module
+    category: 3
+    rarity: 1
+    price: 2400
+    unitPrice: 2400
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: ae9d761c5a22ee5469416166cefed3f4, type: 3}
+  - title: AEGIS PLATING
+    description: 'Reusable module: +15% HP and +20% armor. Replaces the selected
+      Gundam''s current module.'
+    code: bulwark_module
+    category: 3
+    rarity: 1
+    price: 2200
+    unitPrice: 2200
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 66e4aa3e4268a174bb324c8c7bb1a33d, type: 3}
+  - title: VECTOR THRUSTER
+    description: 'Reusable module: +10 Speed, improving turn order. One active module
+      per Gundam.'
+    code: thruster_module
+    category: 3
+    rarity: 1
+    price: 2000
+    unitPrice: 2000
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 115796179c191de4bb13c8a58e4d503a, type: 3}
+  - title: F-CORE CONTAINER
+    description: Sealed calibration cassette. Open to receive 5 F-Cores for permanent
+      Gundam upgrades. Costs less than five individual cores.
+    code: core_case
+    category: 2
+    rarity: 1
+    price: 2250
+    unitPrice: 2250
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 2db2a499537fb6243be3f5da5a39589b, type: 3}
+  - title: TACTICAL DATA ARCHIVE
+    description: Military data rack. Open to receive 10 Combat Data Chips. Combine
+      chips with F-Cores and Credits in Update.
+    code: data_archive
+    category: 2
+    rarity: 1
+    price: 2600
+    unitPrice: 2600
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 855eec4ad7af2024ba968f14bc21499b, type: 3}
+  - title: FRONTLINE SUPPLY CACHE
+    description: 'Guaranteed contents: 4 F-Cores, 4 Data Chips and 1 Treasury Vault.
+      The vault opens separately for 2,500 Credits.'
+    code: frontline_crate
+    category: 2
+    rarity: 2
+    price: 4800
+    unitPrice: 4800
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: c89166085da11b548bface9b8e0a662d, type: 3}
+  - title: BREACH COUPLER
+    description: 'Reusable module: +30% Break Damage. Helps strip enemy armor. Replaces
+      the current module; does not change direct ATK.'
+    code: breaker_module
+    category: 3
+    rarity: 1
+    price: 2600
+    unitPrice: 2600
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: cd2a2fba09a25dc4b90a30ff06228d70, type: 3}
+  - title: GUARD MATRIX
+    description: 'Reusable module: +20% DEF. Improves damage mitigation and parry
+      effectiveness. One module per Gundam.'
+    code: defense_module
+    category: 3
+    rarity: 1
+    price: 2500
+    unitPrice: 2500
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: b9826f1c3382a29418df57e1e785be75, type: 3}
+  - title: PRECISION ARRAY
+    description: 'Reusable module: +20% ATK with a -5 Speed trade-off. Suits heavy
+      damage builds. Replaces the selected Gundam''s module.'
+    code: precision_module
+    category: 3
+    rarity: 2
+    price: 3000
+    unitPrice: 3000
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: e7235770f87f8eb4c9d28639ebbd265f, type: 3}
+  - title: SERAPH CONTROLLER
+    description: 'Reusable module: +8% HP, ATK and DEF, plus +4 Speed. A balanced
+      alternative to specialist equipment.'
+    code: balanced_module
+    category: 3
+    rarity: 2
+    price: 3200
+    unitPrice: 3200
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 26bcb5113a3df15469bb7c4451b7b889, type: 3}
+  - title: NANO REPAIR GEL
+    description: Prepare +15% maximum HP for the next sortie. One preparation per
+      Gundam. Consumed on Campaign, Skirmish or Challenge entry; Training previews
+      it free.
+    code: repair_gel
+    category: 2
+    rarity: 0
+    price: 550
+    unitPrice: 550
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: 101841df5b0cc924ab63ec7a64ea7034, type: 3}
+  - title: OVERDRIVE AMPOULE
+    description: Prepare +12% ATK for the next sortie. One preparation per Gundam.
+      Consumed on real sortie entry; can be cancelled before deployment.
+    code: overdrive_amp
+    category: 2
+    rarity: 0
+    price: 650
+    unitPrice: 650
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 21300000, guid: c8dc066de6a0d1b41b8336a177c0090b, type: 3}
+  - title: MIDNIGHT SENTINEL
+    description: Permanent cosmetic design for the currently selected Gundam. Purchased
+      with Crystals only. Changes its appearance without adding combat stats. Owned
+      designs can be equipped again at no cost.
+    code: skin:1
+    category: 4
+    rarity: 2
+    price: 300
+    unitPrice: 1600
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 0}
+  - title: CRIMSON COMET
+    description: Permanent cosmetic design for the currently selected Gundam. Purchased
+      with Crystals only. Changes its appearance without adding combat stats. Owned
+      designs can be equipped again at no cost.
+    code: skin:2
+    category: 4
+    rarity: 2
+    price: 450
+    unitPrice: 1600
+    quantity: 1
+    bids: 1
+    remainingMinutes: 1327
+    auction: 0
+    isMyListing: 0
+    isMyBid: 0
+    frameArtwork: 0
+    icon: {fileID: 0}

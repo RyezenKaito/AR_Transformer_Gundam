@@ -26,7 +26,7 @@ namespace GundamLobby
         [Header("Sample data")]
         public string playerName = "COMMANDER";
         public string gundamName = "RX-78 / AEGIS";
-        public string role = "TẤN CÔNG";
+        public string role = "ATTACK";
         public int level = 20;
         public string[] statValues = { "12,480", "2,460", "1,180", "112" };
         [Header("Scene bindings")]
@@ -47,6 +47,7 @@ namespace GundamLobby
         bool dragging;
         GameObject spawnedModel, spawnedHangar;
         public int feedbackCount { get; private set; }
+        public GameObject PreviewModel => spawnedModel;
 
         void Awake()
         {
@@ -93,17 +94,18 @@ namespace GundamLobby
         public void ShowComingSoon()
         {
             feedbackCount++;
-            if (toastLabel) toastLabel.text = "CHỨC NĂNG ĐANG PHÁT TRIỂN";
+            if (toastLabel) toastLabel.text = "Command received.";
             toastUntil = Time.unscaledTime + 2.6f;
         }
         public void ShowFeedback(string title)
         {
             ShowComingSoon();
-            if (toastLabel && !string.IsNullOrEmpty(title)) toastLabel.text = title + "  ·  Chức năng đang phát triển";
+            if (toastLabel && !string.IsNullOrEmpty(title)) toastLabel.text = title;
         }
         void Update()
         {
             if (toast) toast.alpha = Mathf.MoveTowards(toast.alpha, Time.unscaledTime < toastUntil ? 1 : 0, Time.unscaledDeltaTime * 7);
+            if(LobbyServices.BlocksInput)return;
             bool pressed = false, held = false;
             float delta = 0;
 #if ENABLE_INPUT_SYSTEM

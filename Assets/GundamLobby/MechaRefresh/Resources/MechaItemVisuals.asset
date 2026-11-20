@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10bda78da403a40aca8d6fa71439ea, type: 3}
+  m_Name: MechaItemVisuals
+  m_EditorClassIdentifier: 
+  items:
+  - id: fcore
+    icon: {fileID: 21300000, guid: cc4eb462dff9b594dab576099c89702b, type: 3}
+    prefab: {fileID: 5004653382556758454, guid: 60ca32248d1497c45b901f218d0062a8, type: 3}
+  - id: xp_chip
+    icon: {fileID: 21300000, guid: 3d209c35fcdf76b4d9923b3d1fc4fff3, type: 3}
+    prefab: {fileID: 3396023442556536800, guid: e7813b3c4dc49a54bbd2e0c6b3d3c2b9, type: 3}
+  - id: credit_cache
+    icon: {fileID: 21300000, guid: ddff3542ae00ebb4cb7ba47adbd06369, type: 3}
+    prefab: {fileID: 980827088775531986, guid: f094bf935d666e1499293b8376bb411c, type: 3}
+  - id: supply_crate
+    icon: {fileID: 21300000, guid: 2dbfb7ad4a56bd0478b0518915cb7f24, type: 3}
+    prefab: {fileID: 1838580060257237556, guid: 7add6265b0787114792433cdc571f003, type: 3}
+  - id: assault_module
+    icon: {fileID: 21300000, guid: ae9d761c5a22ee5469416166cefed3f4, type: 3}
+    prefab: {fileID: 5596839976092921782, guid: 49cda4eeafacafe48baf2a5244a2381f, type: 3}
+  - id: bulwark_module
+    icon: {fileID: 21300000, guid: 66e4aa3e4268a174bb324c8c7bb1a33d, type: 3}
+    prefab: {fileID: 7995568888709056843, guid: 30f0e4548782ec04bb131d07628942a6, type: 3}
+  - id: thruster_module
+    icon: {fileID: 21300000, guid: 115796179c191de4bb13c8a58e4d503a, type: 3}
+    prefab: {fileID: 178606541551395605, guid: 183b256d8d75be84886b90ba3bda96c4, type: 3}
+  - id: core_case
+    icon: {fileID: 21300000, guid: 2db2a499537fb6243be3f5da5a39589b, type: 3}
+    prefab: {fileID: 1979124418646505510, guid: e570f3cb572467a4ca4c6005868f5677, type: 3}
+  - id: data_archive
+    icon: {fileID: 21300000, guid: 855eec4ad7af2024ba968f14bc21499b, type: 3}
+    prefab: {fileID: 1026207865000119604, guid: 023510cd7b7564f4ea1b26d32a76c9ce, type: 3}
+  - id: credit_vault
+    icon: {fileID: 21300000, guid: 77982606673e1a543aee576346c383f8, type: 3}
+    prefab: {fileID: 1807063213669866514, guid: 6821ab2fba81221439354b7fb066082c, type: 3}
+  - id: frontline_crate
+    icon: {fileID: 21300000, guid: c89166085da11b548bface9b8e0a662d, type: 3}
+    prefab: {fileID: 2287494703566925060, guid: 5234bdde916916f43838aa5861d23b44, type: 3}
+  - id: breaker_module
+    icon: {fileID: 21300000, guid: cd2a2fba09a25dc4b90a30ff06228d70, type: 3}
+    prefab: {fileID: 6583772674346607389, guid: 08827e2f3bffce1439ff9fbae984195c, type: 3}
+  - id: defense_module
+    icon: {fileID: 21300000, guid: b9826f1c3382a29418df57e1e785be75, type: 3}
+    prefab: {fileID: 4184315061509077113, guid: ed1ab629d4f776241a6bf5446391db4e, type: 3}
+  - id: precision_module
+    icon: {fileID: 21300000, guid: e7235770f87f8eb4c9d28639ebbd265f, type: 3}
+    prefab: {fileID: 5223132649880425743, guid: 7acf394ae5a578b45842c38ac9a8bc7b, type: 3}
+  - id: balanced_module
+    icon: {fileID: 21300000, guid: 26bcb5113a3df15469bb7c4451b7b889, type: 3}
+    prefab: {fileID: 4897630197669671476, guid: dd9f8a647f10f4e4d9158a1a6e117692, type: 3}
+  - id: repair_gel
+    icon: {fileID: 21300000, guid: 101841df5b0cc924ab63ec7a64ea7034, type: 3}
+    prefab: {fileID: 4705873422866499178, guid: 83168670757930e4a8a07b67cd0d3067, type: 3}
+  - id: overdrive_amp
+    icon: {fileID: 21300000, guid: c8dc066de6a0d1b41b8336a177c0090b, type: 3}
+    prefab: {fileID: 6961438273964872910, guid: 70a31bddae2c1044bb9b1c6f168ce163, type: 3}

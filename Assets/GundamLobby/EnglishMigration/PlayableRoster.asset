@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8998209e182ae048b16d9c74e427966, type: 3}
+  m_Name: PlayableRoster
+  m_EditorClassIdentifier: 
+  units:
+  - id: Unicorn
+    displayName: UNICORN
+    code: RX-0 / PSYCHO FRAME
+    role: BALANCED ATTACKER
+    gradeBadge: 'PERFECT GRADE [PG]'
+    armor: 190
+    breakDamage: 50
+    skillNames:
+    - Twin Vulcan
+    - Psycho-Frame Awakening
+    - Beam Magnum
+    - Psycho-Frame Full Burst
+    burstCosts: 00000000010000000200000005000000
+    prefab: {fileID: 3861726739789811734, guid: 5ac093c66b6c46dab2c409bf74f548c2, type: 3}
+    portrait: {fileID: 21300000, guid: 6744a22532c4fa845a7bbed68bec88c1, type: 3}
+    cardPortrait: {fileID: 21300000, guid: 45a851a6c4c068048bfb27dc0ec3fc87, type: 2}
+    level: 20
+    hp: 650
+    attack: 110
+    defense: 80
+    speed: 146
+    power: 18460
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120
+  - id: StrikeRouge
+    displayName: STRIKE ROUGE
+    code: MBF-02 / OOTORI
+    role: RANGED ASSAULT
+    gradeBadge: 'REAL GRADE [RG]'
+    armor: 145
+    breakDamage: 90
+    skillNames:
+    - V-Fin Pulse
+    - Anti-Ship
+    - Ootori Missiles
+    - Full Burst
+    burstCosts: 00000000010000000200000005000000
+    prefab: {fileID: 7290906532367021005, guid: e3eb446ed5c842bc84d0ffa06a03c6e4, type: 3}
+    portrait: {fileID: 21300000, guid: a2a9de1ee861f91449f971ab6af45058, type: 3}
+    cardPortrait: {fileID: 21300000, guid: bfd4849652a5cc94a81f685802a9b9c9, type: 2}
+    level: 20
+    hp: 450
+    attack: 100
+    defense: 68
+    speed: 157
+    power: 18840
+    critRate: 12
+    critDamage: 60
+    breakEffect: 24
+    effectResistance: 8
+    damageType: BEAM
+    shieldCapacity: 2600
+    maxEnergy: 120

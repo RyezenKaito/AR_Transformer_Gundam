@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e1141e8cf82cb46a17a52b60561bc1, type: 3}
+  m_Name: WeaponryCatalog
+  m_EditorClassIdentifier: 
+  skills:
+  - category: BASIC ATTACK
+    title: MAIN BEAM CANNON
+    description: Fire two energy shots at one enemy, dealing 100% ATK damage. Restores
+      1 team skill point.
+    badge: +1 SP
+    glyph: 0
+    statNames:
+    - Damage multiplier
+    - Hit count
+    - Energy gain
+    - Skill points
+    - Armor damage
+    - Target
+    statValues:
+    - 100% ATK
+    - 2
+    - 20
+    - +1 SP
+    - 30
+    - Single target
+  - category: SKILL
+    title: CHAIN FIRE
+    description: Deal 180% ATK damage to the main target and 60% ATK to adjacent
+      enemies. Costs 1 team skill point.
+    badge: "\u22121 SP"
+    glyph: 1
+    statNames:
+    - Primary damage
+    - Splash damage
+    - Energy gain
+    - Skill points
+    - Armor damage
+    - Target
+    statValues:
+    - 180% ATK
+    - 60% ATK
+    - 30
+    - "\u22121 SP"
+    - 60
+    - Blast
+  - category: ULTIMATE
+    title: ENERGY BURST
+    description: Release energy at all enemies for 240% ATK damage. Requires 120
+      energy.
+    badge: 120 ENERGY
+    glyph: 2
+    statNames:
+    - Damage multiplier
+    - Hit count
+    - Energy cost
+    - Skill points
+    - Armor damage
+    - Target
+    statValues:
+    - 240% ATK
+    - 1
+    - 120
+    - 0 SP
+    - 60
+    - All enemies
+  - category: TALENT
+    title: REACTOR CORE
+    description: Gain 1 Core Heat stack after each attack. At 3 stacks, the next
+      attack deals 30% more damage.
+    badge: AUTOMATIC
+    glyph: 3
+    statNames:
+    - Damage bonus
+    - Max stacks
+    - Duration
+    - Skill points
+    - Condition
+    - Target
+    statValues:
+    - 30%
+    - 3
+    - Until triggered
+    - 0 SP
+    - 3 attacks
+    - Self
+  - category: PASSIVE
+    title: ENERGY SHIELD
+    description: At battle start, gain a shield equal to 15% of max HP for 2 Gundam
+      turns.
+    badge: PASSIVE
+    glyph: 4
+    statNames:
+    - Shield strength
+    - Duration
+    - Activations
+    - Skill points
+    - Condition
+    - Target
+    statValues:
+    - 15% max HP
+    - 2 turns
+    - 1 times / battle
+    - 0 SP
+    - Battle start
+    - Self

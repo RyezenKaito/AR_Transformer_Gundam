@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "CH\u01AF\u01A0NG 01"
+  m_text: CHAPTER 01
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -421,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8556395504594698634}
   - component: {fileID: 9193015953334500839}
+  - component: {fileID: 5498375413196475403}
   m_Layer: 0
   m_Name: Banner page
   m_TagString: Untagged
@@ -471,6 +472,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &5498375413196475403
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268438976197386239}
+  m_CullTransparentMesh: 1
 --- !u!1 &576932506173155731
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +643,7 @@ GameObject:
   - component: {fileID: 4849686018538679359}
   - component: {fileID: 8800271983914606436}
   - component: {fileID: 8588971124151333302}
+  - component: {fileID: 4209562072738973109}
   m_Layer: 0
   m_Name: Mission 2
   m_TagString: Untagged
@@ -677,6 +700,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &4849686018538679359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +787,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Mission 2
+--- !u!222 &4209562072738973109
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723611996351074035}
+  m_CullTransparentMesh: 1
 --- !u!1 &925733590922579019
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965660634266143797}
   - component: {fileID: 5584392736157095531}
+  - component: {fileID: 3692347460001578843}
   m_Layer: 0
   m_Name: Banner page
   m_TagString: Untagged
@@ -811,6 +856,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &3692347460001578843
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925733590922579019}
+  m_CullTransparentMesh: 1
 --- !u!1 &1057673798469048059
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,6 +1024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4874146463142489732}
   - component: {fileID: 4507083049128322356}
+  - component: {fileID: 2660787137504892873}
   m_Layer: 0
   m_Name: Banner page
   m_TagString: Untagged
@@ -1008,6 +1075,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &2660787137504892873
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197139043749363292}
+  m_CullTransparentMesh: 1
 --- !u!1 &1233985553967344214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,6 +1245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5482657252182496681}
   - component: {fileID: 7203844576349460728}
+  - component: {fileID: 8401645660325878697}
   m_Layer: 0
   m_Name: Task marker
   m_TagString: Untagged
@@ -1207,6 +1296,27 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &8401645660325878697
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324216865272182099}
+  m_CullTransparentMesh: 1
 --- !u!1 &1481090139746744226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "NHI\u1EC6M V\u1EE4 H\xD4M NAY"
+  m_text: "MISSIONS H\xD4M NAY"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -1354,6 +1464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579843379081503466}
   - component: {fileID: 7052540346791426821}
+  - component: {fileID: 1863283424431954992}
   m_Layer: 0
   m_Name: Launch accent
   m_TagString: Untagged
@@ -1404,6 +1515,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1863283424431954992
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699145661215683473}
+  m_CullTransparentMesh: 1
 --- !u!1 &1843230676806249918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,7 +1947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "T\xCDN HI\u1EC6U T\u1EEA QU\u1EF8 \u0110\u1EA0O"
+  m_text: SIGNAL FROM ORBIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -2171,6 +2303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 749504452845928912}
   - component: {fileID: 4426193513460609074}
+  - component: {fileID: 2219208730240667968}
   m_Layer: 0
   m_Name: Banner page
   m_TagString: Untagged
@@ -2221,6 +2354,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &2219208730240667968
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734745788799932627}
+  m_CullTransparentMesh: 1
 --- !u!1 &3751630254187756303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,6 +2460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195868818233580288}
   - component: {fileID: 6396872844468225898}
+  - component: {fileID: 2672901661031178205}
   m_Layer: 0
   m_Name: Banner page
   m_TagString: Untagged
@@ -2356,6 +2511,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 14
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &2672901661031178205
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759725842505601844}
+  m_CullTransparentMesh: 1
 --- !u!1 &3880082009094965418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3796631195205075161}
   - component: {fileID: 1650075167838117105}
+  - component: {fileID: 1949530320644953664}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -2416,6 +2593,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1949530320644953664
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880082009094965418}
+  m_CullTransparentMesh: 1
 --- !u!1 &3927815094317333099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2627,7 @@ GameObject:
   - component: {fileID: 8993808160800229565}
   - component: {fileID: 2793260205851542192}
   - component: {fileID: 6975296346714391446}
+  - component: {fileID: 6167933135202725058}
   m_Layer: 0
   m_Name: Mission 1
   m_TagString: Untagged
@@ -2485,6 +2684,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &8993808160800229565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,6 +2771,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Mission 1
+--- !u!222 &6167933135202725058
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3927815094317333099}
+  m_CullTransparentMesh: 1
 --- !u!1 &3940420070448466352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,7 +2844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "S\u1EF0 KI\u1EC6N GI\u1EDAI H\u1EA0N"
+  m_text: "EVENT GI\u1EDAI H\u1EA0N"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -2706,6 +2926,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2244091282159846627}
   - component: {fileID: 6695604610242199054}
+  - component: {fileID: 3303674325040635364}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -2756,6 +2977,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &3303674325040635364
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069014896486277891}
+  m_CullTransparentMesh: 1
 --- !u!1 &4563654054443788381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,6 +3148,7 @@ GameObject:
   - component: {fileID: 3946113197927261358}
   - component: {fileID: 8859502758268922230}
   - component: {fileID: 328980932221208642}
+  - component: {fileID: 6524974736682017028}
   m_Layer: 0
   m_Name: Event banner
   m_TagString: Untagged
@@ -2963,6 +3206,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &3946113197927261358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3037,6 +3293,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Event banner
+--- !u!222 &6524974736682017028
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4948990818146928222}
+  m_CullTransparentMesh: 1
 --- !u!1 &5244326015944122175
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,6 +3311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8360642371758794311}
   - component: {fileID: 3622321783545068200}
+  - component: {fileID: 2980266676957734678}
   m_Layer: 0
   m_Name: Banner grid
   m_TagString: Untagged
@@ -3097,6 +3362,27 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &2980266676957734678
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244326015944122175}
+  m_CullTransparentMesh: 1
 --- !u!1 &5455383434639490502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4056108713970093505}
   - component: {fileID: 8830137264773964564}
+  - component: {fileID: 9081545291704605872}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -3157,6 +3444,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &9081545291704605872
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5455383434639490502}
+  m_CullTransparentMesh: 1
 --- !u!1 &5843112686950605236
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,6 +3478,7 @@ GameObject:
   - component: {fileID: 1139516661901734228}
   - component: {fileID: 7914124716035694704}
   - component: {fileID: 1957984243109984875}
+  - component: {fileID: 3262348024911893925}
   m_Layer: 0
   m_Name: Mission 0
   m_TagString: Untagged
@@ -3227,6 +3536,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &1139516661901734228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3301,6 +3623,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Mission 0
+--- !u!222 &3262348024911893925
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5843112686950605236}
+  m_CullTransparentMesh: 1
 --- !u!1 &5929275883179125734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3451,6 +3781,7 @@ GameObject:
   - component: {fileID: 2232293665339242085}
   - component: {fileID: 381460036066881468}
   - component: {fileID: 8281551701776264707}
+  - component: {fileID: 396310186587970156}
   m_Layer: 0
   m_Name: Launch
   m_TagString: Untagged
@@ -3503,6 +3834,19 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1.5
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &2232293665339242085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3576,7 +3920,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ed482dc1ac9204a8616c607384a963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionLabel: "XU\u1EA4T K\xCDCH     \u203A"
+  actionLabel: "DEPLOY     \u203A"
+--- !u!222 &396310186587970156
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057725095427708957}
+  m_CullTransparentMesh: 1
 --- !u!1 &6141072628875389624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,6 +4624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7446899582538782197}
   - component: {fileID: 4843304878422984653}
+  - component: {fileID: 1780588088994559218}
   m_Layer: 0
   m_Name: Task marker
   m_TagString: Untagged
@@ -4322,6 +4675,27 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1780588088994559218
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126037729090277905}
+  m_CullTransparentMesh: 1
 --- !u!1 &7148973318407779829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4661,7 +5035,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TI\u1EBEP T\u1EE4C CHI\u1EBEN D\u1ECACH"
+  m_text: "TI\u1EBEP T\u1EE4C CAMPAIGN"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -4798,7 +5172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "XU\u1EA4T K\xCDCH     \u203A"
+  m_text: "DEPLOY     \u203A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -4932,6 +5306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8167987515515238926}
   - component: {fileID: 459491021269596715}
+  - component: {fileID: 1877722289782785968}
   m_Layer: 0
   m_Name: Task marker
   m_TagString: Untagged
@@ -4982,6 +5357,27 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &1877722289782785968
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772163045361549760}
+  m_CullTransparentMesh: 1
 --- !u!1 &8947340070301846248
 GameObject:
   m_ObjectHideFlags: 0

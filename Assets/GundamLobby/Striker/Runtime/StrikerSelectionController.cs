@@ -52,7 +52,8 @@ namespace GundamLobby
         {
             string stored = PlayerPrefs.GetString(PreferenceKey, "");
             int saved = System.Array.FindIndex(catalog.units, u => u.id == stored);
-            if (saved >= 0) { SelectedIndex = EquippedIndex = saved; ApplyToLobby(catalog.units[saved]); FrameLobbyUnit(catalog.units[saved]); }
+            if (saved >= 0) SelectedIndex = EquippedIndex = saved;
+            ApplyToLobby(catalog.units[EquippedIndex]); FrameLobbyUnit(catalog.units[EquippedIndex]);
         }
 
         public void Open()
@@ -83,26 +84,32 @@ namespace GundamLobby
             previewMount.transform.position = lobby.modelPivot.position;
             previewMount.transform.rotation = Quaternion.Euler(0, -12, 0);
             previewModel = Instantiate(unit.prefab, previewMount.transform);
-            previewModel.name = "Striker Preview / " + unit.id;
+            previewModel.name = "Striker Preview / " + unit.id;var skin=previewModel.AddComponent<GundamSkinBinding>();skin.unitId=unit.id;
             previewModel.transform.localPosition = Vector3.zero;
             previewModel.transform.localRotation = Quaternion.identity;
             nameLabel.text = unit.displayName;
             serialLabel.text = unit.code;
-            roleLabel.text = unit.role + "  /  Lv. " + unit.level;
+            roleLabel.text = unit.role + "  /  LV. " + PlayerProgress.UnitLevel(unit.id);
             powerLabel.text = unit.power.ToString("N0");
             counterLabel.text = (index + 1).ToString("00") + " / " + catalog.units.Length.ToString("00");
-            string[] values = { unit.hp.ToString("N0"), unit.attack.ToString("N0"), unit.defense.ToString("N0"), unit.speed.ToString(),
-                unit.critRate + "%", unit.critDamage + "%", unit.breakEffect + "%", unit.damageType,
-                unit.effectResistance + "%", "100%", "100", unit.shieldCapacity.ToString("N0"),
-                unit.maxEnergy.ToString(), "1 SP", "1 SP", "ALL ENEMIES" };
-            for (int i = 0; i < statValues.Length; i++) statValues[i].text = values[i];
-            statusLabel.text = index == EquippedIndex ? "ACTIVE STRIKER" : "STRIKER PREVIEW";
+            var values = EnglishLobbyStats.Specification(unit);
+            string[] names={"MAX HP","ATTACK","DEFENSE","SPEED","BREAK DAMAGE","ARMOR","SKILL 1","SKILL 2","SKILL 3","FULL BURST","MAX BURST","SKILL COSTS","TURN END GAIN","ULTIMATE COST"};
+            for(int i=0;i<statValues.Length;i++)
+            {
+                statValues[i].transform.parent.gameObject.SetActive(i<values.Length);
+                if(i>=values.Length)continue;
+                statValues[i].text=values[i];
+                var label=statValues[i].transform.parent.Find("Label");
+                if(label)label.GetComponent<TMP_Text>().text=names[i];
+                statValues[i].enableAutoSizing=true;statValues[i].fontSizeMin=13;statValues[i].fontSizeMax=20;
+            }
+            statusLabel.text = index == EquippedIndex ? "ACTIVE GUNDAM" : "GUNDAM PREVIEW";
             confirmButton.interactable = index != EquippedIndex;
             var hover = confirmButton.GetComponent<LobbyHover>();
             hover.normal = index == EquippedIndex ? new Color(.063f, .165f, .216f) : new Color(.031f, .486f, .671f);
             hover.enabled = index != EquippedIndex;
             confirmButton.targetGraphic.color = hover.normal;
-            confirmButton.GetComponentInChildren<TMP_Text>().text = index == EquippedIndex ? "STRIKER EQUIPPED" : "CONFIRM STRIKER";
+            confirmButton.GetComponentInChildren<TMP_Text>().text = !PlayerProgress.OwnsGundam(unit.id)?"PURCHASE  "+PlayerProgress.Rules.GundamPrice(unit.id).ToString("N0")+" CREDITS":index == EquippedIndex ? "EQUIPPED" : "EQUIP GUNDAM";
             for (int i = 0; i < cards.Length; i++) cards[i].Bind(catalog.units[i], i == index, i == EquippedIndex);
             FramePreview();
         }
@@ -127,15 +134,16 @@ namespace GundamLobby
         public void ConfirmSelection()
         {
             if (!IsOpen) return;
+            var unit = catalog.units[SelectedIndex];
+            if(!PlayerProgress.OwnsGundam(unit.id)&&!PlayerProgress.BuyGundam(unit.id,out var purchaseMessage)){toastLabel.text=purchaseMessage;toastUntil=Time.unscaledTime+3;return;}
             EquippedIndex = SelectedIndex;
-            var unit = catalog.units[EquippedIndex];
             PlayerPrefs.SetString(PreferenceKey, unit.id);
             PlayerPrefs.Save();
             ApplyToLobby(unit);
             Close();
             FrameLobbyUnit(unit);
             lobby.ShowComingSoon();
-            if (lobby.toastLabel) lobby.toastLabel.text = "ĐÃ CHỌN " + unit.displayName;
+            if (lobby.toastLabel) lobby.toastLabel.text = "EQUIPPED " + unit.displayName;
         }
 
         void ApplyToLobby(StrikerDefinition unit)
@@ -146,11 +154,12 @@ namespace GundamLobby
 
         void FrameLobbyUnit(StrikerDefinition unit)
         {
-            var renderers = unit.prefab.GetComponentsInChildren<Renderer>();
+            var model = lobby.PreviewModel ? lobby.PreviewModel : unit.prefab;
+            var renderers = model.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0) return;
             Bounds bounds = renderers[0].bounds;
             foreach (var r in renderers) bounds.Encapsulate(r.bounds);
-            float ratio = Mathf.Clamp(bounds.size.y / 8.65f, .5f, 1.15f);
+            float ratio = Mathf.Clamp(bounds.size.y / 8.65f, .72f, 1.05f);
             Vector3 ground = lobby.modelPivot.position;
             lobbyCamera.transform.SetPositionAndRotation(ground + (homeBaseCameraPosition - ground) * ratio, homeBaseCameraRotation);
             lobbyCamera.fieldOfView = homeBaseFov;
@@ -169,7 +178,7 @@ namespace GundamLobby
             lobby.enabled = lobbyWasEnabled;
         }
 
-        public void Notify() { toastLabel.text = "CHỨC NĂNG ĐANG PHÁT TRIỂN"; toastUntil = Time.unscaledTime + 2.5f; }
+        public void Notify() { LobbyServices.For(FindFirstObjectByType<HomeLobbyDashboard>()).Open("ITEM GUIDE"); }
         void FitScreen()
         {
             screenW = Screen.width; screenH = Screen.height;
@@ -177,7 +186,7 @@ namespace GundamLobby
         }
         void Update()
         {
-            if (!IsOpen) return;
+            if (!IsOpen || LobbyServices.BlocksInput) return;
             if (screenW != Screen.width || screenH != Screen.height) FitScreen();
             toast.alpha = Mathf.MoveTowards(toast.alpha, Time.unscaledTime < toastUntil ? 1 : 0, Time.unscaledDeltaTime * 7);
 #if ENABLE_INPUT_SYSTEM

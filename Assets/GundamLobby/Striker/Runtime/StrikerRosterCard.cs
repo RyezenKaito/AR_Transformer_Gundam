@@ -17,8 +17,9 @@ namespace GundamLobby
         {
             titleLabel.text = unit.displayName;
             roleLabel.text = unit.role;
-            portrait.sprite = unit.portrait;
-            portrait.enabled = unit.portrait;
+            activeLabel.text = "IN USE";
+            portrait.sprite = unit.CardPortrait;portrait.preserveAspect=true;
+            portrait.enabled = unit.CardPortrait;
             selectedBorder.SetActive(selected);
             selectedCheck.SetActive(selected);
             activeLabel.gameObject.SetActive(equipped);

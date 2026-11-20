@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0110\u1ED8I H\xCCNH XU\u1EA4T K\xCDCH"
+  m_text: "\u0110\u1ED8I H\xCCNH DEPLOY"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
   m_sharedMaterial: {fileID: -3867719914845055125, guid: ef75bb4a735d0964188263a59ba8c423, type: 2}
@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 5725206565412468884}
   - component: {fileID: 3222687572515153191}
   - component: {fileID: 2479211638973878617}
+  - component: {fileID: 7111753447874692340}
   m_Layer: 0
   m_Name: Team Slot 1
   m_TagString: Untagged
@@ -617,6 +618,19 @@ MonoBehaviour:
   border: {r: 0.125, g: 0.785, b: 0.965, a: 1}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &5725206565412468884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +705,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Team Slot 1
+--- !u!222 &7111753447874692340
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218015421177508874}
+  m_CullTransparentMesh: 1
 --- !u!1 &1467261054808100388
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +863,7 @@ GameObject:
   - component: {fileID: 8941748199571321201}
   - component: {fileID: 3790232599387493358}
   - component: {fileID: 8146042202479725840}
+  - component: {fileID: 55664571421742209}
   m_Layer: 0
   m_Name: Team Slot 3
   m_TagString: Untagged
@@ -896,6 +919,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &8941748199571321201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,6 +1006,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Team Slot 3
+--- !u!222 &55664571421742209
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833236213015840411}
+  m_CullTransparentMesh: 1
 --- !u!1 &1904773242445142321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964739144759316279}
   - component: {fileID: 5672020506828630792}
+  - component: {fileID: 3806332140332708081}
   m_Layer: 0
   m_Name: Hairline
   m_TagString: Untagged
@@ -1102,6 +1147,27 @@ MonoBehaviour:
   border: {r: 0, g: 0, b: 0, a: 0}
   cut: 0
   thickness: 0
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
+--- !u!222 &3806332140332708081
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4030985620018604000}
+  m_CullTransparentMesh: 1
 --- !u!1 &4947015932398594078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,6 +2324,7 @@ GameObject:
   - component: {fileID: 8655640146181817929}
   - component: {fileID: 5591368984991845169}
   - component: {fileID: 3358143720518003519}
+  - component: {fileID: 6905618406890599958}
   m_Layer: 0
   m_Name: Team Slot 4
   m_TagString: Untagged
@@ -2311,6 +2378,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &8655640146181817929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2385,6 +2465,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Team Slot 4
+--- !u!222 &6905618406890599958
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6795706803363733491}
+  m_CullTransparentMesh: 1
 --- !u!1 &7457360363215116448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,6 +2897,7 @@ GameObject:
   - component: {fileID: 4267688066719814641}
   - component: {fileID: 7994551546015920885}
   - component: {fileID: 6585762557495433505}
+  - component: {fileID: 2760941363721746513}
   m_Layer: 0
   m_Name: Team Slot 2
   m_TagString: Untagged
@@ -2864,6 +2953,19 @@ MonoBehaviour:
   border: {r: 0.12, g: 0.39, b: 0.49, a: 0.65}
   cut: 14
   thickness: 1
+  gradient: 0
+  gradientEnd: {r: 0, g: 0, b: 0, a: 0}
+  gradientVertical: 0
+  radarValues:
+  - 0.8
+  - 0.4
+  - 0.2
+  - 1
+  - 0.4
+  - 0.4
+  - 0.8
+  radarRings: 5
+  radarOutline: {r: 0.35, g: 0.85, b: 0.95, a: 0.95}
 --- !u!114 &4267688066719814641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2938,6 +3040,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionLabel: Team Slot 2
+--- !u!222 &2760941363721746513
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644571365728262309}
+  m_CullTransparentMesh: 1
 --- !u!1 &8811415199177969372
 GameObject:
   m_ObjectHideFlags: 0
